@@ -1,5 +1,5 @@
 {
-  "name": "@compound-finance/compound-js",
+  "name": "@meterio/compound-js",
   "version": "0.4.1",
   "author": "Compound Labs, Inc.",
   "description": "A JavaScript SDK for Ethereum and the Compound Protocol.",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./src/*.ts",
-    "build": "npm run lint && ./node_modules/.bin/tsc && npm run rollup",
+    "build": "node_modules/.bin/tsc && npm run rollup",
     "docs": "node ./scripts/compound-docs.js",
     "prepare": "npm run build",
     "publish_patch": "npm version patch && npm publish --access public",
