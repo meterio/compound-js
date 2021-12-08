@@ -59,6 +59,9 @@ export async function supply(
   const cTokenName = 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
+  console.log('ctoken name:', cTokenName)
+  console.log("ctokenaddress:", cTokenAddress)
+  console.log('asset: ', asset)
   if (!cTokenAddress || !underlyings.includes(asset)) {
     throw Error(errorPrefix + 'Argument `asset` cannot be supplied.');
   }

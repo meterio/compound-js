@@ -51,6 +51,10 @@ export const constants = {
   WhitepaperInterestRate: "WhitepaperInterestRate",
   MTRG: "MTRG",
   cMTRG: "cMTRG",
+  cSuUSDT: "cSuUSDT",
+  csuUSD: "csuUSD",
+  suUSDT: "suUSDT",
+  suUSD: "suUSD",
   Base200bps_Slope2000bps_Jump20000bps_Kink90:
     "Base200bps_Slope2000bps_Jump20000bps_Kink90",
 };
@@ -144,6 +148,10 @@ export const address = {
     cWBTC: "0x8b7f40C4AD6dbAeDA42b6c6b640b1eD8d32cF434",
     USDC: "0xcaAa0fd652a3000743d39Df93602c7b6756B2A2a",
     cMTRG: "0xc7160D813708eb1EF101a7997ce6fD96A7726140",
+    suUSDT: "0x169ED1F88f9146077db9e691d7b0256c5D971fDF",
+    cSuUSDT: "0x15929E1754Fc4faa1780428d1a93b2D6251184Ec",
+    csuUSD: "0x169ED1F88f9146077db9e691d7b0256c5D971fDF",
+    suUSD: "0x169ED1F88f9146077db9e691d7b0256c5D971fDF",
   },
   goerli: {
     PriceFeed: "0xd0c84453b3945cd7e84BF7fc53BfFd6718913B71",
@@ -4979,6 +4987,9 @@ export const cTokens = [
   "cWBTC",
   "cYFI",
   "cZRX",
+  "cSuUSDT",
+  "csuUSD",
+  "cMTRG"
 ];
 
 export const underlyings = [
@@ -4999,6 +5010,7 @@ export const underlyings = [
   "WBTC",
   "YFI",
   "ZRX",
+  "suUSD"
 ];
 
 // additional assets supported by the open price feed
@@ -5040,6 +5052,8 @@ export const decimals = {
   WBTC: 8,
   YFI: 18,
   ZRX: 18,
+  suUSD: 18,
+  suUSDT: 18,
 };
 
 // TODO: Show a specific error code when a transaction fails
