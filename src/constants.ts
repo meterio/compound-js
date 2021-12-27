@@ -103,27 +103,28 @@ export const address = {
     ZRX: "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
   },
   rinkeby: {
-    cUSDC: "0x23B9972639e483517D4d101f140dF107e316397b",
-    csuUSD: "0x50eD264F4e46836E4a06d3C4474d99a8BE679779",
-    cSuUSD: "0x50eD264F4e46836E4a06d3C4474d99a8BE679779",
+    cUSDC: "0x8dAC4A86D6357c639A141eF89F9775f015fe8D04",
+    csuUSD: "0x17af0bea769bc5Ff3E08330C57641e9ED4C5C6b6",
+    cSuUSD: "0x17af0bea769bc5Ff3E08330C57641e9ED4C5C6b6",
     WETH: "0x93A44773759c5AB9D0F22687Cf5B37ae03682b0A",
-    UnderwriterAdmin: "0x957F780AfB2b7e97844c1df5C0350fd63E0bB13B",
     suUSD: "0x703d9F29D3c1a5b31b84E6e119DE13E05c5A9b88",
-    Maximillion: "0xbA4feC49DA4522dfe024A85B1b49bd23d11ACb4d",
-    CompoundLens: "0xA8C684f6cafAd12Fa0BC81b3244B54cB8822Be8F",
-    PriceOracle: "0xDA9C1474575287a0C39aa2A80AAF8C3600c07b9A",
-    FeedPriceOracle: "0xDA9C1474575287a0C39aa2A80AAF8C3600c07b9A",
-    WhitepaperInterestRate: "0x7Aa8d903727637f35C72982BcCB7d08FDE309f2e",
+    Maximillion: "0x791B97F21240fF4cb994B4702a89830C3806b67B",
+    CompoundLens: "0x0426E31efF4f0830b8ebb95edAd15EC24E1dDbbC",
+    FeedPriceOracle: "0x4F7469D2305cdbE4A125ff240Ed0B5907BCB4A8C",
+    PriceOracle: "0x4F7469D2305cdbE4A125ff240Ed0B5907BCB4A8C",
+    WhitepaperInterestRate: "0x4896D0Ac2d6eB5A3CC61B6Fc53fd3F38AF9E68ab",
     USDT: "0x7622c9E4bF223cc53c7228bE3A79073b95dD55e6",
-    Comptroller: "0x13502B27d11599aD3Fc864039B59BDE54794b08f",
-    Comp: "0xECc3B6fa3ae2CF18b156560A23E9EAa3A13Bb3d7",
-    cUSDT: "0xaE1d4F4F3D203753Cb9eb9181CAAFbb99e529A92",
-    cETH: "0x16798cfE37bBF9a258Fd414dEd63bB1b6B1B1265",
+    Comptroller: "0xb4a193A5a65aE82dE7975eeC1BCd985Fe01AB59f",
+    Comp: "0x66C742a75810523951eBC5aEFcEeEA37A66b2b83",
+    cUSDT: "0x9C96406959c64A6eB1Ca6710FA60170Ca4256C62",
+    ZeroInterestRate: "0x5f4A82439D82B796D233f4aC56Ae6738fe5f1afc",
+    cETH: "0x8Fa363407101dda0ff8699cF47683500a1f9c1cD",
     WBTC: "0x323374905922cD187f65A4034bbc289872D14c76",
     MTRG: "0x2B2f708cDfBbFBa58e2f55807EFcaAB48BC75CA4",
-    cWBTC: "0x447dC2a042F55E4852C03aD778ebADb8cAF3cc41",
+    cWBTC: "0x2E814c4E5632440969E99E70428615e4cd9c0d0c",
     USDC: "0xBD846c3a50D864248241fb4AC7Db9c5a4cEcc889",
-    cMTRG: "0x756faEBaFd0FDedE50E5181F3690DA778Ee4069c"
+    cMTRG: "0x33EC15B0B9D2850fe02B12021ffFc528088Cc224" ,
+    UnderwriterAdmin: "0x3B7711D9e342BFDB63aE38a92fefa94DC6Ec0A50"
   },
   goerli: {
     PriceFeed: "0xd0c84453b3945cd7e84BF7fc53BfFd6718913B71",
@@ -208,6 +209,15 @@ export const address = {
     ZRX: "0xc0e2d7d9279846b80eacdea57220ab2333bc049d",
   },
 };
+
+export const names = {}
+for (const network in address){
+  const networkNames = {}
+  for (const n in address[network]){
+    networkNames[address[network][n].toLowerCase()] = n
+  }
+  names[network] = networkNames
+}
 
 export const abi = {
   UnderwriterAdmin:[{"inputs":[{"internalType":"address","name":"_gov","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"action","type":"string"},{"indexed":false,"internalType":"bool","name":"pauseState","type":"bool"}],"name":"ActionPaused","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract CToken","name":"cToken","type":"address"},{"indexed":false,"internalType":"string","name":"action","type":"string"},{"indexed":false,"internalType":"bool","name":"pauseState","type":"bool"}],"name":"ActionPaused","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"error","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"info","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"detail","type":"uint256"}],"name":"Failure","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"contract CToken","name":"cToken","type":"address"},{"indexed":false,"internalType":"uint256","name":"newBorrowCap","type":"uint256"}],"name":"NewBorrowCap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"oldBorrowCapGuardian","type":"address"},{"indexed":false,"internalType":"address","name":"newBorrowCapGuardian","type":"address"}],"name":"NewBorrowCapGuardian","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"oldPauseGuardian","type":"address"},{"indexed":false,"internalType":"address","name":"newPauseGuardian","type":"address"}],"name":"NewPauseGuardian","type":"event"},{"constant":true,"inputs":[],"name":"_borrowGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_getBorrowCapGuardian","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"}],"name":"_getBorrowPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"}],"name":"_getMarketBorrowCap","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"}],"name":"_getMintPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"_getPauseGuardian","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_getSeizePaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_getTransferPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_mintGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newBorrowCapGuardian","type":"address"}],"name":"_setBorrowCapGuardian","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"},{"internalType":"bool","name":"state","type":"bool"}],"name":"_setBorrowPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken[]","name":"cTokens","type":"address[]"},{"internalType":"uint256[]","name":"newBorrowCaps","type":"uint256[]"}],"name":"_setMarketBorrowCaps","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"},{"internalType":"bool","name":"state","type":"bool"}],"name":"_setMintPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newPauseGuardian","type":"address"}],"name":"_setPauseGuardian","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bool","name":"state","type":"bool"}],"name":"_setSeizePaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bool","name":"state","type":"bool"}],"name":"_setTransferPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"borrowCapGuardian","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"borrowCaps","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"borrowGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"eqAssetGroup","outputs":[{"internalType":"string","name":"groupName","type":"string"},{"internalType":"uint256","name":"rateMantissas","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCompAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"contract CToken","name":"cToken_","type":"address"}],"name":"getEqAssetGroup","outputs":[{"components":[{"internalType":"string","name":"groupName","type":"string"},{"internalType":"uint256","name":"rateMantissas","type":"uint256"}],"internalType":"struct UnderwriterAdminInterface.EqualAssets","name":"","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"governanceToken","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"mintGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pauseGuardian","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken_","type":"address"}],"name":"removeEqAssetGroup","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"seizeGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken_","type":"address"},{"internalType":"string","name":"groupName","type":"string"},{"internalType":"uint256","name":"rateMantissa","type":"uint256"}],"name":"setEqAssetGroup","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_governanceToken","type":"address"}],"name":"setGovTokenAddress","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"transferGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"}],

@@ -3,7 +3,7 @@
  * @desc These methods are helpers for the Compound class.
  */
 
-import { address, abi } from './constants';
+import { address, abi, names } from './constants';
 import { AbiType } from './types';
 
 /* eslint-disable */
@@ -181,6 +181,10 @@ export function request(options: any) : Promise<any> {
  */
 export function getAddress(contract: string, network='mainnet') : string {
   return address[network][contract];
+}
+
+export function getName(tokenAddr: string, network="mainnet"): string{
+  return names[network][tokenAddr.toLowerCase()]
 }
 
 /**
