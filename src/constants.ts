@@ -50,16 +50,16 @@ export const constants = {
   csuBTC: 'cSuBTC',
 
   // new
-  WETH: "WETH",
   UnderwriterAdmin: "UnderwriterAdmin",
   PriceOracle: "PriceOracle",
   StdComptroller: "StdComptroller",
   WhitepaperInterestRate: "WhitepaperInterestRate",
   MTRG: "MTRG",
+  WETH: "WETH",
   cMTRG: "cMTRG",
   suUSD: "suUSD",
-  Base200bps_Slope2000bps_Jump20000bps_Kink90:
-    "Base200bps_Slope2000bps_Jump20000bps_Kink90",
+  suETH: "suETH",
+  suBTC: "suBTC",
 };
 
 export const address = {
@@ -216,17 +216,479 @@ export const address = {
   },
 };
 
-export const names = {}
-for (const network in address){
-  const networkNames = {}
-  for (const n in address[network]){
-    networkNames[address[network][n].toLowerCase()] = n
+export const names = {};
+for (const network in address) {
+  const networkNames = {};
+  for (const n in address[network]) {
+    networkNames[address[network][n].toLowerCase()] = n;
   }
-  names[network] = networkNames
+  names[network] = networkNames;
 }
 
 export const abi = {
-  UnderwriterAdmin:[{"inputs":[{"internalType":"address","name":"_gov","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"action","type":"string"},{"indexed":false,"internalType":"bool","name":"pauseState","type":"bool"}],"name":"ActionPaused","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"contract CToken","name":"cToken","type":"address"},{"indexed":false,"internalType":"string","name":"action","type":"string"},{"indexed":false,"internalType":"bool","name":"pauseState","type":"bool"}],"name":"ActionPaused","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"error","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"info","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"detail","type":"uint256"}],"name":"Failure","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"contract CToken","name":"cToken","type":"address"},{"indexed":false,"internalType":"uint256","name":"newBorrowCap","type":"uint256"}],"name":"NewBorrowCap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"oldBorrowCapGuardian","type":"address"},{"indexed":false,"internalType":"address","name":"newBorrowCapGuardian","type":"address"}],"name":"NewBorrowCapGuardian","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"oldPauseGuardian","type":"address"},{"indexed":false,"internalType":"address","name":"newPauseGuardian","type":"address"}],"name":"NewPauseGuardian","type":"event"},{"constant":true,"inputs":[],"name":"_borrowGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_getBorrowCapGuardian","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"}],"name":"_getBorrowPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"}],"name":"_getMarketBorrowCap","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"}],"name":"_getMintPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"_getPauseGuardian","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_getSeizePaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_getTransferPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_mintGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newBorrowCapGuardian","type":"address"}],"name":"_setBorrowCapGuardian","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"},{"internalType":"bool","name":"state","type":"bool"}],"name":"_setBorrowPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken[]","name":"cTokens","type":"address[]"},{"internalType":"uint256[]","name":"newBorrowCaps","type":"uint256[]"}],"name":"_setMarketBorrowCaps","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken","type":"address"},{"internalType":"bool","name":"state","type":"bool"}],"name":"_setMintPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newPauseGuardian","type":"address"}],"name":"_setPauseGuardian","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bool","name":"state","type":"bool"}],"name":"_setSeizePaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bool","name":"state","type":"bool"}],"name":"_setTransferPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"borrowCapGuardian","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"borrowCaps","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"borrowGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"eqAssetGroup","outputs":[{"internalType":"string","name":"groupName","type":"string"},{"internalType":"uint256","name":"rateMantissas","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getCompAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"contract CToken","name":"cToken_","type":"address"}],"name":"getEqAssetGroup","outputs":[{"components":[{"internalType":"string","name":"groupName","type":"string"},{"internalType":"uint256","name":"rateMantissas","type":"uint256"}],"internalType":"struct UnderwriterAdminInterface.EqualAssets","name":"","type":"tuple"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"governanceToken","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"mintGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pauseGuardian","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken_","type":"address"}],"name":"removeEqAssetGroup","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"seizeGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"contract CToken","name":"cToken_","type":"address"},{"internalType":"string","name":"groupName","type":"string"},{"internalType":"uint256","name":"rateMantissa","type":"uint256"}],"name":"setEqAssetGroup","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_governanceToken","type":"address"}],"name":"setGovTokenAddress","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"transferGuardianPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"}],
+  UnderwriterAdmin: [
+    {
+      inputs: [{ internalType: "address", name: "_gov", type: "address" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "constructor",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "string",
+          name: "action",
+          type: "string",
+        },
+        {
+          indexed: false,
+          internalType: "bool",
+          name: "pauseState",
+          type: "bool",
+        },
+      ],
+      name: "ActionPaused",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "contract CToken",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "string",
+          name: "action",
+          type: "string",
+        },
+        {
+          indexed: false,
+          internalType: "bool",
+          name: "pauseState",
+          type: "bool",
+        },
+      ],
+      name: "ActionPaused",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "error",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "info",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "detail",
+          type: "uint256",
+        },
+      ],
+      name: "Failure",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "contract CToken",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "newBorrowCap",
+          type: "uint256",
+        },
+      ],
+      name: "NewBorrowCap",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "address",
+          name: "oldBorrowCapGuardian",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "newBorrowCapGuardian",
+          type: "address",
+        },
+      ],
+      name: "NewBorrowCapGuardian",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "address",
+          name: "oldPauseGuardian",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "newPauseGuardian",
+          type: "address",
+        },
+      ],
+      name: "NewPauseGuardian",
+      type: "event",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "_borrowGuardianPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "_getBorrowCapGuardian",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [
+        { internalType: "contract CToken", name: "cToken", type: "address" },
+      ],
+      name: "_getBorrowPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [
+        { internalType: "contract CToken", name: "cToken", type: "address" },
+      ],
+      name: "_getMarketBorrowCap",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        { internalType: "contract CToken", name: "cToken", type: "address" },
+      ],
+      name: "_getMintPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "_getPauseGuardian",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "_getSeizePaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "_getTransferPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "_mintGuardianPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          internalType: "address",
+          name: "newBorrowCapGuardian",
+          type: "address",
+        },
+      ],
+      name: "_setBorrowCapGuardian",
+      outputs: [],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        { internalType: "contract CToken", name: "cToken", type: "address" },
+        { internalType: "bool", name: "state", type: "bool" },
+      ],
+      name: "_setBorrowPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        {
+          internalType: "contract CToken[]",
+          name: "cTokens",
+          type: "address[]",
+        },
+        { internalType: "uint256[]", name: "newBorrowCaps", type: "uint256[]" },
+      ],
+      name: "_setMarketBorrowCaps",
+      outputs: [],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        { internalType: "contract CToken", name: "cToken", type: "address" },
+        { internalType: "bool", name: "state", type: "bool" },
+      ],
+      name: "_setMintPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        { internalType: "address", name: "newPauseGuardian", type: "address" },
+      ],
+      name: "_setPauseGuardian",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [{ internalType: "bool", name: "state", type: "bool" }],
+      name: "_setSeizePaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [{ internalType: "bool", name: "state", type: "bool" }],
+      name: "_setTransferPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "admin",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "borrowCapGuardian",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [{ internalType: "address", name: "", type: "address" }],
+      name: "borrowCaps",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [{ internalType: "address", name: "", type: "address" }],
+      name: "borrowGuardianPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [{ internalType: "address", name: "", type: "address" }],
+      name: "eqAssetGroup",
+      outputs: [
+        { internalType: "string", name: "groupName", type: "string" },
+        { internalType: "uint256", name: "rateMantissas", type: "uint256" },
+      ],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "getCompAddress",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [
+        { internalType: "contract CToken", name: "cToken_", type: "address" },
+      ],
+      name: "getEqAssetGroup",
+      outputs: [
+        {
+          components: [
+            { internalType: "string", name: "groupName", type: "string" },
+            { internalType: "uint256", name: "rateMantissas", type: "uint256" },
+          ],
+          internalType: "struct UnderwriterAdminInterface.EqualAssets",
+          name: "",
+          type: "tuple",
+        },
+      ],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "governanceToken",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [{ internalType: "address", name: "", type: "address" }],
+      name: "mintGuardianPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "pauseGuardian",
+      outputs: [{ internalType: "address", name: "", type: "address" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        { internalType: "contract CToken", name: "cToken_", type: "address" },
+      ],
+      name: "removeEqAssetGroup",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "seizeGuardianPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        { internalType: "contract CToken", name: "cToken_", type: "address" },
+        { internalType: "string", name: "groupName", type: "string" },
+        { internalType: "uint256", name: "rateMantissa", type: "uint256" },
+      ],
+      name: "setEqAssetGroup",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: false,
+      inputs: [
+        { internalType: "address", name: "_governanceToken", type: "address" },
+      ],
+      name: "setGovTokenAddress",
+      outputs: [],
+      payable: false,
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "transferGuardianPaused",
+      outputs: [{ internalType: "bool", name: "", type: "bool" }],
+      payable: false,
+      stateMutability: "view",
+      type: "function",
+    },
+  ],
   PriceOracle: [
     {
       constant: true,
