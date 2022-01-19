@@ -1,6 +1,6 @@
 {
   "name": "@meterio/compound-js",
-  "version": "0.0.23",
+  "version": "0.0.37",
   "author": "Compound Labs, Inc.",
   "description": "A JavaScript SDK for Ethereum and the Compound Protocol.",
   "license": "BSD-3-Clause",
@@ -67,5 +67,8 @@
   },
   "peerDependencies": {
     "ethers": "5.x"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.2"
   }
 }

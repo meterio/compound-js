@@ -10,6 +10,7 @@ import {
   constants, address, abi, cTokens, underlyings, decimals, opfAssets
 } from './constants';
 import { CallOptions } from './types';
+import {camelCase} from './util'
 
 function validateAsset(
   asset: string,
@@ -22,7 +23,7 @@ function validateAsset(
 
   const assetIsCToken = asset[0] === 'c';
 
-  const cTokenName = assetIsCToken ? asset : 'c' + asset;
+  const cTokenName = assetIsCToken ? asset : 'c' + camelCase(asset);
   const cTokenAddress = address[this._network.name][cTokenName];
 
   let underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset;

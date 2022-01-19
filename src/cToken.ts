@@ -12,7 +12,8 @@ import {
 } from './constants';
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber';
 import { CallOptions, TrxResponse } from './types';
-
+import {camelCase} from './util'
+import BN from 'bignumber.js'
 /**
  * Supplies the user's Ethereum asset to the Compound Protocol.
  *
@@ -56,12 +57,13 @@ export async function supply(
   await netId(this);
   const errorPrefix = 'Compound [supply] | ';
 
-  const cTokenName = 'c' + asset;
+  const cTokenName = 'c' + camelCase(asset);
   const cTokenAddress = address[this._network.name][cTokenName];
 
   console.log('ctoken name:', cTokenName)
   console.log("ctokenaddress:", cTokenAddress)
   console.log('asset: ', asset)
+  console.log(underlyings.includes(asset))
   if (!cTokenAddress || !underlyings.includes(asset)) {
     throw Error(errorPrefix + 'Argument `asset` cannot be supplied.');
   }
@@ -79,7 +81,7 @@ export async function supply(
     amount = amount * Math.pow(10, decimals[asset]);
   }
 
-  amount = ethers.BigNumber.from(amount.toString());
+  amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
 
   if (cTokenName === constants.cETH) {
     options.abi = abi.cEther;
@@ -171,7 +173,7 @@ export async function redeem(
 
   const assetIsCToken = asset[0] === 'c';
 
-  const cTokenName = assetIsCToken ? asset : 'c' + asset;
+  const cTokenName = assetIsCToken ? asset : 'c' + camelCase(asset);
   const cTokenAddress = address[this._network.name][cTokenName];
 
   const underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset;
@@ -193,7 +195,7 @@ export async function redeem(
     amount = amount * Math.pow(10, decimals[asset]);
   }
 
-  amount = ethers.BigNumber.from(amount.toString());
+  amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
 
   const trxOptions: CallOptions = {
     ...options,
@@ -249,7 +251,7 @@ export async function borrow(
   await netId(this);
   const errorPrefix = 'Compound [borrow] | ';
 
-  const cTokenName = 'c' + asset;
+  const cTokenName = 'c' + camelCase(asset);
   const cTokenAddress = address[this._network.name][cTokenName];
 
   if (!cTokenAddress || !underlyings.includes(asset)) {
@@ -269,7 +271,7 @@ export async function borrow(
     amount = amount * Math.pow(10, decimals[asset]);
   }
 
-  amount = ethers.BigNumber.from(amount.toString());
+  amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
 
   const trxOptions: CallOptions = {
     ...options,
@@ -330,7 +332,7 @@ export async function repayBorrow(
   await netId(this);
   const errorPrefix = 'Compound [repayBorrow] | ';
 
-  const cTokenName = 'c' + asset;
+  const cTokenName = 'c' + camelCase(asset);
   const cTokenAddress = address[this._network.name][cTokenName];
 
   if (!cTokenAddress || !underlyings.includes(asset)) {
@@ -355,7 +357,7 @@ export async function repayBorrow(
     amount = amount * Math.pow(10, decimals[asset]);
   }
 
-  amount = ethers.BigNumber.from(amount.toString());
+  amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
 
   const trxOptions: CallOptions = {
     ...options,

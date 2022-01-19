@@ -226,3 +226,7 @@ export function getNetNameWithChainId(chainId: number) : string {
   };
   return networks[chainId];
 }
+
+export function camelCase(name){
+  return name[0].toUpperCase() + name.substring(1)
+}
