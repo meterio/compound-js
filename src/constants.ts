@@ -3367,7 +3367,7 @@ export const decimals = {
   UNI: 18,
   USDC: 6,
   USDT: 6,
-  WBTC: 8,
+  WBTC: 18,
   YFI: 18,
   ZRX: 18,
   suUSD: 18,
