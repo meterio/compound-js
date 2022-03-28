@@ -3303,7 +3303,9 @@ export const cTokens = [
   "cYFI",
   "cZRX",
   "cSuUSDT",
-  "csuUSD",
+  "cSuUSD",
+  "cSuETH",
+  "cSuBTC",
   "cMTRG",
 ];
 
