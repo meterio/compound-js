@@ -107,7 +107,7 @@ function _webBrowserRequest(options: any) {
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     }
 
-    xhr.onload = function() {
+    xhr.onload = function () {
       let body;
       if (xhr.status >= 100 && xhr.status < 400) {
         try {
@@ -158,8 +158,8 @@ try {
  * @returns {Promise<object>} Returns a promise and eventually an HTTP response
  *     (JavaScript object).
  */
-export function request(options: any) : Promise<any> {
-  return _request.apply(null, [ options ]);
+export function request(options: any): Promise<any> {
+  return _request.apply(null, [options]);
 }
 
 /* eslint-enable */
@@ -179,11 +179,12 @@ export function request(options: any) : Promise<any> {
  * console.log('cETH Address: ', Compound.util.getAddress(Compound.cETH));
  * ```
  */
-export function getAddress(contract: string, network='mainnet') : string {
+export function getAddress(contract: string, network = 'mainnet'): string {
+  console.log('get address')
   return address[network][contract];
 }
 
-export function getName(tokenAddr: string, network="mainnet"): string{
+export function getName(tokenAddr: string, network = "mainnet"): string {
   return names[network][tokenAddr.toLowerCase()]
 }
 
@@ -216,7 +217,7 @@ export function getAbi(contract: string): AbiType[] {
  * console.log('Ropsten : ', Compound.util.getNetNameWithChainId(3));
  * ```
  */
-export function getNetNameWithChainId(chainId: number) : string {
+export function getNetNameWithChainId(chainId: number): string {
   const networks = {
     1: 'mainnet',
     3: 'ropsten',
@@ -227,6 +228,6 @@ export function getNetNameWithChainId(chainId: number) : string {
   return networks[chainId];
 }
 
-export function camelCase(name){
+export function camelCase(name) {
   return name[0].toUpperCase() + name.substring(1)
 }
