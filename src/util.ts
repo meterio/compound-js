@@ -180,7 +180,7 @@ export function request(options: any): Promise<any> {
  * ```
  */
 export function getAddress(contract: string, network = 'mainnet'): string {
-  console.log('get address')
+  console.log('get address', network, contract)
   return address[network][contract];
 }
 
