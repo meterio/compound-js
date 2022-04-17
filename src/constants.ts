@@ -36,6 +36,9 @@ export const constants = {
   // MTRG
   MTRG: "MTRG",
   cMTRG: "cMTRG",
+  // KCS
+  KCS: "KCS",
+  cKCS:"cKCS"
 };
 
 export const address = {
@@ -108,7 +111,9 @@ export const address = {
     USDT: '0x3765f40e2F5dfe1b3A5ae124331929e59d6157D2',
     USDC: '0xf60b2DB9567D7402f40f6324e9A0E196aDF2C7a4',
     ETH: '0x0cf649c095096A7142Cf844895ebCD2BfB299933',
-    BTCK: '0x07670d43C518372af1E48c62F3b1dBab7CA29185'
+    BTCK: '0x07670d43C518372af1E48c62F3b1dBab7CA29185',
+    cKCS:"0xbFEDF841e6c9cc12614b6850FF83764DfFC3B2c5",
+    KCS: '0x0000000000000000000000000000000000000000'
   },
   kcc:{
     CompoundLens: '0xc3d9081B398f3C8e96D8CB212E18Bdc3411e2F7A',
@@ -5092,18 +5097,7 @@ export const abi = {
 };
 
 export const cTokens = [
-  "cAAVE",
-  "cBAT",
-  "cCOMP",
-  "cDAI",
   "cETH",
-  "cLINK",
-  "cMKR",
-  "cREP",
-  "cSAI",
-  "cSUSHI",
-  "cTUSD",
-  "cUNI",
   "cUSDC",
   "cUSDT",
   "cWBTC",
@@ -5115,11 +5109,12 @@ export const cTokens = [
   "csuBTC",
   "cMTRG",
   "cBTCK",
+  "cKCS"
 ];
 
 const underlyings = {
-  kcc: ['USDT', 'USDC', 'ETH', 'BTCK', 'suUSD', 'suETH', 'suBTC'],
-  kcctest: ['USDT', 'USDC', 'ETH', 'BTCK', 'suUSD', 'suETH', 'suBTC'],
+  kcc: ['USDT', 'USDC', 'ETH', 'BTCK', 'suUSD', 'suETH', 'suBTC', "KCS"],
+  kcctest: ['USDT', 'USDC', 'ETH', 'BTCK', 'suUSD', 'suETH', 'suBTC', "KCS"],
   rinkeby: ['USDT', 'USDC', 'ETH', 'WBTC', 'MTRG', 'suUSD', 'suETH', 'suBTC']
 }
 
@@ -5127,8 +5122,8 @@ const underlyings = {
 export const opfAssets = ["BTC"];
 
 const decimals = {
-  kcc:{USDT:18, cUSDT:18, USDC:18, cUSDC:18, MTRG:18, cMTRG:18, BTCK:18, cBTCK:18, ETH:18, cETH:18, suUSD: 18, csuUSD: 18, suETH: 18, csuETH: 18, suBTC: 18, csuBTC:18},
-  kcctest:{USDT:18, cUSDT:18, USDC:18, cUSDC:18, MTRG:18, cMTRG:18, BTCK:18, cBTCK:18, ETH:18, cETH:18, suUSD: 18, csuUSD: 18, suETH: 18, csuETH: 18, suBTC: 18, csuBTC:18},
+  kcc:{USDT:18, cUSDT:18, USDC:18, cUSDC:18, MTRG:18, cMTRG:18, BTCK:18, cBTCK:18, ETH:18, cETH:18, suUSD: 18, csuUSD: 18, suETH: 18, csuETH: 18, suBTC: 18, csuBTC:18, KCS: 18, cKCS: 18},
+  kcctest:{USDT:18, cUSDT:18, USDC:18, cUSDC:18, MTRG:18, cMTRG:18, BTCK:18, cBTCK:18, ETH:18, cETH:18, suUSD: 18, csuUSD: 18, suETH: 18, csuETH: 18, suBTC: 18, csuBTC:18, KCS:18, cKCS:18},
   rinkeby:{USDT:6, cUSDT:8, USDC:6, cUSDC:8, MTRG:18, cMTRG:18, WBTC:18, cWBTC:18, ETH:18, cETH:18}
 }
 
@@ -5162,7 +5157,7 @@ export const getDecimals = (networkName: string, tokenSym:string)=>{
 
 export const getUnderlyDecimals = (networkName: string, tokenSym:string)=>{
   const underlySym = tokenSym.slice(1)
-  console.log(`get underly decimals for ${tokenSym} on ${networkName}`)
+  // console.log(`get underly decimals for ${tokenSym} on ${networkName}`)
   if (!(networkName in decimals)){
     throw Error(`underly decimal is not configured on ${networkName}`)
   }

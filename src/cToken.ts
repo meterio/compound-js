@@ -55,14 +55,12 @@ export async function supply(
   options: CallOptions = {}
 ) : Promise<TrxResponse> {
   await netId(this);
-  const errorPrefix = 'Compound [supply] | ';
+  const errorPrefix = 'Sumer [supply] | ';
 
+  console.log(`Sumer supply ${amount} ${asset}`)
   const cTokenName = 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
-  console.log('ctoken name:', cTokenName)
-  console.log("ctokenaddress:", cTokenAddress)
-  console.log(this._network.name)
   if (!cTokenAddress || !isUnderlyAllowed(this._network.name, asset)) {
     throw Error(errorPrefix + `Asset ${asset} cannot be supplied.`);
   }
@@ -76,16 +74,15 @@ export async function supply(
   }
 
   const assetDecimals = getDecimals(this._network.name, asset);
-  if (assetDecimals<=0){
-    throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
-  }
 
   if (!options.mantissa) {
     amount = +amount;
     amount = amount * Math.pow(10, assetDecimals);
   }
 
+
   amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
+  
 
   if (isEther(this._network.name, cTokenName)) {
     options.abi = abi.cEther;
@@ -131,6 +128,7 @@ export async function supply(
     parameters.push(amount);
   }
 
+  console.log(`Call mint on ${cTokenName}:${cTokenAddress} with ${amount.toString()} `)
   return eth.trx(cTokenAddress, 'mint', parameters, options);
 }
 
@@ -169,8 +167,9 @@ export async function redeem(
   options: CallOptions = {}
 ): Promise<TrxResponse> {
   await netId(this);
-  const errorPrefix = 'Compound [redeem] | ';
+  const errorPrefix = 'Sumer [redeem] | ';
 
+  console.log(`Sumer redeem ${amount} ${asset}`)
   if (typeof asset !== 'string' || asset.length < 1) {
     throw Error(errorPrefix + 'Argument `asset` must be a non-empty string.');
   }
@@ -199,7 +198,6 @@ export async function redeem(
     throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
   }
 
-  console.log('redeem: ', assetDecimals, amount, asset, assetIsCToken, isEther(this._network.name,cTokenName))
   if (!options.mantissa) {
     amount = +amount;
     amount = amount * Math.pow(10, assetDecimals);
@@ -215,6 +213,7 @@ export async function redeem(
   const parameters = [ amount ];
   const method = assetIsCToken ? 'redeem' : 'redeemUnderlying';
 
+  console.log(`Call ${method} on ${cTokenName}:${cTokenAddress} with ${amount.toString()}`)
   return eth.trx(cTokenAddress, method, parameters, trxOptions);
 }
 
@@ -259,8 +258,9 @@ export async function borrow(
   options: CallOptions = {}
 ) : Promise<TrxResponse> {
   await netId(this);
-  const errorPrefix = 'Compound [borrow] | ';
+  const errorPrefix = 'Sumer [borrow] | ';
 
+  console.log(`Sumer borrow ${amount} ${asset}`)
   const cTokenName = 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
@@ -294,6 +294,7 @@ export async function borrow(
   const parameters = [ amount ];
   trxOptions.abi = isEther(this._network.name,cTokenName) ? abi.cEther : abi.cErc20;
 
+  console.log(`Call borrow on ${cTokenName}:${cTokenAddress} with ${amount.toString()}`)
   return eth.trx(cTokenAddress, 'borrow', parameters, trxOptions);
 }
 
@@ -344,8 +345,9 @@ export async function repayBorrow(
   options: CallOptions = {}
 ) : Promise<TrxResponse> {
   await netId(this);
-  const errorPrefix = 'Compound [repayBorrow] | ';
+  const errorPrefix = 'Sumer [repayBorrow] | ';
 
+  console.log(`Sumer repayBorrow ${amount} ${asset} for ${borrower}`)
   const cTokenName = 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
@@ -417,5 +419,6 @@ export async function repayBorrow(
     }
   }
 
+  console.log(`Call repayBorrow on ${cTokenName}:${cTokenAddress} with ${amount.toString()}`)
   return eth.trx(cTokenAddress, method, parameters, trxOptions);
 }
