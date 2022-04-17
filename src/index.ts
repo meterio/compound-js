@@ -13,7 +13,7 @@ import * as priceFeed from './priceFeed';
 import * as comp from './comp';
 import * as gov from './gov';
 import * as api from './api';
-import { constants, decimals } from './constants';
+import { constants, getDecimals, getUnderlyDecimals, isEther, isUnderlyAllowed } from './constants';
 import { Provider, CompoundOptions, CompoundInstance } from './types';
 
 // Turn off Ethers.js warnings
@@ -85,7 +85,10 @@ Compound.eth = eth;
 Compound.api = api;
 Compound.util = util;
 Compound._ethers = ethers;
-Compound.decimals = decimals;
+Compound.getDecimals = getDecimals;
+Compound.isUnderlyAllowed = isUnderlyAllowed;
+Compound.isEther = isEther;
+Compound.getUnderlyDecimals = getUnderlyDecimals;
 Compound.comp = {
   getCompBalance: comp.getCompBalance,
   getCompAccrued: comp.getCompAccrued,

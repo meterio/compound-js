@@ -7,7 +7,7 @@
 import * as eth from './eth';
 import { netId } from './helpers';
 import {
-  constants, address, abi, cTokens, underlyings, decimals, opfAssets
+  constants, address, abi, cTokens, isUnderlyAllowed, getDecimals, opfAssets, isEther
 } from './constants';
 import { CallOptions } from './types';
 import {camelCase} from './util'
@@ -23,20 +23,24 @@ function validateAsset(
 
   const assetIsCToken = asset[0] === 'c';
 
-  const cTokenName = assetIsCToken ? asset : 'c' + camelCase(asset);
+  const cTokenName = assetIsCToken ? asset : 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
   let underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset;
   const underlyingAddress = address[this._network.name][underlyingName];
 
   if (
-    (!cTokens.includes(cTokenName) || !underlyings.includes(underlyingName)) &&
+    (!cTokens.includes(cTokenName) || !isUnderlyAllowed(this._network.name,underlyingName)) &&
     !opfAssets.includes(underlyingName)
   ) {
     throw Error(errorPrefix + 'Argument `' + argument + '` is not supported.');
   }
 
-  const underlyingDecimals = decimals[underlyingName];
+  const underlyingDecimals = getDecimals(this._network.name, underlyingName);
+  if (underlyingDecimals<=0){
+    throw Error(`Asset ${asset} decimals is configured wrong as ${underlyingDecimals} `)
+  }
+
 
   // The open price feed reveals BTC, not WBTC.
   underlyingName = underlyingName === 'WBTC' ? 'BTC' : underlyingName;
@@ -53,7 +57,7 @@ async function cTokenExchangeRate(
   const method = 'exchangeRateCurrent';
   const options = {
     _compoundProvider: this._provider,
-    abi: cTokenName === constants.cETH ? abi.cEther : abi.cErc20,
+    abi: isEther(this._network.name, cTokenName) ? abi.cEther : abi.cErc20,
   };
   const exchangeRateCurrent = await eth.read(address, method, [], options);
   const mantissa = 18 + underlyingDecimals - 8; // cToken always 8 decimals

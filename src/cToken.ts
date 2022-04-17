@@ -8,7 +8,7 @@ import { ethers } from 'ethers';
 import * as eth from './eth';
 import { netId } from './helpers';
 import {
-  constants, address, abi, decimals, underlyings, cTokens
+  constants, address, abi,  cTokens, isUnderlyAllowed, getDecimals,isEther
 } from './constants';
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber';
 import { CallOptions, TrxResponse } from './types';
@@ -57,15 +57,14 @@ export async function supply(
   await netId(this);
   const errorPrefix = 'Compound [supply] | ';
 
-  const cTokenName = 'c' + camelCase(asset);
+  const cTokenName = 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
   console.log('ctoken name:', cTokenName)
   console.log("ctokenaddress:", cTokenAddress)
-  console.log('asset: ', asset)
-  console.log(underlyings.includes(asset))
-  if (!cTokenAddress || !underlyings.includes(asset)) {
-    throw Error(errorPrefix + 'Argument `asset` cannot be supplied.');
+  console.log(this._network.name)
+  if (!cTokenAddress || !isUnderlyAllowed(this._network.name, asset)) {
+    throw Error(errorPrefix + `Asset ${asset} cannot be supplied.`);
   }
 
   if (
@@ -76,14 +75,19 @@ export async function supply(
     throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.');
   }
 
+  const assetDecimals = getDecimals(this._network.name, asset);
+  if (assetDecimals<=0){
+    throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
+  }
+
   if (!options.mantissa) {
     amount = +amount;
-    amount = amount * Math.pow(10, decimals[asset]);
+    amount = amount * Math.pow(10, assetDecimals);
   }
 
   amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
 
-  if (cTokenName === constants.cETH) {
+  if (isEther(this._network.name, cTokenName)) {
     options.abi = abi.cEther;
   } else {
     options.abi = abi.cErc20;
@@ -91,7 +95,7 @@ export async function supply(
 
   options._compoundProvider = this._provider;
 
-  if (cTokenName !== constants.cETH && noApprove !== true) {
+  if (!isEther(this._network.name, cTokenName) && noApprove !== true) {
     const underlyingAddress = address[this._network.name][asset];
     let userAddress = this._provider.address;
 
@@ -121,7 +125,7 @@ export async function supply(
   }
 
   const parameters = [];
-  if (cTokenName === constants.cETH) {
+  if (isEther(this._network.name, cTokenName) ) {
     options.value = amount;
   } else {
     parameters.push(amount);
@@ -173,12 +177,12 @@ export async function redeem(
 
   const assetIsCToken = asset[0] === 'c';
 
-  const cTokenName = assetIsCToken ? asset : 'c' + camelCase(asset);
+  const cTokenName = assetIsCToken ? asset : 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
   const underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset;
 
-  if (!cTokens.includes(cTokenName) || !underlyings.includes(underlyingName)) {
+  if (!cTokens.includes(cTokenName) || !isUnderlyAllowed(this._network.name,underlyingName)) {
     throw Error(errorPrefix + 'Argument `asset` is not supported.');
   }
 
@@ -190,9 +194,15 @@ export async function redeem(
     throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.');
   }
 
+  const assetDecimals = getDecimals(this._network.name, asset);
+  if (assetDecimals<=0){
+    throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
+  }
+
+  console.log('redeem: ', assetDecimals, amount, asset, assetIsCToken, isEther(this._network.name,cTokenName))
   if (!options.mantissa) {
     amount = +amount;
-    amount = amount * Math.pow(10, decimals[asset]);
+    amount = amount * Math.pow(10, assetDecimals);
   }
 
   amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
@@ -200,7 +210,7 @@ export async function redeem(
   const trxOptions: CallOptions = {
     ...options,
     _compoundProvider: this._provider,
-    abi: cTokenName === constants.cETH ? abi.cEther : abi.cErc20,
+    abi: isEther(this._network.name,cTokenName) ? abi.cEther : abi.cErc20,
   };
   const parameters = [ amount ];
   const method = assetIsCToken ? 'redeem' : 'redeemUnderlying';
@@ -251,10 +261,10 @@ export async function borrow(
   await netId(this);
   const errorPrefix = 'Compound [borrow] | ';
 
-  const cTokenName = 'c' + camelCase(asset);
+  const cTokenName = 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
-  if (!cTokenAddress || !underlyings.includes(asset)) {
+  if (!cTokenAddress || !isUnderlyAllowed(this._network.name,asset)) {
     throw Error(errorPrefix + 'Argument `asset` cannot be borrowed.');
   }
 
@@ -265,10 +275,14 @@ export async function borrow(
   ) {
     throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.');
   }
+  const assetDecimals = getDecimals(this._network.name, asset);
+  if (assetDecimals<=0){
+    throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
+  }
 
   if (!options.mantissa) {
     amount = +amount;
-    amount = amount * Math.pow(10, decimals[asset]);
+    amount = amount * Math.pow(10, assetDecimals);
   }
 
   amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
@@ -278,7 +292,7 @@ export async function borrow(
     _compoundProvider: this._provider,
   };
   const parameters = [ amount ];
-  trxOptions.abi = cTokenName === constants.cETH ? abi.cEther : abi.cErc20;
+  trxOptions.abi = isEther(this._network.name,cTokenName) ? abi.cEther : abi.cErc20;
 
   return eth.trx(cTokenAddress, 'borrow', parameters, trxOptions);
 }
@@ -332,10 +346,10 @@ export async function repayBorrow(
   await netId(this);
   const errorPrefix = 'Compound [repayBorrow] | ';
 
-  const cTokenName = 'c' + camelCase(asset);
+  const cTokenName = 'c' + asset;
   const cTokenAddress = address[this._network.name][cTokenName];
 
-  if (!cTokenAddress || !underlyings.includes(asset)) {
+  if (!cTokenAddress || !isUnderlyAllowed(this._network.name,asset)) {
     throw Error(errorPrefix + 'Argument `asset` is not supported.');
   }
 
@@ -351,10 +365,14 @@ export async function repayBorrow(
   if (borrower && method === 'repayBorrow') {
     throw Error(errorPrefix + 'Invalid `borrower` address.');
   }
+  const assetDecimals = getDecimals(this._network.name, asset);
+  if (assetDecimals<=0){
+    throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
+  }
 
   if (!options.mantissa) {
     amount = +amount;
-    amount = amount * Math.pow(10, decimals[asset]);
+    amount = amount * Math.pow(10, assetDecimals);
   }
 
   amount = ethers.BigNumber.from(new BN(amount.toString()).toFixed());
@@ -366,7 +384,7 @@ export async function repayBorrow(
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const parameters: any[] = method === 'repayBorrowBehalf' ? [ borrower ] : [];
-  if (cTokenName === constants.cETH) {
+  if (isEther(this._network.name, cTokenName)) {
     trxOptions.value = amount;
     trxOptions.abi = abi.cEther;
   } else {
@@ -374,7 +392,7 @@ export async function repayBorrow(
     trxOptions.abi = abi.cErc20;
   }
 
-  if (cTokenName !== constants.cETH && noApprove !== true) {
+  if (!isEther(this._network.name,cTokenName) && noApprove !== true) {
     const underlyingAddress = address[this._network.name][asset];
     const userAddress = this._provider.address;
 
