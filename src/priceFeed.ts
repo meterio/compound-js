@@ -4,66 +4,56 @@
  *     contracts.
  */
 
-import * as eth from './eth';
-import { netId } from './helpers';
-import {
-  constants, address, abi, cTokens, isUnderlyAllowed, getDecimals, opfAssets, isEther
-} from './constants';
-import { CallOptions } from './types';
-import {camelCase} from './util'
+import * as eth from './eth'
+import { netId } from './helpers'
+import { constants, getAddress, abi, isUnderlyAllowed, getDecimals, isEther, isCTokenAllowed } from './constants'
+import { CallOptions } from './types'
+import { camelCase } from './util'
 
-function validateAsset(
-  asset: string,
-  argument: string,
-  errorPrefix: string
-) : (boolean | string | number)[] {
+function validateAsset(asset: string, argument: string, errorPrefix: string): (boolean | string | number)[] {
   if (typeof asset !== 'string' || asset.length < 1) {
-    throw Error(errorPrefix + 'Argument `' + argument + '` must be a non-empty string.');
+    throw Error(errorPrefix + 'Argument `' + argument + '` must be a non-empty string.')
   }
 
-  const assetIsCToken = asset[0] === 'c';
+  const assetIsCToken = asset[0] === 'c'
 
-  const cTokenName = assetIsCToken ? asset : 'c' + asset;
-  const cTokenAddress = address[this._network.name][cTokenName];
+  const cTokenName = assetIsCToken ? asset : 'c' + asset
+  const cTokenAddress = getAddress(this._network.name, cTokenName)
 
-  let underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset;
-  const underlyingAddress = address[this._network.name][underlyingName];
+  let underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset
+  const underlyingAddress = getAddress(this._network.name, underlyingName)
 
-  if (
-    (!cTokens.includes(cTokenName) || !isUnderlyAllowed(this._network.name,underlyingName)) &&
-    !opfAssets.includes(underlyingName)
-  ) {
-    throw Error(errorPrefix + 'Argument `' + argument + '` is not supported.');
+  if (!isCTokenAllowed(this._network.name, cTokenName) || !isUnderlyAllowed(this._network.name, underlyingName)) {
+    throw Error(errorPrefix + 'Argument `' + argument + '` is not supported.')
   }
 
-  const underlyingDecimals = getDecimals(this._network.name, underlyingName);
-  if (underlyingDecimals<=0){
+  const underlyingDecimals = getDecimals(this._network.name, underlyingName)
+  if (underlyingDecimals <= 0) {
     throw Error(`Asset ${asset} decimals is configured wrong as ${underlyingDecimals} `)
   }
 
-
   // The open price feed reveals BTC, not WBTC.
-  underlyingName = underlyingName === 'WBTC' ? 'BTC' : underlyingName;
+  underlyingName = underlyingName === 'WBTC' ? 'BTC' : underlyingName
 
-  return [assetIsCToken, cTokenName, cTokenAddress, underlyingName, underlyingAddress, underlyingDecimals];
+  return [assetIsCToken, cTokenName, cTokenAddress, underlyingName, underlyingAddress, underlyingDecimals]
 }
 
 async function cTokenExchangeRate(
   cTokenAddress: string,
   cTokenName: string,
-  underlyingDecimals: number
-) : Promise<number> {
-  const address = cTokenAddress;
-  const method = 'exchangeRateCurrent';
+  underlyingDecimals: number,
+): Promise<number> {
+  const address = cTokenAddress
+  const method = 'exchangeRateCurrent'
   const options = {
     _compoundProvider: this._provider,
     abi: isEther(this._network.name, cTokenName) ? abi.cEther : abi.cErc20,
-  };
-  const exchangeRateCurrent = await eth.read(address, method, [], options);
-  const mantissa = 18 + underlyingDecimals - 8; // cToken always 8 decimals
-  const oneCTokenInUnderlying = exchangeRateCurrent / Math.pow(10, mantissa);
+  }
+  const exchangeRateCurrent = await eth.read(address, method, [], options)
+  const mantissa = 18 + underlyingDecimals - 8 // cToken always 8 decimals
+  const oneCTokenInUnderlying = exchangeRateCurrent / Math.pow(10, mantissa)
 
-  return oneCTokenInUnderlying;
+  return oneCTokenInUnderlying
 }
 
 /**
@@ -82,68 +72,79 @@ async function cTokenExchangeRate(
  * ```
  * const compound = new Compound(window.ethereum);
  * let price;
- * 
+ *
  * (async function () {
- * 
+ *
  *   price = await compound.getPrice(Compound.WBTC);
  *   console.log('WBTC in USD', price); // 6 decimals, see Open Price Feed docs
- * 
+ *
  *   price = await compound.getPrice(Compound.BAT, Compound.USDC); // supports cTokens too
  *   console.log('BAT in USDC', price);
- * 
+ *
  * })().catch(console.error);
  * ```
  */
-export async function getPrice(
-  asset: string,
-  inAsset: string = constants.USDC
-) : Promise<number> {
-  await netId(this);
-  const errorPrefix = 'Compound [getPrice] | ';
+export async function getPrice(asset: string, inAsset: string): Promise<number> {
+  await netId(this)
+  const errorPrefix = 'Compound [getPrice] | '
 
   const [
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    assetIsCToken, cTokenName, cTokenAddress, underlyingName, underlyingAddress, underlyingDecimals
-  ] = validateAsset.bind(this)(asset, 'asset', errorPrefix);
+    assetIsCToken,
+    cTokenName,
+    cTokenAddress,
+    underlyingName,
+    underlyingAddress,
+    underlyingDecimals,
+  ] = validateAsset.bind(this)(asset, 'asset', errorPrefix)
 
   const [
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    inAssetIsCToken, inAssetCTokenName, inAssetCTokenAddress, inAssetUnderlyingName, inAssetUnderlyingAddress, inAssetUnderlyingDecimals
-  ] = validateAsset.bind(this)(inAsset, 'inAsset', errorPrefix);
+    inAssetIsCToken,
+    inAssetCTokenName,
+    inAssetCTokenAddress,
+    inAssetUnderlyingName,
+    inAssetUnderlyingAddress,
+    inAssetUnderlyingDecimals,
+  ] = validateAsset.bind(this)(inAsset, 'inAsset', errorPrefix)
 
-  const priceFeedAddress = address[this._network.name].PriceFeed;
+  const priceFeedAddress = getAddress(this._network.name, 'PriceFeed')
   const trxOptions: CallOptions = {
     _compoundProvider: this._provider,
     abi: abi.PriceFeed,
-  };
+  }
 
-  const assetUnderlyingPrice = await eth.read(priceFeedAddress, 'price', [ underlyingName ], trxOptions);
-  const inAssetUnderlyingPrice =  await eth.read(priceFeedAddress, 'price', [ inAssetUnderlyingName ], trxOptions);
+  const assetUnderlyingPrice = await eth.read(priceFeedAddress, 'price', [underlyingName], trxOptions)
+  const inAssetUnderlyingPrice = await eth.read(priceFeedAddress, 'price', [inAssetUnderlyingName], trxOptions)
 
-  let assetCTokensInUnderlying, inAssetCTokensInUnderlying;
+  let assetCTokensInUnderlying, inAssetCTokensInUnderlying
 
   if (assetIsCToken) {
-    assetCTokensInUnderlying = await cTokenExchangeRate.bind(this)(cTokenAddress, cTokenName, underlyingDecimals);
+    assetCTokensInUnderlying = await cTokenExchangeRate.bind(this)(cTokenAddress, cTokenName, underlyingDecimals)
   }
 
   if (inAssetIsCToken) {
-    inAssetCTokensInUnderlying = await cTokenExchangeRate.bind(this)(inAssetCTokenAddress, inAssetCTokenName, inAssetUnderlyingDecimals);
+    inAssetCTokensInUnderlying = await cTokenExchangeRate.bind(this)(
+      inAssetCTokenAddress,
+      inAssetCTokenName,
+      inAssetUnderlyingDecimals,
+    )
   }
 
-  let result;
+  let result
   if (!assetIsCToken && !inAssetIsCToken) {
-    result = assetUnderlyingPrice / inAssetUnderlyingPrice;
+    result = assetUnderlyingPrice / inAssetUnderlyingPrice
   } else if (assetIsCToken && !inAssetIsCToken) {
-    const assetInOther = assetUnderlyingPrice / inAssetUnderlyingPrice;
-    result = assetInOther * assetCTokensInUnderlying;
+    const assetInOther = assetUnderlyingPrice / inAssetUnderlyingPrice
+    result = assetInOther * assetCTokensInUnderlying
   } else if (!assetIsCToken && inAssetIsCToken) {
-    const assetInOther = assetUnderlyingPrice / inAssetUnderlyingPrice;
-    result = assetInOther / inAssetCTokensInUnderlying;
+    const assetInOther = assetUnderlyingPrice / inAssetUnderlyingPrice
+    result = assetInOther / inAssetCTokensInUnderlying
   } else {
-    const assetInOther = assetUnderlyingPrice / inAssetUnderlyingPrice;
-    const cTokensInUnderlying = assetInOther / assetCTokensInUnderlying;
-    result = inAssetCTokensInUnderlying * cTokensInUnderlying;
+    const assetInOther = assetUnderlyingPrice / inAssetUnderlyingPrice
+    const cTokensInUnderlying = assetInOther / assetCTokensInUnderlying
+    result = inAssetCTokensInUnderlying * cTokensInUnderlying
   }
 
-  return result;
+  return result
 }
