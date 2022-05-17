@@ -4,11 +4,11 @@
  *     contract.
  */
 
-import { ethers } from 'ethers';
-import * as eth from './eth';
-import { netId } from './helpers';
-import { address, abi } from './constants';
-import { sign } from './EIP712';
+import { ethers } from 'ethers'
+import * as eth from './eth'
+import { netId } from './helpers'
+import { getAddress, abi } from './constants'
+import { sign } from './EIP712'
 import {
   CallOptions,
   TrxResponse,
@@ -17,9 +17,9 @@ import {
   DelegateTypes,
   DelegateSignatureMessage,
   Provider,
-} from './types';
+} from './types'
 
-const keccak256 = ethers.utils.keccak256;
+const keccak256 = ethers.utils.keccak256
 
 /**
  * Applies the EIP-55 checksum to an Ethereum address.
@@ -29,25 +29,25 @@ const keccak256 = ethers.utils.keccak256;
  * @returns {string} Returns a string of the Ethereum address.
  */
 function toChecksumAddress(_address) {
-  const chars = _address.toLowerCase().substring(2).split('');
-  const expanded = new Uint8Array(40);
+  const chars = _address.toLowerCase().substring(2).split('')
+  const expanded = new Uint8Array(40)
 
   for (let i = 0; i < 40; i++) {
-    expanded[i] = chars[i].charCodeAt(0);
+    expanded[i] = chars[i].charCodeAt(0)
   }
 
-  const hash = keccak256(expanded);
-  let ret = '';
+  const hash = keccak256(expanded)
+  let ret = ''
 
   for (let i = 0; i < _address.length; i++) {
     if (parseInt(hash[i], 16) >= 8) {
-      ret += _address[i].toUpperCase();
+      ret += _address[i].toUpperCase()
     } else {
-      ret += _address[i];
+      ret += _address[i]
     }
   }
 
-  return ret;
+  return ret
 }
 
 /**
@@ -69,34 +69,31 @@ function toChecksumAddress(_address) {
  * })().catch(console.error);
  * ```
  */
-export async function getCompBalance(
-  _address: string,
-  _provider : Provider | string='mainnet'
-) : Promise<string> {
-  const provider = await eth._createProvider({ provider: _provider });
-  const net = await eth.getProviderNetwork(provider);
+export async function getCompBalance(_address: string, _provider: Provider | string = 'mainnet'): Promise<string> {
+  const provider = await eth._createProvider({ provider: _provider })
+  const net = await eth.getProviderNetwork(provider)
 
-  const errorPrefix = 'Compound [getCompBalance] | ';
+  const errorPrefix = 'Compound [getCompBalance] | '
 
   if (typeof _address !== 'string') {
-    throw Error(errorPrefix + 'Argument `_address` must be a string.');
+    throw Error(errorPrefix + 'Argument `_address` must be a string.')
   }
 
   try {
-    _address = toChecksumAddress(_address);
-  } catch(e) {
-    throw Error(errorPrefix + 'Argument `_address` must be a valid Ethereum address.');
+    _address = toChecksumAddress(_address)
+  } catch (e) {
+    throw Error(errorPrefix + 'Argument `_address` must be a valid Ethereum address.')
   }
 
-  const compAddress = address[net.name].COMP;
-  const parameters = [ _address ];
+  const compAddress = getAddress(net.name, 'COMP')
+  const parameters = [_address]
   const trxOptions: CallOptions = {
     _compoundProvider: provider,
     abi: abi.COMP,
-  };
+  }
 
-  const result = await eth.read(compAddress, 'balanceOf', parameters, trxOptions);
-  return result.toString();
+  const result = await eth.read(compAddress, 'balanceOf', parameters, trxOptions)
+  return result.toString()
 }
 
 /**
@@ -118,36 +115,33 @@ export async function getCompBalance(
  * })().catch(console.error);
  * ```
  */
-export async function getCompAccrued(
-  _address: string,
-  _provider : Provider | string='mainnet'
-) : Promise<string> {
-  const provider = await eth._createProvider({ provider: _provider });
-  const net = await eth.getProviderNetwork(provider);
+export async function getCompAccrued(_address: string, _provider: Provider | string = 'mainnet'): Promise<string> {
+  const provider = await eth._createProvider({ provider: _provider })
+  const net = await eth.getProviderNetwork(provider)
 
-  const errorPrefix = 'Compound [getCompAccrued] | ';
+  const errorPrefix = 'Compound [getCompAccrued] | '
 
   if (typeof _address !== 'string') {
-    throw Error(errorPrefix + 'Argument `_address` must be a string.');
+    throw Error(errorPrefix + 'Argument `_address` must be a string.')
   }
 
   try {
-    _address = toChecksumAddress(_address);
-  } catch(e) {
-    throw Error(errorPrefix + 'Argument `_address` must be a valid Ethereum address.');
+    _address = toChecksumAddress(_address)
+  } catch (e) {
+    throw Error(errorPrefix + 'Argument `_address` must be a valid Ethereum address.')
   }
 
-  const lensAddress = address[net.name].CompoundLens;
-  const compAddress = address[net.name].COMP;
-  const comptrollerAddress = address[net.name].Comptroller;
-  const parameters = [ compAddress, comptrollerAddress, _address ];
+  const lensAddress = getAddress(net.name, 'CompoundLens')
+  const compAddress = getAddress(net.name, 'COMP')
+  const comptrollerAddress = getAddress(net.name, 'Comptroller')
+  const parameters = [compAddress, comptrollerAddress, _address]
   const trxOptions: CallOptions = {
     _compoundProvider: provider,
     abi: abi.CompoundLens,
-  };
+  }
 
-  const result = await eth.read(lensAddress, 'getCompBalanceMetadataExt', parameters, trxOptions);
-  return result.allocated.toString();
+  const result = await eth.read(lensAddress, 'getCompBalanceMetadataExt', parameters, trxOptions)
+  return result.allocated.toString()
 }
 
 /**
@@ -163,42 +157,40 @@ export async function getCompAccrued(
  *
  * ```
  * const compound = new Compound(window.ethereum);
- * 
+ *
  * (async function() {
- * 
+ *
  *   console.log('Claiming COMP...');
  *   const trx = await compound.claimComp();
  *   console.log('Ethers.js transaction object', trx);
- * 
+ *
  * })().catch(console.error);
  * ```
  */
-export async function claimComp(
-  options: CallOptions = {}
-) : Promise<TrxResponse> {
-  await netId(this);
+export async function claimComp(options: CallOptions = {}): Promise<TrxResponse> {
+  await netId(this)
 
   try {
-    let userAddress = this._provider.address;
+    let userAddress = this._provider.address
 
     if (!userAddress && this._provider.getAddress) {
-      userAddress = await this._provider.getAddress();
+      userAddress = await this._provider.getAddress()
     }
 
-    const comptrollerAddress = address[this._network.name].Comptroller;
+    const comptrollerAddress = getAddress(this._network.name, 'Comptroller')
     const trxOptions: CallOptions = {
       ...options,
       _compoundProvider: this._provider,
       abi: abi.Comptroller,
-    };
-    const parameters = [ userAddress ];
-    const method = 'claimComp(address)';
+    }
+    const parameters = [userAddress]
+    const method = 'claimComp(address)'
 
-    return eth.trx(comptrollerAddress, method, parameters, trxOptions);
-  } catch(e) {
-    const errorPrefix = 'Compound [claimComp] | ';
-    e.message = errorPrefix + e.message;
-    return e;
+    return eth.trx(comptrollerAddress, method, parameters, trxOptions)
+  } catch (e) {
+    const errorPrefix = 'Compound [claimComp] | '
+    e.message = errorPrefix + e.message
+    return e
   }
 }
 
@@ -219,41 +211,38 @@ export async function claimComp(
  *
  * ```
  * const compound = new Compound(window.ethereum);
- * 
+ *
  * (async function() {
  *   const delegateTx = await compound.delegate('0xa0df350d2637096571F7A701CBc1C5fdE30dF76A');
  *   console.log('Ethers.js transaction object', delegateTx);
  * })().catch(console.error);
  * ```
  */
-export async function delegate(
-  _address: string,
-  options: CallOptions = {}
-) : Promise<TrxResponse> {
-  await netId(this);
+export async function delegate(_address: string, options: CallOptions = {}): Promise<TrxResponse> {
+  await netId(this)
 
-  const errorPrefix = 'Compound [delegate] | ';
+  const errorPrefix = 'Compound [delegate] | '
 
   if (typeof _address !== 'string') {
-    throw Error(errorPrefix + 'Argument `_address` must be a string.');
+    throw Error(errorPrefix + 'Argument `_address` must be a string.')
   }
 
   try {
-    _address = toChecksumAddress(_address);
-  } catch(e) {
-    throw Error(errorPrefix + 'Argument `_address` must be a valid Ethereum address.');
+    _address = toChecksumAddress(_address)
+  } catch (e) {
+    throw Error(errorPrefix + 'Argument `_address` must be a valid Ethereum address.')
   }
 
-  const compAddress = address[this._network.name].COMP;
+  const compAddress = getAddress(this._network.name, 'COMP')
   const trxOptions: CallOptions = {
     ...options,
     _compoundProvider: this._provider,
     abi: abi.COMP,
-  };
-  const parameters = [ _address ];
-  const method = 'delegate';
+  }
+  const parameters = [_address]
+  const method = 'delegate'
 
-  return eth.trx(compAddress, method, parameters, trxOptions);
+  return eth.trx(compAddress, method, parameters, trxOptions)
 }
 
 /**
@@ -262,7 +251,7 @@ export async function delegate(
  * @param {string} _address The address to delegate the user's voting rights to.
  * @param {number} nonce The contract state required to match the signature.
  *     This can be retrieved from the COMP contract's public nonces mapping.
- * @param {number} expiry The time at which to expire the signature. A block 
+ * @param {number} expiry The time at which to expire the signature. A block
  *     timestamp as seconds since the unix epoch.
  * @param {object} signature An object that contains the v, r, and, s values of
  *     an EIP-712 signature.
@@ -278,7 +267,7 @@ export async function delegate(
  *
  * ```
  * const compound = new Compound(window.ethereum);
- * 
+ *
  * (async function() {
  *   const delegateTx = await compound.delegateBySig(
  *     '0xa0df350d2637096571F7A701CBc1C5fdE30dF76A',
@@ -299,51 +288,49 @@ export async function delegateBySig(
   nonce: number,
   expiry: number,
   signature: Signature = { v: '', r: '', s: '' },
-  options: CallOptions = {}
-) : Promise<TrxResponse> {
-  await netId(this);
+  options: CallOptions = {},
+): Promise<TrxResponse> {
+  await netId(this)
 
-  const errorPrefix = 'Compound [delegateBySig] | ';
+  const errorPrefix = 'Compound [delegateBySig] | '
 
   if (typeof _address !== 'string') {
-    throw Error(errorPrefix + 'Argument `_address` must be a string.');
+    throw Error(errorPrefix + 'Argument `_address` must be a string.')
   }
 
   try {
-    _address = toChecksumAddress(_address);
-  } catch(e) {
-    throw Error(errorPrefix + 'Argument `_address` must be a valid Ethereum address.');
+    _address = toChecksumAddress(_address)
+  } catch (e) {
+    throw Error(errorPrefix + 'Argument `_address` must be a valid Ethereum address.')
   }
 
   if (typeof nonce !== 'number') {
-    throw Error(errorPrefix + 'Argument `nonce` must be an integer.');
+    throw Error(errorPrefix + 'Argument `nonce` must be an integer.')
   }
 
   if (typeof expiry !== 'number') {
-    throw Error(errorPrefix + 'Argument `expiry` must be an integer.');
+    throw Error(errorPrefix + 'Argument `expiry` must be an integer.')
   }
 
-  if (
-    !Object.isExtensible(signature) ||
-    !signature.v ||
-    !signature.r ||
-    !signature.s
-  ) {
-    throw Error(errorPrefix + 'Argument `signature` must be an object that ' + 
-      'contains the v, r, and s pieces of an EIP-712 signature.');
+  if (!Object.isExtensible(signature) || !signature.v || !signature.r || !signature.s) {
+    throw Error(
+      errorPrefix +
+        'Argument `signature` must be an object that ' +
+        'contains the v, r, and s pieces of an EIP-712 signature.',
+    )
   }
 
-  const compAddress = address[this._network.name].COMP;
+  const compAddress = getAddress(this._network.name, 'COMP')
   const trxOptions: CallOptions = {
     ...options,
     _compoundProvider: this._provider,
     abi: abi.COMP,
-  };
-  const { v, r, s } = signature;
-  const parameters = [ _address, nonce, expiry, v, r, s ];
-  const method = 'delegateBySig';
+  }
+  const { v, r, s } = signature
+  const parameters = [_address, nonce, expiry, v, r, s]
+  const method = 'delegateBySig'
 
-  return eth.trx(compAddress, method, parameters, trxOptions);
+  return eth.trx(compAddress, method, parameters, trxOptions)
 }
 
 /**
@@ -353,10 +340,10 @@ export async function delegateBySig(
  *
  * @param {string} delegatee The address to delegate the user's voting rights
  *     to.
- * @param {number} [expiry] The time at which to expire the signature. A block 
+ * @param {number} [expiry] The time at which to expire the signature. A block
  *     timestamp as seconds since the unix epoch. Defaults to `10e9`.
  *
- * @returns {object} Returns an object that contains the `v`, `r`, and `s` 
+ * @returns {object} Returns an object that contains the `v`, `r`, and `s`
  *     components of an Ethereum signature as hexadecimal strings.
  *
  * @example
@@ -372,39 +359,35 @@ export async function delegateBySig(
  * })().catch(console.error);
  * ```
  */
-export async function createDelegateSignature(
-  delegatee: string,
-  expiry = 10e9
-) : Promise<Signature> {
-  await netId(this);
+export async function createDelegateSignature(delegatee: string, expiry = 10e9): Promise<Signature> {
+  await netId(this)
 
-  const provider = this._provider;
-  const compAddress = address[this._network.name].COMP;
-  const chainId = this._network.id;
-  let userAddress = this._provider.address;
+  const provider = this._provider
+  const compAddress = getAddress(this._network.name, 'COMP')
+  const chainId = this._network.id
+  let userAddress = this._provider.address
 
   if (!userAddress && this._provider.getAddress) {
-    userAddress = await this._provider.getAddress();
+    userAddress = await this._provider.getAddress()
   }
 
-  const originalProvider = this._originalProvider;
+  const originalProvider = this._originalProvider
 
-  const nonce = +(await eth.read(
-    compAddress,
-    'function nonces(address) returns (uint)',
-    [ userAddress ],
-    { provider: originalProvider }
-  )).toString();
+  const nonce = +(
+    await eth.read(compAddress, 'function nonces(address) returns (uint)', [userAddress], {
+      provider: originalProvider,
+    })
+  ).toString()
 
   const domain: EIP712Domain = {
     name: 'Compound',
     chainId,
-    verifyingContract: compAddress
-  };
+    verifyingContract: compAddress,
+  }
 
-  const primaryType = 'Delegation';
+  const primaryType = 'Delegation'
 
-  const message: DelegateSignatureMessage = { delegatee, nonce, expiry };
+  const message: DelegateSignatureMessage = { delegatee, nonce, expiry }
 
   const types: DelegateTypes = {
     EIP712Domain: [
@@ -415,13 +398,13 @@ export async function createDelegateSignature(
     Delegation: [
       { name: 'delegatee', type: 'address' },
       { name: 'nonce', type: 'uint256' },
-      { name: 'expiry', type: 'uint256' }
-    ]
-  };
+      { name: 'expiry', type: 'uint256' },
+    ],
+  }
 
-  const signer = provider.getSigner ? provider.getSigner() : provider;
+  const signer = provider.getSigner ? provider.getSigner() : provider
 
-  const signature = await sign(domain, primaryType, message, types, signer);
+  const signature = await sign(domain, primaryType, message, types, signer)
 
-  return signature;
+  return signature
 }

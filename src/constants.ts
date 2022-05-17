@@ -1,6 +1,4 @@
-import * as abiJson from './abi.json'
-
-export const abi = abiJson
+export { abi } from './abi'
 
 type TokenPair = {
   ctokenSym: string
@@ -187,7 +185,7 @@ const address = {
   },
 }
 
-export const names = {}
+const names = {}
 for (const network in address) {
   const networkNames = {}
   for (const n in address[network]) {
@@ -214,7 +212,7 @@ export const getAddress = (networkName: string, tokenSym: string) => {
   return addrList[tokenSym]
 }
 
-export const getTokenName = (networkName: string, tokenAddress: string) => {
+export const getName = (networkName: string, tokenAddress: string) => {
   if (!(networkName in address)) {
     throw Error(`${networkName} is not configured on name list`)
   }

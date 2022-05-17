@@ -3,18 +3,11 @@
  * @desc These methods facilitate interactions with the Governor smart contract.
  */
 
-import * as eth from './eth';
-import { netId } from './helpers';
-import { address, abi } from './constants';
-import { sign } from './EIP712';
-import {
-  CallOptions,
-  TrxResponse,
-  Signature,
-  VoteSignatureMessage,
-  VoteTypes,
-  EIP712Domain
- } from './types';
+import * as eth from './eth'
+import { netId } from './helpers'
+import { getAddress, abi } from './constants'
+import { sign } from './EIP712'
+import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, EIP712Domain } from './types'
 
 /**
  * Submit a vote on a Compound Governance proposal.
@@ -34,38 +27,34 @@ import {
  *
  * ```
  * const compound = new Compound(window.ethereum);
- * 
+ *
  * (async function() {
  *   const castVoteTx = await compound.castVote(12, 1);
  *   console.log('Ethers.js transaction object', castVoteTx);
  * })().catch(console.error);
  * ```
  */
-export async function castVote(
-  proposalId: number,
-  support: number,
-  options: CallOptions = {}
-) : Promise<TrxResponse> {
-  await netId(this);
+export async function castVote(proposalId: number, support: number, options: CallOptions = {}): Promise<TrxResponse> {
+  await netId(this)
 
-  const errorPrefix = 'Compound [castVote] | ';
+  const errorPrefix = 'Compound [castVote] | '
 
   if (typeof proposalId !== 'number') {
-    throw Error(errorPrefix + 'Argument `proposalId` must be an integer.');
+    throw Error(errorPrefix + 'Argument `proposalId` must be an integer.')
   }
 
   if (typeof support !== 'number') {
-    throw Error(errorPrefix + 'Argument `support` must be an integer (0, 1, or 2).');
+    throw Error(errorPrefix + 'Argument `support` must be an integer (0, 1, or 2).')
   }
 
-  const governorAddress = address[this._network.name].GovernorBravo;
-  const trxOptions: CallOptions = options;
-  trxOptions._compoundProvider =  this._provider;
-  trxOptions.abi =  abi.GovernorBravo;
-  const parameters = [ proposalId, support ];
-  const method = 'castVote';
+  const governorAddress = getAddress(this._network.name, 'GovernorBravo')
+  const trxOptions: CallOptions = options
+  trxOptions._compoundProvider = this._provider
+  trxOptions.abi = abi.GovernorBravo
+  const parameters = [proposalId, support]
+  const method = 'castVote'
 
-  return eth.trx(governorAddress, method, parameters, trxOptions);
+  return eth.trx(governorAddress, method, parameters, trxOptions)
 }
 
 /**
@@ -87,7 +76,7 @@ export async function castVote(
  * @example
  * ```
  * const compound = new Compound(window.ethereum);
- * 
+ *
  * (async function() {
  *   const castVoteTx = await compound.castVoteBySig(
  *     12,
@@ -106,45 +95,43 @@ export async function castVoteBySig(
   proposalId: number,
   support: number,
   signature: Signature,
-  options: CallOptions = {}
-) : Promise<TrxResponse> {
-  await netId(this);
+  options: CallOptions = {},
+): Promise<TrxResponse> {
+  await netId(this)
 
-  const errorPrefix = 'Compound [castVoteBySig] | ';
+  const errorPrefix = 'Compound [castVoteBySig] | '
 
   if (typeof proposalId !== 'number') {
-    throw Error(errorPrefix + 'Argument `proposalId` must be an integer.');
+    throw Error(errorPrefix + 'Argument `proposalId` must be an integer.')
   }
 
   if (typeof support !== 'number') {
-    throw Error(errorPrefix + 'Argument `support` must be an integer (0, 1, or 2).');
+    throw Error(errorPrefix + 'Argument `support` must be an integer (0, 1, or 2).')
   }
 
-  if (
-    !Object.isExtensible(signature) ||
-    !signature.v ||
-    !signature.r ||
-    !signature.s
-  ) {
-    throw Error(errorPrefix + 'Argument `signature` must be an object that ' + 
-      'contains the v, r, and s pieces of an EIP-712 signature.');
+  if (!Object.isExtensible(signature) || !signature.v || !signature.r || !signature.s) {
+    throw Error(
+      errorPrefix +
+        'Argument `signature` must be an object that ' +
+        'contains the v, r, and s pieces of an EIP-712 signature.',
+    )
   }
 
-  const governorAddress = address[this._network.name].GovernorBravo;
-  const trxOptions: CallOptions = options;
-  trxOptions._compoundProvider = this._provider;
-  trxOptions.abi = abi.GovernorBravo;
-  const { v, r, s } = signature;
-  const parameters = [ proposalId, support, v, r, s ];
-  const method = 'castVoteBySig';
+  const governorAddress = getAddress(this._network.name, 'GovernorBravo')
+  const trxOptions: CallOptions = options
+  trxOptions._compoundProvider = this._provider
+  trxOptions.abi = abi.GovernorBravo
+  const { v, r, s } = signature
+  const parameters = [proposalId, support, v, r, s]
+  const method = 'castVoteBySig'
 
-  return eth.trx(governorAddress, method, parameters, trxOptions);
+  return eth.trx(governorAddress, method, parameters, trxOptions)
 }
 
 /**
  * Create a vote signature for a Compound Governance proposal using EIP-712.
- *     This can be used to create an 'empty ballot' without burning gas. The 
- *     signature can then be sent to someone else to post to the blockchain. 
+ *     This can be used to create an 'empty ballot' without burning gas. The
+ *     signature can then be sent to someone else to post to the blockchain.
  *     The recipient can post one signature using the `castVoteBySig` method.
  *
  * @param {string} proposalId The ID of the proposal to vote on. This is an
@@ -154,7 +141,7 @@ export async function castVoteBySig(
  *     respectively. To create an 'empty ballot' call this method thrice using
  *     `0`, `1`, and then `2` for this parameter.
  *
- * @returns {object} Returns an object that contains the `v`, `r`, and `s` 
+ * @returns {object} Returns an object that contains the `v`, `r`, and `s`
  *     components of an Ethereum signature as hexadecimal strings.
  *
  * @example
@@ -172,25 +159,22 @@ export async function castVoteBySig(
  * })().catch(console.error);
  * ```
  */
-export async function createVoteSignature(
-  proposalId: number,
-  support: number
-) : Promise<Signature> {
-  await netId(this);
+export async function createVoteSignature(proposalId: number, support: number): Promise<Signature> {
+  await netId(this)
 
-  const provider = this._provider;
-  const governorAddress = address[this._network.name].GovernorBravo;
-  const chainId = this._network.id;
+  const provider = this._provider
+  const governorAddress = getAddress(this._network.name, 'GovernorBravo')
+  const chainId = this._network.id
 
   const domain: EIP712Domain = {
     name: 'Compound Governor Bravo',
     chainId,
-    verifyingContract: governorAddress
-  };
+    verifyingContract: governorAddress,
+  }
 
-  const primaryType = 'Ballot';
+  const primaryType = 'Ballot'
 
-  const message: VoteSignatureMessage = { proposalId, support };
+  const message: VoteSignatureMessage = { proposalId, support }
 
   const types: VoteTypes = {
     EIP712Domain: [
@@ -200,15 +184,15 @@ export async function createVoteSignature(
     ],
     Ballot: [
       { name: 'proposalId', type: 'uint256' },
-      { name: 'support', type: 'uint8' }
-    ]
-  };
+      { name: 'support', type: 'uint8' },
+    ],
+  }
 
-  const signer = provider.getSigner ? provider.getSigner() : provider;
+  const signer = provider.getSigner ? provider.getSigner() : provider
 
-  const signature = await sign(domain, primaryType, message, types, signer);
+  const signature = await sign(domain, primaryType, message, types, signer)
 
-  return signature;
+  return signature
 }
 
 /**
@@ -230,7 +214,7 @@ export async function createVoteSignature(
  *
  * ```
  * const compound = new Compound(window.ethereum);
- * 
+ *
  * (async function() {
  *   const castVoteTx = await compound.castVoteWithReason(12, 1, 'I vote YES because...');
  *   console.log('Ethers.js transaction object', castVoteTx);
@@ -241,30 +225,30 @@ export async function castVoteWithReason(
   proposalId: number,
   support: number,
   reason: string,
-  options: CallOptions = {}
-) : Promise<TrxResponse> {
-  await netId(this);
+  options: CallOptions = {},
+): Promise<TrxResponse> {
+  await netId(this)
 
-  const errorPrefix = 'Compound [castVoteWithReason] | ';
+  const errorPrefix = 'Compound [castVoteWithReason] | '
 
   if (typeof proposalId !== 'number') {
-    throw Error(errorPrefix + 'Argument `proposalId` must be an integer.');
+    throw Error(errorPrefix + 'Argument `proposalId` must be an integer.')
   }
 
   if (typeof support !== 'number') {
-    throw Error(errorPrefix + 'Argument `support` must be an integer (0, 1, or 2).');
+    throw Error(errorPrefix + 'Argument `support` must be an integer (0, 1, or 2).')
   }
 
   if (typeof reason !== 'string') {
-    throw Error(errorPrefix + 'Argument `reason` must be a string.');
+    throw Error(errorPrefix + 'Argument `reason` must be a string.')
   }
 
-  const governorAddress = address[this._network.name].GovernorBravo;
-  const trxOptions: CallOptions = options;
-  trxOptions._compoundProvider =  this._provider;
-  trxOptions.abi =  abi.GovernorBravo;
-  const parameters = [ proposalId, support, reason ];
-  const method = 'castVoteWithReason';
+  const governorAddress = getAddress(this._network.name, 'GovernorBravo')
+  const trxOptions: CallOptions = options
+  trxOptions._compoundProvider = this._provider
+  trxOptions.abi = abi.GovernorBravo
+  const parameters = [proposalId, support, reason]
+  const method = 'castVoteWithReason'
 
-  return eth.trx(governorAddress, method, parameters, trxOptions);
+  return eth.trx(governorAddress, method, parameters, trxOptions)
 }

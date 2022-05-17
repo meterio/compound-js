@@ -3,148 +3,142 @@
  * @desc These methods are helpers for the Compound class.
  */
 
-import { address, abi, names } from './constants';
-import { AbiType } from './types';
+import { getAddress as getContractAddress, abi, getName as getContractName } from './constants'
+import { AbiType } from './types'
 
 /* eslint-disable */
 
-let _request: any;
-let http: any;
-let https: any;
+let _request: any
+let http: any
+let https: any
 
 function _nodeJsRequest(options: any) {
   return new Promise<any>((resolve, reject) => {
-    let url = options.url || options.hostname;
+    let url = options.url || options.hostname
 
     // Use 'https' if the protocol is not specified in 'options.hostname'
-    if (
-      url.indexOf("http://") !== 0 &&
-      url.indexOf("https://") !== 0
-    ) {
-      url = "https://" + url;
+    if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+      url = 'https://' + url
     }
 
     // Choose the right module based on the protocol in 'options.hostname'
-    const httpOrHttps = url.indexOf("http://") === 0 ? http : https;
+    const httpOrHttps = url.indexOf('http://') === 0 ? http : https
 
     // Remove the 'http://' so the native node.js module will understand
-    options.hostname = url.split('://')[1];
+    options.hostname = url.split('://')[1]
 
-    let body = '';
+    let body = ''
     const req = httpOrHttps.request(options, (res: any) => {
-      res.on("data", (bodyBuffer: any) => {
-        body += bodyBuffer.toString();
-      });
-      res.on("end", () => {
+      res.on('data', (bodyBuffer: any) => {
+        body += bodyBuffer.toString()
+      })
+      res.on('end', () => {
         resolve({
           status: res.statusCode,
           statusText: res.statusMessage,
-          body
-        });
-      });
-    });
+          body,
+        })
+      })
+    })
 
     req.on('timeout', () => {
-      req.abort();
+      req.abort()
       return reject({
         status: 408,
-        statusText: 'Client HTTP request timeout limit reached.'
-      });
-    });
+        statusText: 'Client HTTP request timeout limit reached.',
+      })
+    })
 
     req.on('error', (err: any) => {
-      if (req.aborted) return;
+      if (req.aborted) return
 
       if (err !== null && err.toString() === '[object Object]') {
-        console.error(JSON.stringify(err));
+        console.error(JSON.stringify(err))
       } else {
-        console.error(err);
+        console.error(err)
       }
 
-      return reject();
-    });
+      return reject()
+    })
 
     if (options.body) {
-      req.write(JSON.stringify(options.body));
+      req.write(JSON.stringify(options.body))
     }
 
-    req.end();
-  });
+    req.end()
+  })
 }
 
 function _webBrowserRequest(options: any) {
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    let contentTypeIsSet = false;
-    options = options || {};
-    const method = options.method || "GET";
-    let url = options.url || options.hostname;
-    url += typeof options.path === "string" ? options.path : "";
+    const xhr = new XMLHttpRequest()
+    let contentTypeIsSet = false
+    options = options || {}
+    const method = options.method || 'GET'
+    let url = options.url || options.hostname
+    url += typeof options.path === 'string' ? options.path : ''
 
-    if (typeof url !== "string") {
-      return reject("HTTP Request: Invalid URL.");
+    if (typeof url !== 'string') {
+      return reject('HTTP Request: Invalid URL.')
     }
 
     // Use 'https' if the protocol is not specified in 'options.hostname'
-    if (
-      url.indexOf("http://") !== 0 &&
-      url.indexOf("https://") !== 0
-    ) {
-      url = "https://" + url;
+    if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+      url = 'https://' + url
     }
 
-    xhr.open(method, url);
+    xhr.open(method, url)
 
     for (const header in options.headers) {
       if ({}.hasOwnProperty.call(options.headers, header)) {
-        const lcHeader = header.toLowerCase();
-        contentTypeIsSet = lcHeader === "content-type" ? true : contentTypeIsSet;
-        xhr.setRequestHeader(header, options.headers[header]);
+        const lcHeader = header.toLowerCase()
+        contentTypeIsSet = lcHeader === 'content-type' ? true : contentTypeIsSet
+        xhr.setRequestHeader(header, options.headers[header])
       }
     }
 
     if (!contentTypeIsSet) {
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     }
 
     xhr.onload = function () {
-      let body;
+      let body
       if (xhr.status >= 100 && xhr.status < 400) {
         try {
-          JSON.parse(xhr.response);
-          body = xhr.response;
+          JSON.parse(xhr.response)
+          body = xhr.response
         } catch (e) {
-          body = xhr.statusText;
+          body = xhr.statusText
         }
 
         return resolve({
           status: xhr.status,
           statusText: xhr.statusText,
-          body
-        });
+          body,
+        })
       } else {
         return reject({
           status: xhr.status,
-          statusText: xhr.statusText
-        });
+          statusText: xhr.statusText,
+        })
       }
-    };
-
-    if (method !== "GET") {
-      xhr.send(JSON.stringify(options.body));
-    } else {
-      xhr.send();
     }
-  });
+
+    if (method !== 'GET') {
+      xhr.send(JSON.stringify(options.body))
+    } else {
+      xhr.send()
+    }
+  })
 }
 
 try {
-  window;
-  _request = _webBrowserRequest;
+  window
+  _request = _webBrowserRequest
 } catch (e) {
-  http = require('http');
-  https = require('https');
-  _request = _nodeJsRequest;
+  http = require('http')
+  https = require('https')
+  _request = _nodeJsRequest
 }
 
 /**
@@ -159,13 +153,13 @@ try {
  *     (JavaScript object).
  */
 export function request(options: any): Promise<any> {
-  return _request.apply(null, [options]);
+  return _request.apply(null, [options])
 }
 
 /* eslint-enable */
 
 /**
- * Gets the contract address of the named contract. This method supports 
+ * Gets the contract address of the named contract. This method supports
  *     contracts used by the Compound Protocol.
  *
  * @param {string} contract The name of the contract.
@@ -180,15 +174,15 @@ export function request(options: any): Promise<any> {
  * ```
  */
 export function getAddress(contract: string, network = 'mainnet'): string {
-  return address[network][contract];
+  return getContractAddress(network, contract)
 }
 
-export function getName(tokenAddr: string, network = "mainnet"): string {
-  return names[network][tokenAddr.toLowerCase()]
+export function getName(tokenAddr: string, network = 'mainnet'): string {
+  return getContractName(network, tokenAddr)
 }
 
 /**
- * Gets a contract ABI as a JavaScript array. This method supports 
+ * Gets a contract ABI as a JavaScript array. This method supports
  *     contracts used by the Compound Protocol.
  *
  * @param {string} contract The name of the contract.
@@ -201,7 +195,7 @@ export function getName(tokenAddr: string, network = "mainnet"): string {
  * ```
  */
 export function getAbi(contract: string): AbiType[] {
-  return abi[contract];
+  return abi[contract]
 }
 
 /**
@@ -223,8 +217,8 @@ export function getNetNameWithChainId(chainId: number): string {
     4: 'rinkeby',
     5: 'goerli',
     42: 'kovan',
-  };
-  return networks[chainId];
+  }
+  return networks[chainId]
 }
 
 export function camelCase(name) {
