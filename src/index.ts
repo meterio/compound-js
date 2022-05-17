@@ -13,7 +13,16 @@ import * as priceFeed from './priceFeed'
 import * as comp from './comp'
 import * as gov from './gov'
 import * as api from './api'
-import { constants, getDecimals, isCTokenAllowed, isEther, isUnderlyAllowed } from './constants'
+import {
+  constants,
+  getAddress,
+  getDecimals,
+  getName,
+  getTokenPairs,
+  isCTokenAllowed,
+  isEther,
+  isUnderlyAllowed,
+} from './constants'
 import { Provider, CompoundOptions, CompoundInstance } from './types'
 
 // Turn off Ethers.js warnings
@@ -83,7 +92,12 @@ Compound.eth = eth
 Compound.api = api
 Compound.util = util
 Compound._ethers = ethers
+
 Compound.getDecimals = getDecimals
+Compound.getAddress = getAddress
+Compound.getName = getName
+Compound.getTokenPairs = getTokenPairs
+
 Compound.isUnderlyAllowed = isUnderlyAllowed
 Compound.isCTokenAllowed = isCTokenAllowed
 Compound.isEther = isEther

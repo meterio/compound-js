@@ -1,7 +1,7 @@
 {
   "name": "@meterio/compound-js",
-  "version": "0.0.50",
-  "author": "Compound Labs, Inc.",
+  "version": "0.0.52",
+  "author": "Decentralized Finance Labs",
   "description": "A JavaScript SDK for Ethereum and the Compound Protocol.",
   "license": "BSD-3-Clause",
   "main": "dist/nodejs/index.js",
