@@ -22,26 +22,24 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
   kcc: [
     defPair('cUSDT', 'USDT'),
     defPair('cETH', 'ETH'),
-    defPair('cMTRG', 'MTRG'),
     defPair('cBTCK', 'BTCK'),
     defPair('cUSDC', 'USDC'),
     defPair('csuUSD', 'suUSD'),
     defPair('csuBTC', 'suBTC'),
     defPair('csuETH', 'suETH'),
 
-    defPair('cKCS', 'KCS', 18, 18, true),
+    // defPair('cKCS', 'KCS', 18, 18, true),
   ],
   kcctest: [
     defPair('cUSDT', 'USDT'),
     defPair('cETH', 'ETH'),
-    defPair('cMTRG', 'MTRG'),
     defPair('cBTCK', 'BTCK'),
     defPair('cUSDC', 'USDC'),
     defPair('csuUSD', 'suUSD'),
     defPair('csuBTC', 'suBTC'),
     defPair('csuETH', 'suETH'),
 
-    defPair('cTKCS', 'TKCS', 18, 18, true),
+    // defPair('cTKCS', 'TKCS', 18, 18, true),
   ],
   rinkeby: [
     defPair('cUSDT', 'USDT', 8, 6),
