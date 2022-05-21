@@ -3,7 +3,7 @@
  * @desc These methods are helpers for the Compound class.
  */
 
-import { getAddress as getContractAddress, abi, getName as getContractName } from './constants'
+import { getAddress as getContractAddress, abi, getName as getContractName, getDecimals } from './constants'
 import { AbiType } from './types'
 
 /* eslint-disable */
@@ -179,6 +179,10 @@ export function getAddress(contract: string, network = 'mainnet'): string {
 
 export function getName(tokenAddr: string, network = 'mainnet'): string {
   return getContractName(network, tokenAddr)
+}
+
+export function getUnderlyDecimals(tokenAddr: string, network = 'mainnet'): number {
+  return getDecimals(network, tokenAddr)
 }
 
 /**
