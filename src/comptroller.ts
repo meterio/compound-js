@@ -54,10 +54,12 @@ export async function enterMarkets(markets: string | string[] = [], options: Cal
       throw Error(errorPrefix + 'Provided market `' + markets[i] + '` is not a recognized cToken.')
     }
 
-    addresses.push(getAddress(this._network.name, markets[i]))
+    const cTokenAddress = getAddress(this._network.name, markets[i])
+
+    addresses.push(cTokenAddress.toLowerCase())
   }
 
-  const comptrollerAddress = getAddress(this._network.name, 'Comptroller')
+  const comptrollerAddress = getAddress(this._network.name, 'Unitroller')
   const parameters = [addresses]
 
   const trxOptions: CallOptions = {
@@ -109,8 +111,8 @@ export async function exitMarket(market: string, options: CallOptions = {}): Pro
 
   const cTokenAddress = getAddress(this._network.name, market)
 
-  const comptrollerAddress = getAddress(this._network.name, 'Comptroller')
-  const parameters = [cTokenAddress]
+  const comptrollerAddress = getAddress(this._network.name, 'Unitroller')
+  const parameters = [cTokenAddress.toLowerCase()]
 
   const trxOptions: CallOptions = {
     _compoundProvider: this._provider,
