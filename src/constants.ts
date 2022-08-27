@@ -293,6 +293,20 @@ export const getDecimals = (networkName: string, tokenSym: string) => {
   throw Error(`decimal not configured for ${tokenSym} on ${networkName}`)
 }
 
+export const getDecimalsOfUnderly = (networkName: string, tokenSym: string) => {
+  const pairs = getTokenPairs(networkName)
+
+  for (const p of pairs) {
+    if (p.ctokenSym === tokenSym) {
+      return p.underlyDecimal
+    }
+    if (p.underlySym === tokenSym) {
+      return p.underlyDecimal
+    }
+  }
+  throw Error(`decimal not configured for ${tokenSym} on ${networkName}`)
+}
+
 export const isEther = (networkName: string, ctokenSym: string) => {
   const pairs = getTokenPairs(networkName)
   return pairs.some((p) => p.ctokenSym === ctokenSym && p.ctokenIsEther)
