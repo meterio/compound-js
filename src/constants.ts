@@ -59,6 +59,7 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
     defPair('cUSDC', 'USDC', 6, 6),
     defPair('cBUSD', 'BUSD'),
     defPair('cMTRG', 'MTRG'),
+    defPair('cMTR', 'MTR'),
     defPair('csuUSD', 'suUSD'),
     defPair('csuBTC', 'suBTC'),
     defPair('csuETH', 'suETH'),
