@@ -64,6 +64,15 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
     defPair('csuBTC', 'suBTC'),
     defPair('csuETH', 'suETH'),
   ],
+  base: [
+    defPair('cETH', 'ETH', 18, 18, true),
+    defPair('cWBTC', 'WBTC', 6, 6),
+    defPair('cUSDC', 'USDC', 6, 6),
+    defPair('cUSDT', 'USDT', 6, 6),
+    defPair('csuUSD', 'suUSD'),
+    defPair('csuETH', 'suETH'),
+    defPair('csuBTC', 'suBTC'),
+  ],
 }
 
 const symbols = {}
@@ -223,6 +232,32 @@ const address = {
     MTR: '0x0000000000000000000000000000000000000000',
     cMTR: '0x1Be914Dcb39A17b262C2B284Ebda8082340F1828'
   },
+  base: {
+    CompoundLens: '0x5f7c6C74525231B94857b55bE444483b80A8EE05',
+    Comptroller: '0x73Ae078F168Df44d8bf864B2439E8bb0C34A3575', // Comptroller implementation
+    Unitroller: '0xacC69d0cACfB5af2c80a052bA5c53e6dc201a3Da', // Comptroller proxy
+    FeedPriceOracle: '0x40C3338249BD5f20B1bC63A1B946f3bC70c65c78',
+    UnderwriterAdmin: '0x1C6a08B8f2cc2e21d602b6107064705ABE8b2A3e',
+    UnderwriterProxy: '0xfA2A9ad5a11ab3D08B4FC97d51610a57bA32D8a3',
+    WhitePaperInterestRateModel: '0x96fFa1203e4479f6656A21E5f00eEc284daD7141',// cToken InterestRateModel
+    ZeroInterestRateModel: '0xd5EEe630b58095A4655f0FC2B2600c88E9fD0e9e',      // suToken InterestRateModel
+    SUMER: '0xB28c8c2abF17243502eB28885455998e8B984B58',
+    ETH: '0x0000000000000000000000000000000000000000',
+    WBTC: '0x0D0267E89189D73826aeAa1556ac4428c845e68a',
+    USDC: '0x93de053520D42B3F74281852Bd56F232A4E643DA',
+    USDT: '0x61E2c1608B1caA59136BCB7845637858d216c3B9',
+    cETH: '0x5a12003643C45150D1B4c23aF04cC7488EA2e8b1',
+    cUSDC: '0xae3136539b32a561bcdC3Fd5f847C6a13702956E',
+    cUSDT: '0x96000aAf7b531C9b1415B456819E64da8D8A2F92',
+    cWBTC: '0xD50B503C48d7062835F7134FE53f1E092560C7B1',
+    suBTC: '0x4c86Ff87A56573ddE5786A185857bC0c580b6EF7',
+    suETH: '0xEe07f43d01A1cc28aEAED9baFB154aD897fCc838',
+    suUSD: '0x2dFa59cE6025FDDFc8A44068380b71570F8f88c8',
+    csuBTC: '0x6eeC5ff9736e619C376Bd866dDf5937f3efbd4cA',
+    csuETH: '0xb14900CC638F84a3E4F167a2776502C7BCd42CdD',
+    csuUSD: '0xb407883637Ef802b6D17FB65c722090933e18f26',
+    Multicall2: '0x86FDdc06Abb5b0A0F2CBCC133880a55F80038CB8',
+  }
 }
 
 const names = {}
