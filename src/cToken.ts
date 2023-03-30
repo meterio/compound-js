@@ -363,7 +363,11 @@ export async function repayBorrow(
 
   if (!isEther(this._network.name, cTokenName) && noApprove !== true) {
     const underlyingAddress = getAddress(this._network.name, asset)
-    const userAddress = this._provider.address
+    let userAddress = this._provider.address
+
+    if (!userAddress && this._provider.getAddress) {
+      userAddress = await this._provider.getAddress()
+    }
 
     // Check allowance
     const allowance = await eth.read(underlyingAddress, 'allowance', [userAddress, cTokenAddress], trxOptions)
