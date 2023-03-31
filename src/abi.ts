@@ -435,6 +435,25 @@ export const abi = {
       type: 'function',
     },
     {
+      inputs: [
+        {
+          internalType: "address[]",
+          name: "cTokens",
+          type: "address[]"
+        }
+      ],
+      name: "getUnderlyingPrices",
+      outputs: [
+        {
+          internalType: "uint256[]",
+          name: "",
+          type: "uint256[]"
+        }
+      ],
+      stateMutability: "view",
+      type: "function"
+    },
+    {
       constant: true,
       inputs: [],
       name: 'isPriceOracle',
@@ -4300,46 +4319,70 @@ export const abi = {
       type: 'function',
     },
     {
-      constant: false,
-      inputs: [
+      "inputs": [
         {
-          internalType: 'contract CToken[]',
-          name: 'cTokens',
-          type: 'address[]',
+          "internalType": "contract ICToken[]",
+          "name": "cTokens",
+          "type": "address[]"
         },
-        { internalType: 'address payable', name: 'account', type: 'address' },
-      ],
-      name: 'cTokenBalancesAll',
-      outputs: [
         {
-          components: [
-            { internalType: 'address', name: 'cToken', type: 'address' },
-            { internalType: 'uint256', name: 'balanceOf', type: 'uint256' },
+          "internalType": "address payable",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "cTokenBalancesAll",
+      "outputs": [
+        {
+          "components": [
             {
-              internalType: 'uint256',
-              name: 'borrowBalanceCurrent',
-              type: 'uint256',
+              "internalType": "address",
+              "name": "cToken",
+              "type": "address"
             },
             {
-              internalType: 'uint256',
-              name: 'balanceOfUnderlying',
-              type: 'uint256',
+              "internalType": "bool",
+              "name": "isCToken",
+              "type": "bool"
             },
-            { internalType: 'uint256', name: 'tokenBalance', type: 'uint256' },
             {
-              internalType: 'uint256',
-              name: 'tokenAllowance',
-              type: 'uint256',
+              "internalType": "bool",
+              "name": "isCEther",
+              "type": "bool"
             },
+            {
+              "internalType": "uint256",
+              "name": "balanceOf",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "borrowBalanceCurrent",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "balanceOfUnderlying",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenBalance",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenAllowance",
+              "type": "uint256"
+            }
           ],
-          internalType: 'struct CompoundLens.CTokenBalances[]',
-          name: '',
-          type: 'tuple[]',
-        },
+          "internalType": "struct CompoundLens.CTokenBalances[]",
+          "name": "",
+          "type": "tuple[]"
+        }
       ],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       constant: false,
@@ -4405,73 +4448,120 @@ export const abi = {
       type: 'function',
     },
     {
-      constant: false,
-      inputs: [
+      "inputs": [
         {
-          internalType: 'contract CToken[]',
-          name: 'cTokens',
-          type: 'address[]',
-        },
+          "internalType": "contract ICToken[]",
+          "name": "cTokens",
+          "type": "address[]"
+        }
       ],
-      name: 'cTokenMetadataAll',
-      outputs: [
+      "name": "cTokenMetadataAll",
+      "outputs": [
         {
-          components: [
-            { internalType: 'address', name: 'cToken', type: 'address' },
+          "components": [
             {
-              internalType: 'uint256',
-              name: 'exchangeRateCurrent',
-              type: 'uint256',
+              "internalType": "address",
+              "name": "cToken",
+              "type": "address"
             },
             {
-              internalType: 'uint256',
-              name: 'supplyRatePerBlock',
-              type: 'uint256',
+              "internalType": "uint256",
+              "name": "exchangeRateCurrent",
+              "type": "uint256"
             },
             {
-              internalType: 'uint256',
-              name: 'borrowRatePerBlock',
-              type: 'uint256',
+              "internalType": "uint256",
+              "name": "supplyRatePerBlock",
+              "type": "uint256"
             },
             {
-              internalType: 'uint256',
-              name: 'reserveFactorMantissa',
-              type: 'uint256',
-            },
-            { internalType: 'uint256', name: 'totalBorrows', type: 'uint256' },
-            { internalType: 'uint256', name: 'totalReserves', type: 'uint256' },
-            { internalType: 'uint256', name: 'totalSupply', type: 'uint256' },
-            { internalType: 'uint256', name: 'totalCash', type: 'uint256' },
-            { internalType: 'bool', name: 'isListed', type: 'bool' },
-            {
-              internalType: 'uint256',
-              name: 'collateralFactorMantissa',
-              type: 'uint256',
+              "internalType": "uint256",
+              "name": "borrowRatePerBlock",
+              "type": "uint256"
             },
             {
-              internalType: 'address',
-              name: 'underlyingAssetAddress',
-              type: 'address',
+              "internalType": "uint256",
+              "name": "reserveFactorMantissa",
+              "type": "uint256"
             },
             {
-              internalType: 'uint256',
-              name: 'cTokenDecimals',
-              type: 'uint256',
+              "internalType": "uint256",
+              "name": "totalBorrows",
+              "type": "uint256"
             },
             {
-              internalType: 'uint256',
-              name: 'underlyingDecimals',
-              type: 'uint256',
+              "internalType": "uint256",
+              "name": "totalReserves",
+              "type": "uint256"
             },
+            {
+              "internalType": "uint256",
+              "name": "totalSupply",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalCash",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isListed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "collateralFactorMantissa",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "underlyingAssetAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "cTokenDecimals",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "underlyingDecimals",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isCToken",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "isCEther",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "borrowCap",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "depositCap",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "liquidationIncentive",
+              "type": "uint256"
+            }
           ],
-          internalType: 'struct CompoundLens.CTokenMetadata[]',
-          name: '',
-          type: 'tuple[]',
-        },
+          "internalType": "struct CompoundLens.CTokenMetadata[]",
+          "name": "",
+          "type": "tuple[]"
+        }
       ],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       constant: false,

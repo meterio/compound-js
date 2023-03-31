@@ -201,7 +201,7 @@ const address = {
     BTCK: '0xfa93c12cd345c658bc4644d1d4e1b9615952258c',
   },
   metertest: {
-    CompoundLens: '0x134D6B876a1A4248af3aDb0345c196d557CbB46D',
+    CompoundLens: '0x86fba0a74cb19a43adc94dbae616e10efd19d5a0',
     Comptroller: '0x7F581Ec902D03990D597eb4a2C2AaaaF7E086Dce', // Comptroller implementation
     Unitroller: '0x43DC0b902E1478EEE3846cE064C81A2f2f393e09', // Comptroller proxy
     FeedPriceOracle: '0xa22Aeb26E5d701876ca15e9d42DD62218DB5945f',
@@ -215,9 +215,9 @@ const address = {
     WBTC: '0x7EB9e0Df1C6E6f1E9d3d1EdA09fcF688FE7A710c',
     cWBTC: '0x6a1CaB79D12A444b93cFFe80C7cA6E5Ee986DcAE',
     USDC: '0x2b27f5f7f2867ad9d2b7065f81e985c1bd1b7274',
-    cUSDC: '0xcE7Bc76A7B0075e120D6F76Fb706Bf8B09DA16C2',
+    cUSDC: '0xcE7Bc76A7B0075e120D6F76Fb706Bf8B09DA16C2',//
     USDT: '0x2398633bee182cad2d0388b41735fd9fb742098d',
-    cUSDT: '0x66860B7271436943c8BbD3B9290C69Cd8c04AdF1',
+    cUSDT: '0x66860B7271436943c8BbD3B9290C69Cd8c04AdF1',//
     BUSD: '0x660a3a1141632c9dcad8a5a3350f7ddd720bc15c',
     cBUSD: '0x443062b9caC64764f7532d21fd7D0019d9219b39',
     MTRG: '0x8a419ef4941355476cf04933e90bf3bbf2f73814',
@@ -233,7 +233,7 @@ const address = {
     Multicall2: '0x649e0ce6fc6191D67EA81Ba94b105E28D1815d95',
   },
   basetest: {
-    CompoundLens: '0xE0fb1204C26eE3D94dB8595291296f1F6FbDe181',
+    CompoundLens: '0xEa73F3ce2fc8c4bC7c4795621E314133bB49A9a3',
     Comptroller: '0xf27ceFF34fFac8218bD77Df4Ed7141DF4654eAf3', // Comptroller implementation
     Unitroller: '0xD26c4F0C4b4BD6620695468144F009DE7D88B430', // Comptroller proxy
     FeedPriceOracle: '0x7E875A17FeB1B1D4eD0fF9d65420e9260CfC7AFE',
