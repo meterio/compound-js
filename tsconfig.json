@@ -1,14 +1,12 @@
 {
   "compilerOptions": {
     "outDir": "dist/nodejs/",
-    "lib": ["es6", "dom"],
+    "lib": ["es7", "dom"],
     "resolveJsonModule": true,
     "sourceMap": true,
     "declaration": true,
     "experimentalDecorators": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }
