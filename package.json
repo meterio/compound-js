@@ -1,6 +1,6 @@
 {
   "name": "@meterio/compound-js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Decentralized Finance Labs",
   "description": "A JavaScript SDK for Ethereum and the Compound Protocol.",
   "license": "BSD-3-Clause",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./src/*.ts",
-    "build": "",
+    "build": "tsc && npm run rollup; cp src/typechain/*.d.ts dist/nodejs/typechain/",
     "copy-dts": "cp src/typechain/*.d.ts dist/nodejs/typechain/",
     "docs": "node ./scripts/compound-docs.js",
     "prepare": "npm run build",
