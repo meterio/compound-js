@@ -1,467 +1,1162 @@
 export const abi = {
   UnderwriterAdmin: [
     {
-      inputs: [{ internalType: 'address', name: '_gov', type: 'address' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'constructor',
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "errorCode",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "infoCode",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "detailCode",
+          type: "uint256",
+        },
+      ],
+      name: "ComptrollerError",
+      type: "error",
     },
     {
       anonymous: false,
       inputs: [
-        { indexed: false, internalType: 'string', name: 'action', type: 'string' },
-        { indexed: false, internalType: 'bool', name: 'pauseState', type: 'bool' },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "string",
+          name: "action",
+          type: "string",
+        },
+        {
+          indexed: false,
+          internalType: "bool",
+          name: "pauseState",
+          type: "bool",
+        },
       ],
-      name: 'ActionPaused',
-      type: 'event',
+      name: "ActionPaused",
+      type: "event",
     },
     {
       anonymous: false,
       inputs: [
-        { indexed: false, internalType: 'contract CToken', name: 'cToken', type: 'address' },
-        { indexed: false, internalType: 'string', name: 'action', type: 'string' },
-        { indexed: false, internalType: 'bool', name: 'pauseState', type: 'bool' },
+        {
+          indexed: false,
+          internalType: "uint8",
+          name: "version",
+          type: "uint8",
+        },
       ],
-      name: 'ActionPaused',
-      type: 'event',
+      name: "Initialized",
+      type: "event",
     },
     {
       anonymous: false,
       inputs: [
-        { indexed: false, internalType: 'uint256', name: 'error', type: 'uint256' },
-        { indexed: false, internalType: 'uint256', name: 'info', type: 'uint256' },
-        { indexed: false, internalType: 'uint256', name: 'detail', type: 'uint256' },
+        {
+          indexed: true,
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+        {
+          indexed: true,
+          internalType: "string",
+          name: "groupName",
+          type: "string",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "intraCRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "intraMintRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "intraSuRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "interCRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "interSuRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint8",
+          name: "assetsGroupNum",
+          type: "uint8",
+        },
       ],
-      name: 'Failure',
-      type: 'event',
+      name: "NewAssetGroup",
+      type: "event",
     },
     {
       anonymous: false,
       inputs: [
-        { indexed: true, internalType: 'contract CToken', name: 'cToken', type: 'address' },
-        { indexed: false, internalType: 'uint256', name: 'newBorrowCap', type: 'uint256' },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "newBorrowCap",
+          type: "uint256",
+        },
       ],
-      name: 'NewBorrowCap',
-      type: 'event',
+      name: "NewBorrowCap",
+      type: "event",
     },
     {
       anonymous: false,
       inputs: [
-        { indexed: false, internalType: 'address', name: 'oldBorrowCapGuardian', type: 'address' },
-        { indexed: false, internalType: 'address', name: 'newBorrowCapGuardian', type: 'address' },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "oldBorrowCapGuardian",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "newBorrowCapGuardian",
+          type: "address",
+        },
       ],
-      name: 'NewBorrowCapGuardian',
-      type: 'event',
+      name: "NewBorrowCapGuardian",
+      type: "event",
     },
     {
       anonymous: false,
       inputs: [
-        { indexed: false, internalType: 'address', name: 'oldPauseGuardian', type: 'address' },
-        { indexed: false, internalType: 'address', name: 'newPauseGuardian', type: 'address' },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "oldPauseGuardian",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "newPauseGuardian",
+          type: "address",
+        },
       ],
-      name: 'NewPauseGuardian',
-      type: 'event',
+      name: "NewPauseGuardian",
+      type: "event",
     },
     {
-      constant: true,
-      inputs: [],
-      name: '_borrowGuardianPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: '_getBorrowCapGuardian',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [{ internalType: 'contract CToken', name: 'cToken', type: 'address' }],
-      name: '_getBorrowPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [{ internalType: 'contract CToken', name: 'cToken', type: 'address' }],
-      name: '_getMarketBorrowCap',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'contract CToken', name: 'cToken', type: 'address' }],
-      name: '_getMintPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: '_getPauseGuardian',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: '_getSeizePaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: '_getSuTokenRateMantissa',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: '_getTransferPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: '_mintGuardianPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'address', name: 'newBorrowCapGuardian', type: 'address' }],
-      name: '_setBorrowCapGuardian',
-      outputs: [],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: false,
+      anonymous: false,
       inputs: [
-        { internalType: 'contract CToken', name: 'cToken', type: 'address' },
-        { internalType: 'bool', name: 'state', type: 'bool' },
+        {
+          indexed: true,
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+        {
+          indexed: false,
+          internalType: "uint8",
+          name: "equalAssetsGroupNum",
+          type: "uint8",
+        },
       ],
-      name: '_setBorrowPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
+      name: "RemoveAssetGroup",
+      type: "event",
     },
     {
-      constant: false,
-      inputs: [
-        { internalType: 'contract CToken[]', name: 'cTokens', type: 'address[]' },
-        { internalType: 'uint256[]', name: 'newBorrowCaps', type: 'uint256[]' },
-      ],
-      name: '_setMarketBorrowCaps',
-      outputs: [],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        { internalType: 'contract CToken', name: 'cToken', type: 'address' },
-        { internalType: 'bool', name: 'state', type: 'bool' },
-      ],
-      name: '_setMintPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'address', name: 'newPauseGuardian', type: 'address' }],
-      name: '_setPauseGuardian',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'bool', name: 'state', type: 'bool' }],
-      name: '_setSeizePaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'uint256', name: '_suTokenRateMantissa', type: 'uint256' }],
-      name: '_setSuTokenRateMantissa',
-      outputs: [],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'bool', name: 'state', type: 'bool' }],
-      name: '_setTransferPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: true,
       inputs: [],
-      name: 'admin',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'borrowCapGuardian',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [{ internalType: 'address', name: '', type: 'address' }],
-      name: 'borrowCaps',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [{ internalType: 'address', name: '', type: 'address' }],
-      name: 'borrowGuardianPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
-      name: 'eqAssetGroup',
+      name: "_borrowGuardianPaused",
       outputs: [
-        { internalType: 'uint8', name: 'groupId', type: 'uint8' },
-        { internalType: 'string', name: 'groupName', type: 'string' },
-        { internalType: 'uint256', name: 'inGroupCTokenRateMantissa', type: 'uint256' },
-        { internalType: 'uint256', name: 'inGroupSuTokenRateMantissa', type: 'uint256' },
-        { internalType: 'uint256', name: 'interGroupCTokenRateMantissa', type: 'uint256' },
-        { internalType: 'uint256', name: 'interGroupSuTokenRateMantissa', type: 'uint256' },
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
       ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      stateMutability: "view",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [],
-      name: 'equalAssetsGroupNum',
-      outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      name: "_getBorrowCapGuardian",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
-      constant: true,
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+      ],
+      name: "_getBorrowPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+      ],
+      name: "_getMarketBorrowCap",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+      ],
+      name: "_getMintPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [],
-      name: 'getCompAddress',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      name: "_getPauseGuardian",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
-      constant: true,
-      inputs: [{ internalType: 'uint8', name: 'groupId', type: 'uint8' }],
-      name: 'getEqAssetGroup',
+      inputs: [],
+      name: "_getSeizePaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "_getTransferPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "_mintGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "newBorrowCapGuardian",
+          type: "address",
+        },
+      ],
+      name: "_setBorrowCapGuardian",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract ICToken",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          internalType: "bool",
+          name: "state",
+          type: "bool",
+        },
+      ],
+      name: "_setBorrowPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract ICToken[]",
+          name: "cTokens",
+          type: "address[]",
+        },
+        {
+          internalType: "uint256[]",
+          name: "newBorrowCaps",
+          type: "uint256[]",
+        },
+      ],
+      name: "_setMarketBorrowCaps",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract ICToken",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          internalType: "bool",
+          name: "state",
+          type: "bool",
+        },
+      ],
+      name: "_setMintPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "newPauseGuardian",
+          type: "address",
+        },
+      ],
+      name: "_setPauseGuardian",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bool",
+          name: "state",
+          type: "bool",
+        },
+      ],
+      name: "_setSeizePaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bool",
+          name: "state",
+          type: "bool",
+        },
+      ],
+      name: "_setTransferPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "admin",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "borrowCapGuardian",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "borrowCaps",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "borrowGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      name: "eqAssetGroup",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+        {
+          internalType: "string",
+          name: "groupName",
+          type: "string",
+        },
+        {
+          internalType: "uint256",
+          name: "intraCRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "intraMintRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "intraSuRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interCRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interSuRateMantissa",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "equalAssetsGroupNum",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+      ],
+      name: "getAssetGroup",
       outputs: [
         {
           components: [
-            { internalType: 'uint8', name: 'groupId', type: 'uint8' },
-            { internalType: 'string', name: 'groupName', type: 'string' },
-            { internalType: 'uint256', name: 'inGroupCTokenRateMantissa', type: 'uint256' },
-            { internalType: 'uint256', name: 'inGroupSuTokenRateMantissa', type: 'uint256' },
-            { internalType: 'uint256', name: 'interGroupCTokenRateMantissa', type: 'uint256' },
-            { internalType: 'uint256', name: 'interGroupSuTokenRateMantissa', type: 'uint256' },
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "string",
+              name: "groupName",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "intraCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraMintRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraSuRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interSuRateMantissa",
+              type: "uint256",
+            },
           ],
-          internalType: 'struct UnderwriterAdminInterface.EqualAssets',
-          name: '',
-          type: 'tuple',
+          internalType: "struct IUnderwriterAdmin.AssetGroup",
+          name: "",
+          type: "tuple",
         },
       ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      stateMutability: "view",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [],
-      name: 'getEqAssetGroupNum',
-      outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'governanceToken',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [{ internalType: 'address', name: '', type: 'address' }],
-      name: 'mintGuardianPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'pauseGuardian',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'uint8', name: 'groupId', type: 'uint8' }],
-      name: 'removeEqAssetGroup',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: true,
-      inputs: [],
-      name: 'seizeGuardianPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        { internalType: 'uint8', name: 'groupId', type: 'uint8' },
-        { internalType: 'string', name: 'groupName', type: 'string' },
-        { internalType: 'uint256', name: 'inGroupCTokenRateMantissa', type: 'uint256' },
-        { internalType: 'uint256', name: 'inGroupSuTokenRateMantissa', type: 'uint256' },
-        { internalType: 'uint256', name: 'interGroupCTokenRateMantissa', type: 'uint256' },
-        { internalType: 'uint256', name: 'interGroupSuTokenRateMantissa', type: 'uint256' },
+      name: "getAssetGroupNum",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
       ],
-      name: 'setEqAssetGroup',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
+      stateMutability: "view",
+      type: "function",
     },
     {
-      constant: false,
-      inputs: [{ internalType: 'address', name: '_governanceToken', type: 'address' }],
-      name: 'setGovTokenAddress',
+      inputs: [],
+      name: "getCompAddress",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "governanceToken",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_gov",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "_admin",
+          type: "address",
+        },
+      ],
+      name: "initialize",
       outputs: [],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      constant: true,
-      inputs: [],
-      name: 'suTokenRateMantissa',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "mintGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [],
-      name: 'transferGuardianPaused',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      name: "pauseGuardian",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+      ],
+      name: "removeAssetGroup",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "seizeGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+        {
+          internalType: "string",
+          name: "groupName",
+          type: "string",
+        },
+        {
+          internalType: "uint256",
+          name: "intraCRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "intraMintRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "intraSuRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interCRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interSuRateMantissa",
+          type: "uint256",
+        },
+      ],
+      name: "setAssetGroup",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_governanceToken",
+          type: "address",
+        },
+      ],
+      name: "setGovTokenAddress",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "suTokenRateMantissa",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "transferGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
   ],
   PriceOracle: [
     {
-      constant: true,
-      inputs: [{ internalType: 'contract CToken', name: 'cToken', type: 'address' }],
-      name: 'getUnderlyingPrice',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          internalType: "address[]",
-          name: "cTokens",
-          type: "address[]"
+          "indexed": true,
+          "internalType": "address",
+          "name": "cToken_",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "feedId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
         }
       ],
-      name: "getUnderlyingPrices",
-      outputs: [
-        {
-          internalType: "uint256[]",
-          name: "",
-          type: "uint256[]"
-        }
-      ],
-      stateMutability: "view",
-      type: "function"
+      "name": "SetFeed",
+      "type": "event"
     },
     {
-      constant: true,
-      inputs: [],
-      name: 'isPriceOracle',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner_",
+          "type": "address"
+        }
+      ],
+      "name": "changeOwner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "feeds",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "feedId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint8",
+          "name": "tokenDecimals",
+          "type": "uint8"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "fixedPrices",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "cToken_",
+          "type": "address"
+        }
+      ],
+      "name": "getFeed",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "feedId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint8",
+              "name": "tokenDecimals",
+              "type": "uint8"
+            },
+            {
+              "internalType": "address",
+              "name": "addr",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct PythOracle.FeedData",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "cToken_",
+          "type": "address"
+        }
+      ],
+      "name": "getFixedPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "cToken_",
+          "type": "address"
+        }
+      ],
+      "name": "getUnderlyingPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "cTokens",
+          "type": "address[]"
+        }
+      ],
+      "name": "getUnderlyingPrices",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "isPriceOracle",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "cToken_",
+          "type": "address"
+        }
+      ],
+      "name": "removeFeed",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "cToken_",
+          "type": "address"
+        }
+      ],
+      "name": "removeFixedPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "cToken_",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "feedId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "uint8",
+          "name": "tokenDecimals",
+          "type": "uint8"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "name": "setFeedId",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "cToken_",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "setFixedPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
   ],
   Erc20: [
     {
@@ -2925,1934 +3620,2245 @@ export const abi = {
   ],
   Comptroller: [
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          indexed: false,
+          internalType: "uint8",
+          name: "version",
+          type: "uint8",
         },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "newSpeed",
-          "type": "uint256"
-        }
       ],
-      "name": "CompBorrowSpeedUpdated",
-      "type": "event"
+      name: "Initialized",
+      type: "event",
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": false,
-          "internalType": "address",
-          "name": "recipient",
-          "type": "address"
+          indexed: false,
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
+          indexed: false,
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
       ],
-      "name": "CompGranted",
-      "type": "event"
+      name: "MarketEntered",
+      type: "event",
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          indexed: false,
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "newSpeed",
-          "type": "uint256"
-        }
+          indexed: false,
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
       ],
-      "name": "CompSupplySpeedUpdated",
-      "type": "event"
+      name: "MarketExited",
+      type: "event",
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "contributor",
-          "type": "address"
+          indexed: false,
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "newSpeed",
-          "type": "uint256"
-        }
       ],
-      "name": "ContributorCompSpeedUpdated",
-      "type": "event"
+      name: "MarketListed",
+      type: "event",
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          indexed: false,
+          internalType: "uint256",
+          name: "oldCloseFactorMantissa",
+          type: "uint256",
         },
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "borrower",
-          "type": "address"
+          indexed: false,
+          internalType: "uint256",
+          name: "newCloseFactorMantissa",
+          type: "uint256",
         },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "compDelta",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "compBorrowIndex",
-          "type": "uint256"
-        }
       ],
-      "name": "DistributedBorrowerComp",
-      "type": "event"
+      name: "NewCloseFactor",
+      type: "event",
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          indexed: false,
+          internalType: "uint256",
+          name: "oldLiquidationIncentiveMantissa",
+          type: "uint256",
         },
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "supplier",
-          "type": "address"
+          indexed: false,
+          internalType: "uint256",
+          name: "newLiquidationIncentiveMantissa",
+          type: "uint256",
+        },
+      ],
+      name: "NewLiquidationIncentive",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "address",
+          name: "oldPriceOracle",
+          type: "address",
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "compDelta",
-          "type": "uint256"
+          indexed: false,
+          internalType: "address",
+          name: "newPriceOracle",
+          type: "address",
+        },
+      ],
+      name: "NewPriceOracle",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "compSupplyIndex",
-          "type": "uint256"
-        }
-      ],
-      "name": "DistributedSupplierComp",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          indexed: true,
+          internalType: "bytes32",
+          name: "previousAdminRole",
+          type: "bytes32",
         },
         {
-          "indexed": false,
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
+          indexed: true,
+          internalType: "bytes32",
+          name: "newAdminRole",
+          type: "bytes32",
+        },
       ],
-      "name": "MarketEntered",
-      "type": "event"
+      name: "RoleAdminChanged",
+      type: "event",
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": false,
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          indexed: true,
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
         },
         {
-          "indexed": false,
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "MarketExited",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
-        }
-      ],
-      "name": "MarketListed",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "oldCloseFactorMantissa",
-          "type": "uint256"
+          indexed: true,
+          internalType: "address",
+          name: "account",
+          type: "address",
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "newCloseFactorMantissa",
-          "type": "uint256"
-        }
+          indexed: true,
+          internalType: "address",
+          name: "sender",
+          type: "address",
+        },
       ],
-      "name": "NewCloseFactor",
-      "type": "event"
+      name: "RoleGranted",
+      type: "event",
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "oldLiquidationIncentiveMantissa",
-          "type": "uint256"
+          indexed: true,
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "newLiquidationIncentiveMantissa",
-          "type": "uint256"
-        }
-      ],
-      "name": "NewLiquidationIncentive",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "oldPriceOracle",
-          "type": "address"
+          indexed: true,
+          internalType: "address",
+          name: "account",
+          type: "address",
         },
         {
-          "indexed": false,
-          "internalType": "address",
-          "name": "newPriceOracle",
-          "type": "address"
-        }
+          indexed: true,
+          internalType: "address",
+          name: "sender",
+          type: "address",
+        },
       ],
-      "name": "NewPriceOracle",
-      "type": "event"
+      name: "RoleRevoked",
+      type: "event",
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          indexed: true,
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
+          indexed: false,
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
       ],
-      "name": "SetMaxSupply",
-      "type": "event"
+      name: "SetMaxSupply",
+      type: "event",
     },
     {
-      "inputs": [
+      inputs: [],
+      name: "COMP_LOGIC",
+      outputs: [
         {
-          "internalType": "address",
-          "name": "recipient",
-          "type": "address"
+          internalType: "bytes32",
+          name: "",
+          type: "bytes32",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "DEFAULT_ADMIN_ROLE",
+      outputs: [
+        {
+          internalType: "bytes32",
+          name: "",
+          type: "bytes32",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "newCloseFactorMantissa",
+          type: "uint256",
+        },
+      ],
+      name: "_setCloseFactor",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "newLiquidationIncentiveMantissa",
+          type: "uint256",
+        },
+      ],
+      name: "_setLiquidationIncentive",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract IPriceOracle",
+          name: "newOracle",
+          type: "address",
+        },
+      ],
+      name: "_setPriceOracle",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract IUnderwriterAdmin",
+          name: "underWriter",
+          type: "address",
+        },
+      ],
+      name: "_setUnderWriterAdmin",
+      outputs: [
+        {
+          internalType: "contract IUnderwriterAdmin",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
       ],
-      "name": "_grantComp",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: "_supportMarket",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "uint256",
-          "name": "newCloseFactorMantissa",
-          "type": "uint256"
-        }
-      ],
-      "name": "_setCloseFactor",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address[]",
-          "name": "cTokens",
-          "type": "address[]"
+          internalType: "address",
+          name: "",
+          type: "address",
         },
         {
-          "internalType": "uint256[]",
-          "name": "supplySpeeds",
-          "type": "uint256[]"
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      name: "accountAssets",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "accountLiquidity",
+      outputs: [
+        {
+          internalType: "contract IAccountLiquidity",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      name: "allMarkets",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "internalType": "uint256[]",
-          "name": "borrowSpeeds",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "_setCompSpeeds",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "contributor",
-          "type": "address"
+          internalType: "address",
+          name: "borrower",
+          type: "address",
         },
         {
-          "internalType": "uint256",
-          "name": "compSpeed",
-          "type": "uint256"
-        }
+          internalType: "uint256",
+          name: "borrowAmount",
+          type: "uint256",
+        },
       ],
-      "name": "_setContributorCompSpeed",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: "borrowAllowed",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "uint256",
-          "name": "newLiquidationIncentiveMantissa",
-          "type": "uint256"
-        }
-      ],
-      "name": "_setLiquidationIncentive",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newOracle",
-          "type": "address"
-        }
-      ],
-      "name": "_setPriceOracle",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "underWriter",
-          "type": "address"
-        }
-      ],
-      "name": "_setUnderWriterAdmin",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          internalType: "address",
+          name: "account",
+          type: "address",
         },
         {
-          "internalType": "uint8",
-          "name": "groupId",
-          "type": "uint8"
-        }
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
       ],
-      "name": "_supportMarket",
-      "outputs": [
+      name: "checkMembership",
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
       ],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [],
+      name: "closeFactorMantissa",
+      outputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
         },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
       ],
-      "name": "accountAssets",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [],
-      "name": "admin",
-      "outputs": [
+      inputs: [],
+      name: "compLogic",
+      outputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
+          internalType: "contract ICompLogic",
+          name: "",
+          type: "address",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "address[]",
+          name: "cTokens",
+          type: "address[]",
+        },
       ],
-      "name": "allMarkets",
-      "outputs": [
+      name: "enterMarkets",
+      outputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
+          internalType: "uint256[]",
+          name: "",
+          type: "uint256[]",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          internalType: "address",
+          name: "cTokenAddress",
+          type: "address",
         },
+      ],
+      name: "exitMarket",
+      outputs: [
         {
-          "internalType": "address",
-          "name": "borrower",
-          "type": "address"
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
         },
-        {
-          "internalType": "uint256",
-          "name": "borrowAmount",
-          "type": "uint256"
-        }
       ],
-      "name": "borrowAllowed",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+      ],
+      name: "getAccountLiquidity",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
         },
         {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
-        }
-      ],
-      "name": "checkMembership",
-      "outputs": [
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
         {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [],
+      name: "getAllMarkets",
+      outputs: [
         {
-          "internalType": "address",
-          "name": "holder",
-          "type": "address"
+          internalType: "address[]",
+          name: "",
+          type: "address[]",
         },
-        {
-          "internalType": "address[]",
-          "name": "cTokens",
-          "type": "address[]"
-        }
       ],
-      "name": "claimComp",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address[]",
-          "name": "holders",
-          "type": "address[]"
+          internalType: "address",
+          name: "account",
+          type: "address",
         },
-        {
-          "internalType": "address[]",
-          "name": "cTokens",
-          "type": "address[]"
-        },
-        {
-          "internalType": "bool",
-          "name": "borrowers",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "suppliers",
-          "type": "bool"
-        }
       ],
-      "name": "claimComp",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: "getAssetsIn",
+      outputs: [
+        {
+          internalType: "address[]",
+          name: "",
+          type: "address[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "holder",
-          "type": "address"
-        }
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "cTokenModify",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "redeemTokens",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "borrowAmount",
+          type: "uint256",
+        },
       ],
-      "name": "claimComp",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: "getHypotheticalAccountLiquidity",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [],
-      "name": "closeFactorMantissa",
-      "outputs": [
+      inputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "getRoleAdmin",
+      outputs: [
+        {
+          internalType: "bytes32",
+          name: "",
+          type: "bytes32",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "compAccrued",
-      "outputs": [
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
+        },
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "uint256",
+          name: "index",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "getRoleMember",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
+        },
       ],
-      "name": "compBorrowSpeeds",
-      "outputs": [
+      name: "getRoleMemberCount",
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "compBorrowState",
-      "outputs": [
-        {
-          "internalType": "uint224",
-          "name": "index",
-          "type": "uint224"
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
         },
         {
-          "internalType": "uint32",
-          "name": "block",
-          "type": "uint32"
-        }
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "grantRole",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
         },
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
       ],
-      "name": "compBorrowerIndex",
-      "outputs": [
+      name: "hasRole",
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "compContributorSpeeds",
-      "outputs": [
+          internalType: "address",
+          name: "_admin",
+          type: "address",
+        },
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "contract IPriceOracle",
+          name: "_oracle",
+          type: "address",
+        },
+        {
+          internalType: "contract IUnderwriterAdmin",
+          name: "_underWriterAdmin",
+          type: "address",
+        },
+        {
+          internalType: "contract ICompLogic",
+          name: "_compLogic",
+          type: "address",
+        },
+        {
+          internalType: "contract IAccountLiquidity",
+          name: "_accountLiquidity",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "_closeFactorMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_liquidationIncentiveMantissa",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "initialize",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [],
-      "name": "compInitialIndex",
-      "outputs": [
+      inputs: [],
+      name: "isComptroller",
+      outputs: [
         {
-          "internalType": "uint224",
-          "name": "",
-          "type": "uint224"
-        }
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
+          internalType: "address",
+          name: "asset",
+          type: "address",
         },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
       ],
-      "name": "compSupplierIndex",
-      "outputs": [
+      name: "isListed",
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [],
+      name: "liquidationIncentiveMantissa",
+      outputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
       ],
-      "name": "compSupplySpeeds",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "compSupplyState",
-      "outputs": [
-        {
-          "internalType": "uint224",
-          "name": "index",
-          "type": "uint224"
+          internalType: "address",
+          name: "asset",
+          type: "address",
         },
-        {
-          "internalType": "uint32",
-          "name": "block",
-          "type": "uint32"
-        }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "marketGroupId",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address[]",
-          "name": "cTokens",
-          "type": "address[]"
-        }
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
       ],
-      "name": "enterMarkets",
-      "outputs": [
+      name: "markets",
+      outputs: [
         {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
+          internalType: "bool",
+          name: "isListed",
+          type: "bool",
+        },
+        {
+          internalType: "uint8",
+          name: "assetGroupId",
+          type: "uint8",
+        },
+        {
+          internalType: "bool",
+          name: "isComped",
+          type: "bool",
+        },
       ],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "cTokenAddress",
-          "type": "address"
-        }
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
       ],
-      "name": "exitMarket",
-      "outputs": [
+      name: "maxSupply",
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "getAccountLiquidity",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
+          internalType: "address",
+          name: "minter",
+          type: "address",
         },
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "uint256",
+          name: "mintAmount",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "mintAllowed",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [],
-      "name": "getAllMarkets",
-      "outputs": [
+      inputs: [],
+      name: "oracle",
+      outputs: [
         {
-          "internalType": "address[]",
-          "name": "",
-          "type": "address[]"
-        }
+          internalType: "contract IPriceOracle",
+          name: "",
+          type: "address",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "getAssetsIn",
-      "outputs": [
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
         {
-          "internalType": "address[]",
-          "name": "",
-          "type": "address[]"
-        }
+          internalType: "address",
+          name: "redeemer",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "redeemTokens",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "redeemAllowed",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "account",
-          "type": "address"
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "internalType": "address",
-          "name": "cTokenModify",
-          "type": "address"
+          internalType: "address",
+          name: "redeemer",
+          type: "address",
         },
         {
-          "internalType": "uint256",
-          "name": "redeemTokens",
-          "type": "uint256"
+          internalType: "uint256",
+          name: "redeemAmount",
+          type: "uint256",
         },
         {
-          "internalType": "uint256",
-          "name": "borrowAmount",
-          "type": "uint256"
-        }
+          internalType: "uint256",
+          name: "redeemTokens",
+          type: "uint256",
+        },
       ],
-      "name": "getHypotheticalAccountLiquidity",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "redeemVerify",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "_admin",
-          "type": "address"
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
         },
         {
-          "internalType": "address",
-          "name": "_oracle",
-          "type": "address"
+          internalType: "address",
+          name: "account",
+          type: "address",
         },
-        {
-          "internalType": "address",
-          "name": "_underWriterAdmin",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_closeFactorMantissa",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_liquidationIncentiveMantissa",
-          "type": "uint256"
-        }
       ],
-      "name": "initialize",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: "renounceRole",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [],
-      "name": "isComptroller",
-      "outputs": [
+      inputs: [
         {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "payer",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "borrower",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "repayAmount",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "repayBorrowAllowed",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "asset",
-          "type": "address"
-        }
-      ],
-      "name": "isListed",
-      "outputs": [
+          internalType: "bytes32",
+          name: "role",
+          type: "bytes32",
+        },
         {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "revokeRole",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "lastContributorBlock",
-      "outputs": [
+          internalType: "address",
+          name: "cTokenCollateral",
+          type: "address",
+        },
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "address",
+          name: "cTokenBorrowed",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "liquidator",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "borrower",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "seizeTokens",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "seizeAllowed",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [],
-      "name": "liquidationIncentiveMantissa",
-      "outputs": [
+      inputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "contract IAccountLiquidity",
+          name: "_accountLiquidity",
+          type: "address",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "setAccountLiquidity",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "asset",
-          "type": "address"
-        }
+          internalType: "contract ICompLogic",
+          name: "_compLogic",
+          type: "address",
+        },
       ],
-      "name": "marketGroupId",
-      "outputs": [
-        {
-          "internalType": "uint8",
-          "name": "",
-          "type": "uint8"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "setComptroller",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "markets",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "isListed",
-          "type": "bool"
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "internalType": "uint8",
-          "name": "equalAssetGrouId",
-          "type": "uint8"
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
         },
-        {
-          "internalType": "bool",
-          "name": "isComped",
-          "type": "bool"
-        }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      name: "setMaxSupply",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
+          internalType: "bytes4",
+          name: "interfaceId",
+          type: "bytes4",
+        },
       ],
-      "name": "maxSupply",
-      "outputs": [
+      name: "supportsInterface",
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
+          internalType: "address",
+          name: "cToken",
+          type: "address",
         },
         {
-          "internalType": "address",
-          "name": "minter",
-          "type": "address"
+          internalType: "address",
+          name: "src",
+          type: "address",
         },
         {
-          "internalType": "uint256",
-          "name": "mintAmount",
-          "type": "uint256"
-        }
-      ],
-      "name": "mintAllowed",
-      "outputs": [
+          internalType: "address",
+          name: "dst",
+          type: "address",
+        },
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
+          internalType: "uint256",
+          name: "transferTokens",
+          type: "uint256",
+        },
       ],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: "transferAllowed",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      "inputs": [],
-      "name": "oracle",
-      "outputs": [
+      inputs: [],
+      name: "underWriterAdmin",
+      outputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
+          internalType: "contract IUnderwriterAdmin",
+          name: "",
+          type: "address",
+        },
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: "view",
+      type: "function",
     },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "redeemer",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "redeemTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "redeemAllowed",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "redeemer",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "redeemAmount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "redeemTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "redeemVerify",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "payer",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "borrower",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "repayAmount",
-          "type": "uint256"
-        }
-      ],
-      "name": "repayBorrowAllowed",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "cTokenCollateral",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "cTokenBorrowed",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "liquidator",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "borrower",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "seizeTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "seizeAllowed",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "setMaxSupply",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "cToken",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "src",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "dst",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "transferTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "transferAllowed",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "underWriterAdmin",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "contributor",
-          "type": "address"
-        }
-      ],
-      "name": "updateContributorRewards",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
   ],
   PriceFeed: ['function price(string symbol) returns (uint256)'],
   CompoundLens: [
     {
-      constant: false,
-      inputs: [
-        { internalType: 'contract CToken', name: 'cToken', type: 'address' },
-        { internalType: 'address payable', name: 'account', type: 'address' },
-      ],
-      name: 'cTokenBalances',
-      outputs: [
-        {
-          components: [
-            { internalType: 'address', name: 'cToken', type: 'address' },
-            { internalType: 'uint256', name: 'balanceOf', type: 'uint256' },
-            {
-              internalType: 'uint256',
-              name: 'borrowBalanceCurrent',
-              type: 'uint256',
-            },
-            {
-              internalType: 'uint256',
-              name: 'balanceOfUnderlying',
-              type: 'uint256',
-            },
-            { internalType: 'uint256', name: 'tokenBalance', type: 'uint256' },
-            {
-              internalType: 'uint256',
-              name: 'tokenAllowance',
-              type: 'uint256',
-            },
-          ],
-          internalType: 'struct CompoundLens.CTokenBalances',
-          name: '',
-          type: 'tuple',
-        },
-      ],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "contract ICToken[]",
-          "name": "cTokens",
-          "type": "address[]"
-        },
-        {
-          "internalType": "address payable",
-          "name": "account",
-          "type": "address"
-        }
-      ],
-      "name": "cTokenBalancesAll",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "address",
-              "name": "cToken",
-              "type": "address"
-            },
-            {
-              "internalType": "bool",
-              "name": "isCToken",
-              "type": "bool"
-            },
-            {
-              "internalType": "bool",
-              "name": "isCEther",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint256",
-              "name": "balanceOf",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "borrowBalanceCurrent",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "balanceOfUnderlying",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "tokenBalance",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "tokenAllowance",
-              "type": "uint256"
-            }
-          ],
-          "internalType": "struct CompoundLens.CTokenBalances[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'contract CToken', name: 'cToken', type: 'address' }],
-      name: 'cTokenMetadata',
-      outputs: [
-        {
-          components: [
-            { internalType: 'address', name: 'cToken', type: 'address' },
-            {
-              internalType: 'uint256',
-              name: 'exchangeRateCurrent',
-              type: 'uint256',
-            },
-            {
-              internalType: 'uint256',
-              name: 'supplyRatePerBlock',
-              type: 'uint256',
-            },
-            {
-              internalType: 'uint256',
-              name: 'borrowRatePerBlock',
-              type: 'uint256',
-            },
-            {
-              internalType: 'uint256',
-              name: 'reserveFactorMantissa',
-              type: 'uint256',
-            },
-            { internalType: 'uint256', name: 'totalBorrows', type: 'uint256' },
-            { internalType: 'uint256', name: 'totalReserves', type: 'uint256' },
-            { internalType: 'uint256', name: 'totalSupply', type: 'uint256' },
-            { internalType: 'uint256', name: 'totalCash', type: 'uint256' },
-            { internalType: 'bool', name: 'isListed', type: 'bool' },
-            {
-              internalType: 'uint256',
-              name: 'collateralFactorMantissa',
-              type: 'uint256',
-            },
-            {
-              internalType: 'address',
-              name: 'underlyingAssetAddress',
-              type: 'address',
-            },
-            {
-              internalType: 'uint256',
-              name: 'cTokenDecimals',
-              type: 'uint256',
-            },
-            {
-              internalType: 'uint256',
-              name: 'underlyingDecimals',
-              type: 'uint256',
-            },
-          ],
-          internalType: 'struct CompoundLens.CTokenMetadata',
-          name: '',
-          type: 'tuple',
-        },
-      ],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "contract ICToken[]",
-          "name": "cTokens",
-          "type": "address[]"
-        }
-      ],
-      "name": "cTokenMetadataAll",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "address",
-              "name": "cToken",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "exchangeRateCurrent",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "supplyRatePerBlock",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "borrowRatePerBlock",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "reserveFactorMantissa",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "totalBorrows",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "totalReserves",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "totalSupply",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "totalCash",
-              "type": "uint256"
-            },
-            {
-              "internalType": "bool",
-              "name": "isListed",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint256",
-              "name": "collateralFactorMantissa",
-              "type": "uint256"
-            },
-            {
-              "internalType": "address",
-              "name": "underlyingAssetAddress",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "cTokenDecimals",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "underlyingDecimals",
-              "type": "uint256"
-            },
-            {
-              "internalType": "bool",
-              "name": "isCToken",
-              "type": "bool"
-            },
-            {
-              "internalType": "bool",
-              "name": "isCEther",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint256",
-              "name": "borrowCap",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "depositCap",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "liquidationIncentive",
-              "type": "uint256"
-            }
-          ],
-          "internalType": "struct CompoundLens.CTokenMetadata[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      constant: false,
-      inputs: [{ internalType: 'contract CToken', name: 'cToken', type: 'address' }],
-      name: 'cTokenUnderlyingPrice',
-      outputs: [
-        {
-          components: [
-            { internalType: 'address', name: 'cToken', type: 'address' },
-            {
-              internalType: 'uint256',
-              name: 'underlyingPrice',
-              type: 'uint256',
-            },
-          ],
-          internalType: 'struct CompoundLens.CTokenUnderlyingPrice',
-          name: '',
-          type: 'tuple',
-        },
-      ],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: false,
       inputs: [
         {
-          internalType: 'contract CToken[]',
-          name: 'cTokens',
-          type: 'address[]',
+          internalType: "contract ICToken",
+          name: "cToken",
+          type: "address",
         },
-      ],
-      name: 'cTokenUnderlyingPriceAll',
-      outputs: [
         {
-          components: [
-            { internalType: 'address', name: 'cToken', type: 'address' },
-            {
-              internalType: 'uint256',
-              name: 'underlyingPrice',
-              type: 'uint256',
-            },
-          ],
-          internalType: 'struct CompoundLens.CTokenUnderlyingPrice[]',
-          name: '',
-          type: 'tuple[]',
+          internalType: "address payable",
+          name: "account",
+          type: "address",
         },
       ],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      constant: false,
-      inputs: [
-        {
-          internalType: 'contract ComptrollerLensInterface',
-          name: 'comptroller',
-          type: 'address',
-        },
-        { internalType: 'address', name: 'account', type: 'address' },
-      ],
-      name: 'getAccountLimits',
+      name: "cTokenBalances",
       outputs: [
         {
           components: [
             {
-              internalType: 'contract CToken[]',
-              name: 'markets',
-              type: 'address[]',
+              internalType: "address",
+              name: "cToken",
+              type: "address",
             },
-            { internalType: 'uint256', name: 'liquidity', type: 'uint256' },
-            { internalType: 'uint256', name: 'shortfall', type: 'uint256' },
+            {
+              internalType: "bool",
+              name: "isCToken",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "isCEther",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "balanceOf",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "borrowBalanceCurrent",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "balanceOfUnderlying",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenBalance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenAllowance",
+              type: "uint256",
+            },
           ],
-          internalType: 'struct CompoundLens.AccountLimits',
-          name: '',
-          type: 'tuple',
+          internalType: "struct CompoundLens.CTokenBalances",
+          name: "",
+          type: "tuple",
         },
       ],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [
-        { internalType: 'contract Comp', name: 'comp', type: 'address' },
-        { internalType: 'address', name: 'account', type: 'address' },
+        {
+          internalType: "contract ICToken[]",
+          name: "cTokens",
+          type: "address[]",
+        },
+        {
+          internalType: "address payable",
+          name: "account",
+          type: "address",
+        },
       ],
-      name: 'getCompBalanceMetadata',
+      name: "cTokenBalancesAll",
       outputs: [
         {
           components: [
-            { internalType: 'uint256', name: 'balance', type: 'uint256' },
-            { internalType: 'uint256', name: 'votes', type: 'uint256' },
-            { internalType: 'address', name: 'delegate', type: 'address' },
+            {
+              internalType: "address",
+              name: "cToken",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "isCToken",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "isCEther",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "balanceOf",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "borrowBalanceCurrent",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "balanceOfUnderlying",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenBalance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenAllowance",
+              type: "uint256",
+            },
           ],
-          internalType: 'struct CompoundLens.CompBalanceMetadata',
-          name: '',
-          type: 'tuple',
+          internalType: "struct CompoundLens.CTokenBalances[]",
+          name: "",
+          type: "tuple[]",
         },
       ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      constant: false,
       inputs: [
-        { internalType: 'contract Comp', name: 'comp', type: 'address' },
         {
-          internalType: 'contract ComptrollerLensInterface',
-          name: 'comptroller',
-          type: 'address',
+          internalType: "contract ICToken",
+          name: "cToken",
+          type: "address",
         },
-        { internalType: 'address', name: 'account', type: 'address' },
       ],
-      name: 'getCompBalanceMetadataExt',
+      name: "cTokenMetadata",
       outputs: [
         {
           components: [
-            { internalType: 'uint256', name: 'balance', type: 'uint256' },
-            { internalType: 'uint256', name: 'votes', type: 'uint256' },
-            { internalType: 'address', name: 'delegate', type: 'address' },
-            { internalType: 'uint256', name: 'allocated', type: 'uint256' },
+            {
+              internalType: "address",
+              name: "cToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "exchangeRateCurrent",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "supplyRatePerBlock",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "borrowRatePerBlock",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "reserveFactorMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalBorrows",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalReserves",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalSupply",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalCash",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "isListed",
+              type: "bool",
+            },
+            {
+              internalType: "address",
+              name: "underlyingAssetAddress",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "cTokenDecimals",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "underlyingDecimals",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "isCToken",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "isCEther",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "borrowCap",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "depositCap",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "liquidationIncentive",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "intraRate",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "mintRate",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interRate",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "discountRate",
+              type: "uint256",
+            },
           ],
-          internalType: 'struct CompoundLens.CompBalanceMetadataExt',
-          name: '',
-          type: 'tuple',
+          internalType: "struct CompoundLens.CTokenMetadata",
+          name: "",
+          type: "tuple",
         },
       ],
-      payable: false,
-      stateMutability: 'nonpayable',
-      type: 'function',
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [
-        { internalType: 'contract Comp', name: 'comp', type: 'address' },
-        { internalType: 'address', name: 'account', type: 'address' },
-        { internalType: 'uint32[]', name: 'blockNumbers', type: 'uint32[]' },
+        {
+          internalType: "contract ICToken[]",
+          name: "cTokens",
+          type: "address[]",
+        },
       ],
-      name: 'getCompVotes',
+      name: "cTokenMetadataAll",
       outputs: [
         {
           components: [
-            { internalType: 'uint256', name: 'blockNumber', type: 'uint256' },
-            { internalType: 'uint256', name: 'votes', type: 'uint256' },
+            {
+              internalType: "address",
+              name: "cToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "exchangeRateCurrent",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "supplyRatePerBlock",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "borrowRatePerBlock",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "reserveFactorMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalBorrows",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalReserves",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalSupply",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalCash",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "isListed",
+              type: "bool",
+            },
+            {
+              internalType: "address",
+              name: "underlyingAssetAddress",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "cTokenDecimals",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "underlyingDecimals",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "isCToken",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "isCEther",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "borrowCap",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "depositCap",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "liquidationIncentive",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "intraRate",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "mintRate",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interRate",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "discountRate",
+              type: "uint256",
+            },
           ],
-          internalType: 'struct CompoundLens.CompVotes[]',
-          name: '',
-          type: 'tuple[]',
+          internalType: "struct CompoundLens.CTokenMetadata[]",
+          name: "",
+          type: "tuple[]",
         },
       ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [
         {
-          internalType: 'contract GovernorBravoInterface',
-          name: 'governor',
-          type: 'address',
+          internalType: "contract ICToken",
+          name: "cToken",
+          type: "address",
         },
-        { internalType: 'uint256[]', name: 'proposalIds', type: 'uint256[]' },
       ],
-      name: 'getGovBravoProposals',
+      name: "cTokenUnderlyingPrice",
       outputs: [
         {
           components: [
-            { internalType: 'uint256', name: 'proposalId', type: 'uint256' },
-            { internalType: 'address', name: 'proposer', type: 'address' },
-            { internalType: 'uint256', name: 'eta', type: 'uint256' },
-            { internalType: 'address[]', name: 'targets', type: 'address[]' },
-            { internalType: 'uint256[]', name: 'values', type: 'uint256[]' },
-            { internalType: 'string[]', name: 'signatures', type: 'string[]' },
-            { internalType: 'bytes[]', name: 'calldatas', type: 'bytes[]' },
-            { internalType: 'uint256', name: 'startBlock', type: 'uint256' },
-            { internalType: 'uint256', name: 'endBlock', type: 'uint256' },
-            { internalType: 'uint256', name: 'forVotes', type: 'uint256' },
-            { internalType: 'uint256', name: 'againstVotes', type: 'uint256' },
-            { internalType: 'uint256', name: 'abstainVotes', type: 'uint256' },
-            { internalType: 'bool', name: 'canceled', type: 'bool' },
-            { internalType: 'bool', name: 'executed', type: 'bool' },
+            {
+              internalType: "address",
+              name: "cToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "underlyingPrice",
+              type: "uint256",
+            },
           ],
-          internalType: 'struct CompoundLens.GovBravoProposal[]',
-          name: '',
-          type: 'tuple[]',
+          internalType: "struct CompoundLens.CTokenUnderlyingPrice",
+          name: "",
+          type: "tuple",
         },
       ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      stateMutability: "view",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [
         {
-          internalType: 'contract GovernorBravoInterface',
-          name: 'governor',
-          type: 'address',
+          internalType: "contract ICToken[]",
+          name: "cTokens",
+          type: "address[]",
         },
-        { internalType: 'address', name: 'voter', type: 'address' },
-        { internalType: 'uint256[]', name: 'proposalIds', type: 'uint256[]' },
       ],
-      name: 'getGovBravoReceipts',
+      name: "cTokenUnderlyingPriceAll",
       outputs: [
         {
           components: [
-            { internalType: 'uint256', name: 'proposalId', type: 'uint256' },
-            { internalType: 'bool', name: 'hasVoted', type: 'bool' },
-            { internalType: 'uint8', name: 'support', type: 'uint8' },
-            { internalType: 'uint96', name: 'votes', type: 'uint96' },
+            {
+              internalType: "address",
+              name: "cToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "underlyingPrice",
+              type: "uint256",
+            },
           ],
-          internalType: 'struct CompoundLens.GovBravoReceipt[]',
-          name: '',
-          type: 'tuple[]',
+          internalType: "struct CompoundLens.CTokenUnderlyingPrice[]",
+          name: "",
+          type: "tuple[]",
         },
       ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      stateMutability: "view",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [
         {
-          internalType: 'contract GovernorAlpha',
-          name: 'governor',
-          type: 'address',
+          internalType: "contract IComptroller",
+          name: "comptroller",
+          type: "address",
         },
-        { internalType: 'uint256[]', name: 'proposalIds', type: 'uint256[]' },
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
       ],
-      name: 'getGovProposals',
+      name: "getAccountLimits",
       outputs: [
         {
           components: [
-            { internalType: 'uint256', name: 'proposalId', type: 'uint256' },
-            { internalType: 'address', name: 'proposer', type: 'address' },
-            { internalType: 'uint256', name: 'eta', type: 'uint256' },
-            { internalType: 'address[]', name: 'targets', type: 'address[]' },
-            { internalType: 'uint256[]', name: 'values', type: 'uint256[]' },
-            { internalType: 'string[]', name: 'signatures', type: 'string[]' },
-            { internalType: 'bytes[]', name: 'calldatas', type: 'bytes[]' },
-            { internalType: 'uint256', name: 'startBlock', type: 'uint256' },
-            { internalType: 'uint256', name: 'endBlock', type: 'uint256' },
-            { internalType: 'uint256', name: 'forVotes', type: 'uint256' },
-            { internalType: 'uint256', name: 'againstVotes', type: 'uint256' },
-            { internalType: 'bool', name: 'canceled', type: 'bool' },
-            { internalType: 'bool', name: 'executed', type: 'bool' },
+            {
+              internalType: "address[]",
+              name: "markets",
+              type: "address[]",
+            },
+            {
+              internalType: "uint256",
+              name: "liquidity",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "shortfall",
+              type: "uint256",
+            },
           ],
-          internalType: 'struct CompoundLens.GovProposal[]',
-          name: '',
-          type: 'tuple[]',
+          internalType: "struct CompoundLens.AccountLimits",
+          name: "",
+          type: "tuple",
         },
       ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
-      constant: true,
       inputs: [
         {
-          internalType: 'contract GovernorAlpha',
-          name: 'governor',
-          type: 'address',
+          internalType: "contract ICToken",
+          name: "comp",
+          type: "address",
         },
-        { internalType: 'address', name: 'voter', type: 'address' },
-        { internalType: 'uint256[]', name: 'proposalIds', type: 'uint256[]' },
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
       ],
-      name: 'getGovReceipts',
+      name: "getCompBalanceMetadata",
       outputs: [
         {
           components: [
-            { internalType: 'uint256', name: 'proposalId', type: 'uint256' },
-            { internalType: 'bool', name: 'hasVoted', type: 'bool' },
-            { internalType: 'bool', name: 'support', type: 'bool' },
-            { internalType: 'uint96', name: 'votes', type: 'uint96' },
+            {
+              internalType: "uint256",
+              name: "balance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "votes",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "delegate",
+              type: "address",
+            },
           ],
-          internalType: 'struct CompoundLens.GovReceipt[]',
-          name: '',
-          type: 'tuple[]',
+          internalType: "struct CompoundLens.CompBalanceMetadata",
+          name: "",
+          type: "tuple",
         },
       ],
-      payable: false,
-      stateMutability: 'view',
-      type: 'function',
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract ICToken",
+          name: "comp",
+          type: "address",
+        },
+        {
+          internalType: "contract IComptroller",
+          name: "comptroller",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+      ],
+      name: "getCompBalanceMetadataExt",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "balance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "votes",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "delegate",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "allocated",
+              type: "uint256",
+            },
+          ],
+          internalType: "struct CompoundLens.CompBalanceMetadataExt",
+          name: "",
+          type: "tuple",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract ICToken",
+          name: "comp",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+        {
+          internalType: "uint32[]",
+          name: "blockNumbers",
+          type: "uint32[]",
+        },
+      ],
+      name: "getCompVotes",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "blockNumber",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "votes",
+              type: "uint256",
+            },
+          ],
+          internalType: "struct CompoundLens.CompVotes[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract IGovernorBravo",
+          name: "governor",
+          type: "address",
+        },
+        {
+          internalType: "uint256[]",
+          name: "proposalIds",
+          type: "uint256[]",
+        },
+      ],
+      name: "getGovBravoProposals",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "proposalId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "proposer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "eta",
+              type: "uint256",
+            },
+            {
+              internalType: "address[]",
+              name: "targets",
+              type: "address[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "values",
+              type: "uint256[]",
+            },
+            {
+              internalType: "string[]",
+              name: "signatures",
+              type: "string[]",
+            },
+            {
+              internalType: "bytes[]",
+              name: "calldatas",
+              type: "bytes[]",
+            },
+            {
+              internalType: "uint256",
+              name: "startBlock",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "endBlock",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "forVotes",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "againstVotes",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "abstainVotes",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "canceled",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "executed",
+              type: "bool",
+            },
+          ],
+          internalType: "struct CompoundLens.GovBravoProposal[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract IGovernorBravo",
+          name: "governor",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "voter",
+          type: "address",
+        },
+        {
+          internalType: "uint256[]",
+          name: "proposalIds",
+          type: "uint256[]",
+        },
+      ],
+      name: "getGovBravoReceipts",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "proposalId",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "hasVoted",
+              type: "bool",
+            },
+            {
+              internalType: "uint8",
+              name: "support",
+              type: "uint8",
+            },
+            {
+              internalType: "uint96",
+              name: "votes",
+              type: "uint96",
+            },
+          ],
+          internalType: "struct CompoundLens.GovBravoReceipt[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract IGovernorAlpha",
+          name: "governor",
+          type: "address",
+        },
+        {
+          internalType: "uint256[]",
+          name: "proposalIds",
+          type: "uint256[]",
+        },
+      ],
+      name: "getGovProposals",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "proposalId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "proposer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "eta",
+              type: "uint256",
+            },
+            {
+              internalType: "address[]",
+              name: "targets",
+              type: "address[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "values",
+              type: "uint256[]",
+            },
+            {
+              internalType: "string[]",
+              name: "signatures",
+              type: "string[]",
+            },
+            {
+              internalType: "bytes[]",
+              name: "calldatas",
+              type: "bytes[]",
+            },
+            {
+              internalType: "uint256",
+              name: "startBlock",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "endBlock",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "forVotes",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "againstVotes",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "canceled",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "executed",
+              type: "bool",
+            },
+          ],
+          internalType: "struct CompoundLens.GovProposal[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract IGovernorAlpha",
+          name: "governor",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "voter",
+          type: "address",
+        },
+        {
+          internalType: "uint256[]",
+          name: "proposalIds",
+          type: "uint256[]",
+        },
+      ],
+      name: "getGovReceipts",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "proposalId",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "hasVoted",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "support",
+              type: "bool",
+            },
+            {
+              internalType: "uint96",
+              name: "votes",
+              type: "uint96",
+            },
+          ],
+          internalType: "struct CompoundLens.GovReceipt[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          internalType: "contract IComptroller",
+          name: "comptroller",
+          type: "address",
+        },
+      ],
+      name: "isDeprecated",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cTokenBorrowed",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "cTokenCollateral",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "liquidator",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "borrower",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "repayAmount",
+          type: "uint256",
+        },
+        {
+          internalType: "contract IComptroller",
+          name: "comptroller",
+          type: "address",
+        },
+      ],
+      name: "liquidateBorrowAllowed",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cTokenBorrowed",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "cTokenCollateral",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "actualRepayAmount",
+          type: "uint256",
+        },
+        {
+          internalType: "contract IComptroller",
+          name: "comptroller",
+          type: "address",
+        },
+      ],
+      name: "liquidateCalculateSeizeTokens",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
   ],
 }
