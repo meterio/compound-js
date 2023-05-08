@@ -73,6 +73,16 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
     defPair('csuETH', 'suETH'),
     defPair('csuBTC', 'suBTC'),
   ],
+  zktest: [
+    defPair('cETH', 'ETH', 18, 18, true),
+    defPair('cBTC', 'BTC', 8, 8),
+    defPair('cUSDC', 'USDC', 6, 6),
+    defPair('cDAI', 'DAI'),
+    defPair('cLINK', 'LINK'),
+    defPair('csuETH', 'suETH'),
+    defPair('csuBTC', 'suBTC'),
+    defPair('csuUSD', 'suUSD'),
+  ]
 }
 
 const symbols = {}
@@ -231,6 +241,34 @@ const address = {
     // MTR: '0x0000000000000000000000000000000000000000',
     // cMTR: '0xBa774C1BBE546394AaDbf794964448078eF38d07',
     Multicall2: '0x649e0ce6fc6191D67EA81Ba94b105E28D1815d95',
+  },
+  zktest: {
+    CompoundLens: '0xE656Facb403bEAFc532a056A06Cd4bB16F3DD4DF',
+    Comptroller: '0x5e55F6cdD95F33375a6779b7bBeB6Fb833AEeE99', // Comptroller implementation
+    Unitroller: '0xC30BA3059453AEE27A8E6F11d4A7e8Cd7BD2a6D6', // Comptroller proxy
+    FeedPriceOracle: '0x8e8c6cE5dBFFCD2d30F11e2aAc75E3A7c78f6497',
+    UnderwriterAdmin: '0x9F580aF00Cb2bc01C3d020fe8dD36d5bF10579c2',
+    UnderwriterProxy: '0x4FD3F384f7dCE437ccBBB48407317B08F2Aa6Bb9',
+    WhitePaperInterestRateModel: '0x245e845F6b533eC2f73c72C66c63b70562B146aE',// cToken InterestRateModel
+    ZeroInterestRateModel: '0xB7E99b1053aA714304c6f29126BC94fc8932Aab3',      // suToken InterestRateModel
+    SUMER: '0x5a86557FaaAd58797F50Ad325dadd477d2781238',
+    ETH: '0x0000000000000000000000000000000000000000',
+    cETH: '0xaC0d6687277d75a6660eC08E18745c510aF60Af2',
+    BTC: '0x0BfcE1D53451B4a8175DD94e6e029F7d8a701e9c',
+    cBTC: '0x1c6F767b523E6e0763249d86622F96E7567dB12A',
+    USDC: '0x0faF6df7054946141266420b43783387A78d82A9',
+    cUSDC: '0xf070Db5f6F89731B9fBF2FA0B6A9223F0e0CC715',
+    DAI: '0x3e7676937A7E96CFB7616f255b9AD9FF47363D4b',
+    cDAI: '0x620D8bBe65d517C95266f108aF78FabbBe1F49ce',
+    LINK: '0x40609141Db628BeEE3BfAB8034Fc2D8278D0Cc78',
+    cLINK: '0x6f46E1Af9304D72C72c0Ef7c4755fc6d5Ee8871c',
+    suBTC: '0x82a7d5c6ad4C48F47C530caEE0D7C9f476E524Ee',
+    csuBTC: '0x6770Cb103c18229558F0c02c41Ec264930e2C330',
+    suETH: '0xB9C945313413E3DDF074DCfEA4F8359Dfa65022e',
+    csuETH: '0xeF2e6eD7A25E06f6e35f491885883E8E8f894045',
+    suUSD: '0x5c274A167E4D8758Fc2A14E0cec4aD313cE0d873',
+    csuUSD: '0xBdF4Fb4787cAFc6399D4275AbF71563FEB32E474',
+    Multicall2: '0x416Ea8Bc52Cf6285362c237965eFC313bd857B43',
   },
   basetest: {
     CompoundLens: '0xEa73F3ce2fc8c4bC7c4795621E314133bB49A9a3',
