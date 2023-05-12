@@ -211,7 +211,7 @@ const address = {
     BTCK: '0xfa93c12cd345c658bc4644d1d4e1b9615952258c',
   },
   metertest: {
-    CompoundLens: '0x6Ea1E15b06FAD5FaCf28866060C03e04b307626c',
+    CompoundLens: '0x2c3403a44b2845417ae87143887d4606207e7285',
     Comptroller: '0x7fe6BE855f1cf5b4E5F9a03Db94Ddf9A9aE9a7Fd', // Comptroller implementation
     Unitroller: '0x5A44d4Ff399E1DeBEF9C5320b971C8C2Bde89c39', // Comptroller proxy
     FeedPriceOracle: '0xF1336101cE3770Fe11D836De7AAca040294fb459',
@@ -243,7 +243,7 @@ const address = {
     Multicall2: '0x649e0ce6fc6191D67EA81Ba94b105E28D1815d95',
   },
   zktest: {
-    CompoundLens: '0xE656Facb403bEAFc532a056A06Cd4bB16F3DD4DF',
+    CompoundLens: '0x1752c1c46EC8FED05088125c3e4A75B0E600f0df',
     Comptroller: '0x5e55F6cdD95F33375a6779b7bBeB6Fb833AEeE99', // Comptroller implementation
     Unitroller: '0xC30BA3059453AEE27A8E6F11d4A7e8Cd7BD2a6D6', // Comptroller proxy
     FeedPriceOracle: '0x8e8c6cE5dBFFCD2d30F11e2aAc75E3A7c78f6497',
