@@ -271,7 +271,7 @@ const address = {
     Multicall2: '0x416Ea8Bc52Cf6285362c237965eFC313bd857B43',
   },
   basetest: {
-    CompoundLens: '0xEa73F3ce2fc8c4bC7c4795621E314133bB49A9a3',
+    CompoundLens: '0x9ada555AADF05addC88e067EBc9168Fa8917aE70',
     Comptroller: '0xf27ceFF34fFac8218bD77Df4Ed7141DF4654eAf3', // Comptroller implementation
     Unitroller: '0xD26c4F0C4b4BD6620695468144F009DE7D88B430', // Comptroller proxy
     FeedPriceOracle: '0x7E875A17FeB1B1D4eD0fF9d65420e9260CfC7AFE',
