@@ -1,858 +1,4 @@
 export const abi = {
-  UnderwriterAdmin: [
-    {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "errorCode",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "infoCode",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "detailCode",
-          type: "uint256",
-        },
-      ],
-      name: "ComptrollerError",
-      type: "error",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          internalType: "address",
-          name: "cToken",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "string",
-          name: "action",
-          type: "string",
-        },
-        {
-          indexed: false,
-          internalType: "bool",
-          name: "pauseState",
-          type: "bool",
-        },
-      ],
-      name: "ActionPaused",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          internalType: "uint8",
-          name: "version",
-          type: "uint8",
-        },
-      ],
-      name: "Initialized",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "uint8",
-          name: "groupId",
-          type: "uint8",
-        },
-        {
-          indexed: true,
-          internalType: "string",
-          name: "groupName",
-          type: "string",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "intraCRateMantissa",
-          type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "intraMintRateMantissa",
-          type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "intraSuRateMantissa",
-          type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "interCRateMantissa",
-          type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "interSuRateMantissa",
-          type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "uint8",
-          name: "assetsGroupNum",
-          type: "uint8",
-        },
-      ],
-      name: "NewAssetGroup",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "cToken",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "newBorrowCap",
-          type: "uint256",
-        },
-      ],
-      name: "NewBorrowCap",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          internalType: "address",
-          name: "oldBorrowCapGuardian",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "address",
-          name: "newBorrowCapGuardian",
-          type: "address",
-        },
-      ],
-      name: "NewBorrowCapGuardian",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          internalType: "address",
-          name: "oldPauseGuardian",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "address",
-          name: "newPauseGuardian",
-          type: "address",
-        },
-      ],
-      name: "NewPauseGuardian",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "uint8",
-          name: "groupId",
-          type: "uint8",
-        },
-        {
-          indexed: false,
-          internalType: "uint8",
-          name: "equalAssetsGroupNum",
-          type: "uint8",
-        },
-      ],
-      name: "RemoveAssetGroup",
-      type: "event",
-    },
-    {
-      inputs: [],
-      name: "_borrowGuardianPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "_getBorrowCapGuardian",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "cToken",
-          type: "address",
-        },
-      ],
-      name: "_getBorrowPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "cToken",
-          type: "address",
-        },
-      ],
-      name: "_getMarketBorrowCap",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "cToken",
-          type: "address",
-        },
-      ],
-      name: "_getMintPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "_getPauseGuardian",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "_getSeizePaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "_getTransferPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "_mintGuardianPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "newBorrowCapGuardian",
-          type: "address",
-        },
-      ],
-      name: "_setBorrowCapGuardian",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "contract ICToken",
-          name: "cToken",
-          type: "address",
-        },
-        {
-          internalType: "bool",
-          name: "state",
-          type: "bool",
-        },
-      ],
-      name: "_setBorrowPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "contract ICToken[]",
-          name: "cTokens",
-          type: "address[]",
-        },
-        {
-          internalType: "uint256[]",
-          name: "newBorrowCaps",
-          type: "uint256[]",
-        },
-      ],
-      name: "_setMarketBorrowCaps",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "contract ICToken",
-          name: "cToken",
-          type: "address",
-        },
-        {
-          internalType: "bool",
-          name: "state",
-          type: "bool",
-        },
-      ],
-      name: "_setMintPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "newPauseGuardian",
-          type: "address",
-        },
-      ],
-      name: "_setPauseGuardian",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "bool",
-          name: "state",
-          type: "bool",
-        },
-      ],
-      name: "_setSeizePaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "bool",
-          name: "state",
-          type: "bool",
-        },
-      ],
-      name: "_setTransferPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "admin",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "borrowCapGuardian",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      name: "borrowCaps",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      name: "borrowGuardianPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint8",
-          name: "",
-          type: "uint8",
-        },
-      ],
-      name: "eqAssetGroup",
-      outputs: [
-        {
-          internalType: "uint8",
-          name: "groupId",
-          type: "uint8",
-        },
-        {
-          internalType: "string",
-          name: "groupName",
-          type: "string",
-        },
-        {
-          internalType: "uint256",
-          name: "intraCRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "intraMintRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "intraSuRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "interCRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "interSuRateMantissa",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "equalAssetsGroupNum",
-      outputs: [
-        {
-          internalType: "uint8",
-          name: "",
-          type: "uint8",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint8",
-          name: "groupId",
-          type: "uint8",
-        },
-      ],
-      name: "getAssetGroup",
-      outputs: [
-        {
-          components: [
-            {
-              internalType: "uint8",
-              name: "groupId",
-              type: "uint8",
-            },
-            {
-              internalType: "string",
-              name: "groupName",
-              type: "string",
-            },
-            {
-              internalType: "uint256",
-              name: "intraCRateMantissa",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "intraMintRateMantissa",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "intraSuRateMantissa",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "interCRateMantissa",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "interSuRateMantissa",
-              type: "uint256",
-            },
-          ],
-          internalType: "struct IUnderwriterAdmin.AssetGroup",
-          name: "",
-          type: "tuple",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getAssetGroupNum",
-      outputs: [
-        {
-          internalType: "uint8",
-          name: "",
-          type: "uint8",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "getCompAddress",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "governanceToken",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "_gov",
-          type: "address",
-        },
-        {
-          internalType: "address",
-          name: "_admin",
-          type: "address",
-        },
-      ],
-      name: "initialize",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      name: "mintGuardianPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "pauseGuardian",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint8",
-          name: "groupId",
-          type: "uint8",
-        },
-      ],
-      name: "removeAssetGroup",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "seizeGuardianPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint8",
-          name: "groupId",
-          type: "uint8",
-        },
-        {
-          internalType: "string",
-          name: "groupName",
-          type: "string",
-        },
-        {
-          internalType: "uint256",
-          name: "intraCRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "intraMintRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "intraSuRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "interCRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "interSuRateMantissa",
-          type: "uint256",
-        },
-      ],
-      name: "setAssetGroup",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "_governanceToken",
-          type: "address",
-        },
-      ],
-      name: "setGovTokenAddress",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "suTokenRateMantissa",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "transferGuardianPaused",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-  ],
   PriceOracle: [
     {
       "inputs": [],
@@ -3624,6 +2770,31 @@ export const abi = {
       inputs: [
         {
           indexed: false,
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "string",
+          name: "action",
+          type: "string",
+        },
+        {
+          indexed: false,
+          internalType: "bool",
+          name: "pauseState",
+          type: "bool",
+        },
+      ],
+      name: "ActionPaused",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
           internalType: "uint8",
           name: "version",
           type: "uint8",
@@ -3687,6 +2858,99 @@ export const abi = {
       anonymous: false,
       inputs: [
         {
+          indexed: true,
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+        {
+          indexed: true,
+          internalType: "string",
+          name: "groupName",
+          type: "string",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "intraCRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "intraMintRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "intraSuRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "interCRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "interSuRateMantissa",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint8",
+          name: "assetsGroupNum",
+          type: "uint8",
+        },
+      ],
+      name: "NewAssetGroup",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "newBorrowCap",
+          type: "uint256",
+        },
+      ],
+      name: "NewBorrowCap",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "address",
+          name: "oldBorrowCapGuardian",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "newBorrowCapGuardian",
+          type: "address",
+        },
+      ],
+      name: "NewBorrowCapGuardian",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
           indexed: false,
           internalType: "uint256",
           name: "oldCloseFactorMantissa",
@@ -3708,17 +2972,60 @@ export const abi = {
         {
           indexed: false,
           internalType: "uint256",
-          name: "oldLiquidationIncentiveMantissa",
+          name: "oldHeteroIncentive",
           type: "uint256",
         },
         {
           indexed: false,
           internalType: "uint256",
-          name: "newLiquidationIncentiveMantissa",
+          name: "newHeteroIncentive",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "oldHomoIncentive",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "newHomoIncentive",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "oldSutokenIncentive",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "newSutokenIncentive",
           type: "uint256",
         },
       ],
       name: "NewLiquidationIncentive",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "address",
+          name: "oldPauseGuardian",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "newPauseGuardian",
+          type: "address",
+        },
+      ],
+      name: "NewPauseGuardian",
       type: "event",
     },
     {
@@ -3738,6 +3045,25 @@ export const abi = {
         },
       ],
       name: "NewPriceOracle",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+        {
+          indexed: false,
+          internalType: "uint8",
+          name: "equalAssetsGroupNum",
+          type: "uint8",
+        },
+      ],
+      name: "RemoveAssetGroup",
       type: "event",
     },
     {
@@ -3836,6 +3162,19 @@ export const abi = {
     },
     {
       inputs: [],
+      name: "CAPPER_ROLE",
+      outputs: [
+        {
+          internalType: "bytes32",
+          name: "",
+          type: "bytes32",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
       name: "COMP_LOGIC",
       outputs: [
         {
@@ -3861,6 +3200,191 @@ export const abi = {
       type: "function",
     },
     {
+      inputs: [],
+      name: "PAUSER_ROLE",
+      outputs: [
+        {
+          internalType: "bytes32",
+          name: "",
+          type: "bytes32",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "_borrowGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "_getBorrowCapGuardian",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+      ],
+      name: "_getBorrowPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+      ],
+      name: "_getMarketBorrowCap",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+      ],
+      name: "_getMintPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "_getPauseGuardian",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "_getSeizePaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "_getTransferPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "_mintGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "newBorrowCapGuardian",
+          type: "address",
+        },
+      ],
+      name: "_setBorrowCapGuardian",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract ICToken",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          internalType: "bool",
+          name: "state",
+          type: "bool",
+        },
+      ],
+      name: "_setBorrowPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
       inputs: [
         {
           internalType: "uint256",
@@ -3883,11 +3407,82 @@ export const abi = {
       inputs: [
         {
           internalType: "uint256",
-          name: "newLiquidationIncentiveMantissa",
+          name: "newHeteroLiquidationIncentiveMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "newHomoLiquidationIncentiveMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "newSutokenLiquidationIncentiveMantissa",
           type: "uint256",
         },
       ],
       name: "_setLiquidationIncentive",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract ICToken[]",
+          name: "cTokens",
+          type: "address[]",
+        },
+        {
+          internalType: "uint256[]",
+          name: "newBorrowCaps",
+          type: "uint256[]",
+        },
+      ],
+      name: "_setMarketBorrowCaps",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "contract ICToken",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          internalType: "bool",
+          name: "state",
+          type: "bool",
+        },
+      ],
+      name: "_setMintPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "newPauseGuardian",
+          type: "address",
+        },
+      ],
+      name: "_setPauseGuardian",
       outputs: [
         {
           internalType: "uint256",
@@ -3920,17 +3515,36 @@ export const abi = {
     {
       inputs: [
         {
-          internalType: "contract IUnderwriterAdmin",
-          name: "underWriter",
-          type: "address",
+          internalType: "bool",
+          name: "state",
+          type: "bool",
         },
       ],
-      name: "_setUnderWriterAdmin",
+      name: "_setSeizePaused",
       outputs: [
         {
-          internalType: "contract IUnderwriterAdmin",
+          internalType: "bool",
           name: "",
-          type: "address",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bool",
+          name: "state",
+          type: "bool",
+        },
+      ],
+      name: "_setTransferPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
         },
       ],
       stateMutability: "nonpayable",
@@ -4046,6 +3660,57 @@ export const abi = {
       type: "function",
     },
     {
+      inputs: [],
+      name: "borrowCapGuardian",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "borrowCaps",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "borrowGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [
         {
           internalType: "address",
@@ -4117,6 +3782,68 @@ export const abi = {
     {
       inputs: [
         {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      name: "eqAssetGroup",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+        {
+          internalType: "string",
+          name: "groupName",
+          type: "string",
+        },
+        {
+          internalType: "uint256",
+          name: "intraCRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "intraMintRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "intraSuRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interCRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interSuRateMantissa",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "equalAssetsGroupNum",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "address",
           name: "cTokenAddress",
           type: "address",
@@ -4178,6 +3905,75 @@ export const abi = {
     {
       inputs: [
         {
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+      ],
+      name: "getAssetGroup",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "string",
+              name: "groupName",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "intraCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraMintRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraSuRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interSuRateMantissa",
+              type: "uint256",
+            },
+          ],
+          internalType: "struct IComptroller.AssetGroup",
+          name: "",
+          type: "tuple",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getAssetGroupNum",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "address",
           name: "account",
           type: "address",
@@ -4189,6 +3985,19 @@ export const abi = {
           internalType: "address[]",
           name: "",
           type: "address[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getCompAddress",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
         },
       ],
       stateMutability: "view",
@@ -4301,6 +4110,19 @@ export const abi = {
       type: "function",
     },
     {
+      inputs: [],
+      name: "governanceToken",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [
         {
           internalType: "bytes32",
@@ -4343,6 +4165,32 @@ export const abi = {
       type: "function",
     },
     {
+      inputs: [],
+      name: "heteroLiquidationIncentiveMantissa",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "homoLiquidationIncentiveMantissa",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [
         {
           internalType: "address",
@@ -4355,8 +4203,8 @@ export const abi = {
           type: "address",
         },
         {
-          internalType: "contract IUnderwriterAdmin",
-          name: "_underWriterAdmin",
+          internalType: "address",
+          name: "_gov",
           type: "address",
         },
         {
@@ -4376,7 +4224,17 @@ export const abi = {
         },
         {
           internalType: "uint256",
-          name: "_liquidationIncentiveMantissa",
+          name: "_heteroLiquidationIncentiveMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_homoLiquidationIncentiveMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_sutokenLiquidationIncentiveMantissa",
           type: "uint256",
         },
       ],
@@ -4421,6 +4279,16 @@ export const abi = {
       inputs: [],
       name: "liquidationIncentiveMantissa",
       outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
         {
           internalType: "uint256",
           name: "",
@@ -4527,11 +4395,43 @@ export const abi = {
       type: "function",
     },
     {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "mintGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [],
       name: "oracle",
       outputs: [
         {
           internalType: "contract IPriceOracle",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "pauseGuardian",
+      outputs: [
+        {
+          internalType: "address",
           name: "",
           type: "address",
         },
@@ -4593,6 +4493,25 @@ export const abi = {
       ],
       name: "redeemVerify",
       outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+      ],
+      name: "removeAssetGroup",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
       stateMutability: "nonpayable",
       type: "function",
     },
@@ -4706,6 +4625,19 @@ export const abi = {
       type: "function",
     },
     {
+      inputs: [],
+      name: "seizeGuardianPaused",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [
         {
           internalType: "contract IAccountLiquidity",
@@ -4721,12 +4653,97 @@ export const abi = {
     {
       inputs: [
         {
+          internalType: "uint8",
+          name: "groupId",
+          type: "uint8",
+        },
+        {
+          internalType: "string",
+          name: "groupName",
+          type: "string",
+        },
+        {
+          internalType: "uint256",
+          name: "intraCRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "intraMintRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "intraSuRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interCRateMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interSuRateMantissa",
+          type: "uint256",
+        },
+      ],
+      name: "setAssetGroup",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "cToken",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "supplySpeed",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "borrowSpeed",
+          type: "uint256",
+        },
+      ],
+      name: "setCompSpeed",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "contract ICompLogic",
           name: "_compLogic",
           type: "address",
         },
       ],
       name: "setComptroller",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_governanceToken",
+          type: "address",
+        },
+      ],
+      name: "setGovTokenAddress",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
@@ -4758,6 +4775,32 @@ export const abi = {
     {
       inputs: [
         {
+          internalType: "address",
+          name: "_timelock",
+          type: "address",
+        },
+      ],
+      name: "setTimelock",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "suTokenRateMantissa",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "bytes4",
           name: "interfaceId",
           type: "bytes4",
@@ -4769,6 +4812,32 @@ export const abi = {
           internalType: "bool",
           name: "",
           type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "sutokenLiquidationIncentiveMantissa",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "timelock",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
         },
       ],
       stateMutability: "view",
@@ -4810,12 +4879,12 @@ export const abi = {
     },
     {
       inputs: [],
-      name: "underWriterAdmin",
+      name: "transferGuardianPaused",
       outputs: [
         {
-          internalType: "contract IUnderwriterAdmin",
+          internalType: "bool",
           name: "",
-          type: "address",
+          type: "bool",
         },
       ],
       stateMutability: "view",
@@ -5055,7 +5124,17 @@ export const abi = {
             },
             {
               internalType: "uint256",
-              name: "liquidationIncentive",
+              name: "heteroLiquidationIncentive",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "homoLiquidationIncentive",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sutokenLiquidationIncentive",
               type: "uint256",
             },
             {
@@ -5191,7 +5270,17 @@ export const abi = {
             },
             {
               internalType: "uint256",
-              name: "liquidationIncentive",
+              name: "heteroLiquidationIncentive",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "homoLiquidationIncentive",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sutokenLiquidationIncentive",
               type: "uint256",
             },
             {

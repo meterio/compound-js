@@ -18,6 +18,7 @@ import {
   getAddress,
   getDecimals,
   getName,
+  getRateModals,
   getTokenPairs,
   isCTokenAllowed,
   isEther,
@@ -97,6 +98,7 @@ Compound.getDecimals = getDecimals
 Compound.getAddress = getAddress
 Compound.getName = getName
 Compound.getTokenPairs = getTokenPairs
+Compound.getRateModals = getRateModals
 
 Compound.isUnderlyAllowed = isUnderlyAllowed
 Compound.isCTokenAllowed = isCTokenAllowed

@@ -52,18 +52,70 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
 
     defPair('cETH', 'ETH', 18, 18, true),
   ],
-  metertest: [
-    defPair('cUSDT', 'USDT', 6, 6),
-    defPair('cETH', 'ETH'),
-    defPair('cWBTC', 'WBTC', 8, 8),
-    defPair('cUSDC', 'USDC', 6, 6),
-    defPair('cBUSD', 'BUSD'),
-    defPair('cMTRG', 'MTRG'),
-    defPair('cwstMTRG', 'wstMTRG'),
-    // defPair('cMTR', 'MTR', 18, 18, true),
-    defPair('csuUSD', 'suUSD'),
-    defPair('csuBTC', 'suBTC'),
-    defPair('csuETH', 'suETH'),
+  "metertest": [
+    {
+      "ctokenSym": "sdrUSDC",
+      "underlySym": "USDC",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrUSDT",
+      "underlySym": "USDT",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrMTRG",
+      "underlySym": "MTRG",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrwstMTRG",
+      "underlySym": "wstMTRG",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrETH",
+      "underlySym": "ETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrBTC",
+      "underlySym": "BTC",
+      "ctokenDecimal": 8,
+      "underlyDecimal": 8,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuUSD",
+      "underlySym": "suUSD",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuETH",
+      "underlySym": "suETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuBTC",
+      "underlySym": "suBTC",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    }
   ],
   basetest: [
     defPair('cETH', 'ETH', 18, 18, true),
@@ -220,39 +272,36 @@ const address = {
     ETH: '0xf55af137a98607f7ed2efefa4cd2dfe70e4253b1',
     BTCK: '0xfa93c12cd345c658bc4644d1d4e1b9615952258c',
   },
-  metertest: {
-    CompoundLens: '0x2c3403a44b2845417ae87143887d4606207e7285',
-    Comptroller: '0x7fe6BE855f1cf5b4E5F9a03Db94Ddf9A9aE9a7Fd', // Comptroller implementation
-    Unitroller: '0x5A44d4Ff399E1DeBEF9C5320b971C8C2Bde89c39', // Comptroller proxy
-    FeedPriceOracle: '0xF1336101cE3770Fe11D836De7AAca040294fb459',
-    UnderwriterAdmin: '0xaBc3C89b9904deE1489357831E112A6D1D103b46',
-    UnderwriterProxy: '0x903c005847c1F848aCB3ef93738B4c5F523b8A37',
-    WhitePaperInterestRateModel: '0xd61271A2f52B17F4a8a769a8079C0a1Be5702e4B',// cToken InterestRateModel
-    ZeroInterestRateModel: '0x3df4f99ceaea8f3d4dda6e820d88471059409964',      // suToken InterestRateModel
-    SUMER: '0xf67c5f20b95b7604ebb65a53e50ebd38300da8ee',
-    ETH: '0xe8876830e7cc85dae8ce31b0802313caf856886f',
-    cETH: '0x0823ec3FF41E7F93C47446760799c76B45Aab6F4',
-    WBTC: '0x7EB9e0Df1C6E6f1E9d3d1EdA09fcF688FE7A710c',
-    cWBTC: '0x75E130EDfc1Ad3Fd0c1CCA8262FE967B1107d0c7',
-    USDC: '0x2b27f5f7f2867ad9d2b7065f81e985c1bd1b7274',
-    cUSDC: '0x3c133fAB54FdFe8019EE0C12B2F22d4d05Be078E',//
-    USDT: '0x2398633bee182cad2d0388b41735fd9fb742098d',
-    cUSDT: '0xFCbF2d61eCC2E1438FFCfefD10d8A669422e9294',//
-    BUSD: '0x660a3a1141632c9dcad8a5a3350f7ddd720bc15c',
-    cBUSD: '0xa194804FCc520E4923dfCbB0BAACD6614d7aE851',
-    MTRG: '0x8a419ef4941355476cf04933e90bf3bbf2f73814',
-    cMTRG: '0x196C413C05F9a00678297C47FF8495D8cdbd32f4',
-    wstMTRG: '0x871497Eb8596d2cBdBE5bb23D552D35bFfbb8CF5',
-    cwstMTRG: '0xEE2F30C7B37C03C8E87Eede31b546B4008B15994',
-    suBTC: '0x20B00Df0c1120D2227f87180286E63EDa30f5c4c',
-    csuBTC: '0x5ed21C7541a0799b90Fc66942967B0472c6dD57e',
-    suUSD: '0x0d893c092f7ae9d97c13307f2d66cfb59430b4cb', 
-    csuUSD: '0x62b24c1Af2B8909491E2b0F67402f21bb2b6698f',
-    suETH: '0x21351bde0B42b4Cba5c04Fc92917b8c3254b1E88',
-    csuETH: '0x1a71e0243833b9Cc05f7C48671Ba9D1B7e4247fa',
-    // MTR: '0x0000000000000000000000000000000000000000',
-    // cMTR: '0xBa774C1BBE546394AaDbf794964448078eF38d07',
-    Multicall2: '0x649e0ce6fc6191D67EA81Ba94b105E28D1815d95',
+  "metertest": {
+    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "SUMER": "0x264b7316b535515db9759a77dc4041c0c2263527",
+    "CompoundLens": "0x4d633e05054a3400744a4342749f7014A744059f",
+    "FeedPriceOracle": "0xe63A3b14B4009c115e09328A8b76043CB88068A8",
+    "WhitePaperInterestRateModel": "0xC85148ae2cE5c77242f7a6d3098596eA31BA2c8b",
+    "ZeroInterestRateModel": "0x1E9f28Bb80415D0DE8721ad6Aa5815F1c996b682",
+    "AccountLiquidityImpl": "0x3756f0a51330663E464aD7aaa4650e8909D88cD3",
+    "AccountLiquidity": "0x0260499003B1DEB00ABF4ae5053A1EB1FfDc1C4F",
+    "Comptroller": "0xA207ce50eB5A06dB172233B8271471979Fd9D283",
+    "Unitroller": "0x56d5Ff058BE5059bc5DaB212Ea0ab07Ae884A327",
+    "USDC": "0x2b27f5f7f2867ad9d2b7065f81e985c1bd1b7274",
+    "sdrUSDC": "0x4c383996509F210f230637945Cd1F6cA72f0aD2C",
+    "USDT": "0x2398633bee182cad2d0388b41735fd9fb742098d",
+    "sdrUSDT": "0xD95eE8Bcd896C94CBD300d7998A5FB1F3e9B34fF",
+    "MTRG": "0x8a419ef4941355476cf04933e90bf3bbf2f73814",
+    "sdrMTRG": "0x764a6862B75F08fECa92ddFD9DD7A54Ec492E823",
+    "wstMTRG": "0x871497Eb8596d2cBdBE5bb23D552D35bFfbb8CF5",
+    "sdrwstMTRG": "0x436A20203794d76051d109f1971b4ef0381Ed6a4",
+    "ETH": "0xe8876830e7cc85dae8ce31b0802313caf856886f",
+    "sdrETH": "0x5E5986753B29309AB62f9FcA06c3b52631776d8f",
+    "BTC": "0x7EB9e0Df1C6E6f1E9d3d1EdA09fcF688FE7A710c",
+    "sdrBTC": "0xF20Ed711173d73ECC8059a3f19E041E58b41A176",
+    "suUSD": "0x0d893c092f7ae9d97c13307f2d66cfb59430b4cb",
+    "sdrsuUSD": "0x79153904053967bF22b794503ff1f910e336a136",
+    "suETH": "0x21351bde0B42b4Cba5c04Fc92917b8c3254b1E88",
+    "sdrsuETH": "0x85046858399540FC19401cc88725bc6ddb1933Bb",
+    "suBTC": "0x20B00Df0c1120D2227f87180286E63EDa30f5c4c",
+    "sdrsuBTC": "0x6F70F3116F682E3D61653601169F32F65c39E666",
+    "Timelock": "0x813780eC9dfC88703AbcC5A1E6C6ca03D66ccA9b"
   },
   zktest: {
     CompoundLens: '0x1752c1c46EC8FED05088125c3e4A75B0E600f0df',
@@ -313,8 +362,6 @@ const address = {
     Comptroller: '0x37Dc0261df525287584505aDfC4504055a2Cd7ac', // Comptroller implementation
     Unitroller: '0x682521e88cC71a8d49A3635BAb4468ad7cD7D208', // Comptroller proxy
     FeedPriceOracle: '0x61E2c1608B1caA59136BCB7845637858d216c3B9',
-    UnderwriterAdmin: '0x2dFa59cE6025FDDFc8A44068380b71570F8f88c8',
-    UnderwriterProxy: '0x67355688B9EC9Ec4a3178f022997F0Dc3474D51a',
     WhitePaperInterestRateModel: '0x5f7c6C74525231B94857b55bE444483b80A8EE05',
     ZeroInterestRateModel: '0xD80d7eb97f51C8a1feF93838820BEeD3628B6CEA',
     SUMER: '0x93de053520D42B3F74281852Bd56F232A4E643DA',
@@ -336,6 +383,44 @@ const address = {
   }
 }
 
+const rateModals = {
+  "metertest": [
+    {
+      "name": "WhitePaperInterestRateModel",
+      "address": "0xC85148ae2cE5c77242f7a6d3098596eA31BA2c8b",
+      "tokens": [
+        "USDC",
+        "USDT"
+      ],
+      "baseRatePerYear": 0.05,
+      "multiplierPerYear": 0.45
+    },
+    {
+      "name": "JumpRateModelV2",
+      "address": "0x6aEE4D1331869c7e3e8Fb470E5E1619495CcE5c7",
+      "tokens": [
+        "MTRG",
+        "wstMTRG",
+        "ETH",
+        "BTC"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.15,
+      "jumpMultiplierPerYear": 3,
+      "kink": 0.6
+    },
+    {
+      "name": "ZeroInterestRateModel",
+      "address": "0x1E9f28Bb80415D0DE8721ad6Aa5815F1c996b682",
+      "tokens": [
+        "suUSD",
+        "suETH",
+        "suBTC"
+      ]
+    }
+  ]
+}
+
 const names = {}
 for (const network in address) {
   const networkNames = {}
@@ -350,6 +435,13 @@ export const getTokenPairs = (networkName: string) => {
     throw Error(`${networkName} is not configured on tokenPairs`)
   }
   return tokenPairs[networkName]
+}
+
+export const getRateModals = (networkName: string) => {
+  if (!(networkName in rateModals)) {
+    throw Error(`${networkName} is not configured on rateModals`)
+  }
+  return rateModals[networkName]
 }
 
 export const getAddress = (networkName: string, tokenSym: string) => {
