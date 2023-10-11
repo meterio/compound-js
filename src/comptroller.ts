@@ -46,8 +46,8 @@ export async function enterMarkets(markets: string | string[] = [], options: Cal
 
   const addresses = []
   for (let i = 0; i < markets.length; i++) {
-    if (markets[i][0] !== 'c') {
-      markets[i] = 'c' + markets[i]
+    if (!markets[i].includes('sdr')) {
+      markets[i] = 'sdr' + markets[i]
     }
 
     if (!isCTokenAllowed(this._network.name, markets[i])) {
@@ -101,8 +101,8 @@ export async function exitMarket(market: string, options: CallOptions = {}): Pro
     throw Error(errorPrefix + 'Argument `market` must be a string of a cToken market name.')
   }
 
-  if (market[0] !== 'c') {
-    market = 'c' + market
+  if (!market.includes('sdr')) {
+    market = 'sdr' + market
   }
 
   if (!isCTokenAllowed(this._network.name, market)) {

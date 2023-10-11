@@ -15,9 +15,9 @@ function validateAsset(asset: string, argument: string, errorPrefix: string): (b
     throw Error(errorPrefix + 'Argument `' + argument + '` must be a non-empty string.')
   }
 
-  const assetIsCToken = asset[0] === 'c'
+  const assetIsCToken = asset.includes('sdr')
 
-  const cTokenName = assetIsCToken ? asset : 'c' + asset
+  const cTokenName = assetIsCToken ? asset : 'sdr' + asset
   const cTokenAddress = getAddress(this._network.name, cTokenName)
 
   let underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset

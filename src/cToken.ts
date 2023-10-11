@@ -55,7 +55,7 @@ export async function supply(
   const errorPrefix = 'Sumer [supply] | '
 
   console.log(`Sumer supply ${amount} ${asset}`)
-  const cTokenName = 'c' + asset
+  const cTokenName = 'sdr' + asset
   const cTokenAddress = getAddress(this._network.name, cTokenName)
 
   if (!cTokenAddress || !isUnderlyAllowed(this._network.name, asset)) {
@@ -155,9 +155,9 @@ export async function redeem(
     throw Error(errorPrefix + 'Argument `asset` must be a non-empty string.')
   }
 
-  const assetIsCToken = asset[0] === 'c'
+  const assetIsCToken = asset.includes('sdr')
 
-  const cTokenName = assetIsCToken ? asset : 'c' + asset
+  const cTokenName = assetIsCToken ? asset : 'sdr' + asset
   const cTokenAddress = getAddress(this._network.name, cTokenName)
 
   const underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset
@@ -237,7 +237,7 @@ export async function borrow(
   const errorPrefix = 'Sumer [borrow] | '
 
   console.log(`Sumer borrow ${amount} ${asset}`)
-  const cTokenName = 'c' + asset
+  const cTokenName = 'sdr' + asset
   const cTokenAddress = getAddress(this._network.name, cTokenName)
 
   if (!cTokenAddress || !isUnderlyAllowed(this._network.name, asset)) {
@@ -319,7 +319,7 @@ export async function repayBorrow(
   const errorPrefix = 'Sumer [repayBorrow] | '
 
   console.log(`Sumer repayBorrow ${amount} ${asset} for ${borrower}`)
-  const cTokenName = 'c' + asset
+  const cTokenName = 'sdr' + asset
   const cTokenAddress = getAddress(this._network.name, cTokenName)
 
   if (!cTokenAddress || !isUnderlyAllowed(this._network.name, asset)) {
