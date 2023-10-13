@@ -160,7 +160,7 @@ export async function redeem(
   const cTokenName = assetIsCToken ? asset : 'sdr' + asset
   const cTokenAddress = getAddress(this._network.name, cTokenName)
 
-  const underlyingName = assetIsCToken ? asset.slice(1, asset.length) : asset
+  const underlyingName = assetIsCToken ? asset.slice(3, asset.length) : asset
 
   if (!isCTokenAllowed(this._network.name, cTokenName) || !isUnderlyAllowed(this._network.name, underlyingName)) {
     throw Error(errorPrefix + `Asset '${cTokenName}' is not supported.`)
