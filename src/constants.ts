@@ -124,14 +124,56 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       "ctokenIsEther": true
     }
   ],
-  basetest: [
-    defPair('cETH', 'ETH', 18, 18, true),
-    defPair('cBTC', 'BTC', 8, 8),
-    defPair('cUSDC', 'USDC', 6, 6),
-    defPair('cUSDT', 'USDT', 6, 6),
-    defPair('csuUSD', 'suUSD'),
-    defPair('csuETH', 'suETH'),
-    defPair('csuBTC', 'suBTC'),
+  "basetest": [
+    {
+      "ctokenSym": "sdrUSDC",
+      "underlySym": "USDC",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrUSDT",
+      "underlySym": "USDT",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrBTC",
+      "underlySym": "BTC",
+      "ctokenDecimal": 8,
+      "underlyDecimal": 8,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuUSD",
+      "underlySym": "suUSD",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuETH",
+      "underlySym": "suETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuBTC",
+      "underlySym": "suBTC",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrETH",
+      "underlySym": "ETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": true
+    }
   ],
   sepolia: [
     defPair('cETH', 'ETH', 18, 18, true),
@@ -340,31 +382,32 @@ const address = {
     csuUSD: '0xBdF4Fb4787cAFc6399D4275AbF71563FEB32E474',
     Multicall2: '0x416Ea8Bc52Cf6285362c237965eFC313bd857B43',
   },
-  basetest: {
-    CompoundLens: '0x1dB99Ae66bf9d40A8d8eB134d7C6a68F61c73fc4',
-    Comptroller: '0x52851632A8b15BeaC2aC7558Fa4ab9D7c43E2c57', // Comptroller implementation
-    Unitroller: '0xb838B9E26A567fCb2880D57a72d15d4bEF8ed0CB', // Comptroller proxy
-    FeedPriceOracle: '0x173A77e36C5AbFC72085EC6d8e412bc5E29D0538',
-    UnderwriterAdmin: '0xD2c44eD3D10c5307abe015C87731745aF395b77C',
-    UnderwriterProxy: '0x3c4b1E29Eee4d6fe75e5F71524653a829aF4E447',
-    WhitePaperInterestRateModel: '0xa21f556B235f2E4018eC1620B70f522bb5F2A451',// cToken InterestRateModel
-    ZeroInterestRateModel: '0x0C978D33b4BCB2aae5922a5998e8e88E41D9a149',      // suToken InterestRateModel
-    SUMER: '0xB28c8c2abF17243502eB28885455998e8B984B58',
-    ETH: '0x0000000000000000000000000000000000000000',
-    cETH: '0x03f6A3BEc36B1CaBE4ccfF755eC32438F6937a15',
-    BTC: '0x0D0267E89189D73826aeAa1556ac4428c845e68a',
-    cBTC: '0x0A6184143Ef822A0689c8e560DfD15e447eba7C0',
-    USDC: '0x93de053520D42B3F74281852Bd56F232A4E643DA',
-    cUSDC: '0x0B9BF436bb802E1B98e6BEC940Dc6Aae5f575a54',
-    USDT: '0x61E2c1608B1caA59136BCB7845637858d216c3B9',
-    cUSDT: '0xD81cb1DFBB98c59935A5fd2C6076B2E4903164E1',
-    suBTC: '0xd11f348AB72A02ccbb611d4590fF79Ff48a07911',
-    csuBTC: '0x72736b541D214fd310A7FdE7A2F805101D50d174',
-    suETH: '0xEdd794DC7b4dFE58eBFC0f568F9A01F6eeB64563',
-    csuETH: '0x613d40382cF628d8A6E225CC5010a28f4f6C79ad',
-    suUSD: '0x875A75e783145328880468C3e6cB791384D72e9d',
-    csuUSD: '0xc2757b559aF5C40e57BEBD02463F5DF9CCaAaA18',
-    Multicall2: '0x86FDdc06Abb5b0A0F2CBCC133880a55F80038CB8',
+  "basetest": {
+    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "SUMER": "0xBeE85b7b676f9306803B6DFC09F024c30a7A2a1e",
+    "CompoundLens": "0x20C606e9996312Bf02198dF461E6F705971500d6",
+    "FeedPriceOracle": "0xC2A15cDA264837D77345500Da3550066b5eB2EbA",
+    "WhitePaperInterestRateModel": "0x4f6D94accF73713968f6D1B3d191A05762BfD2c1",
+    "ZeroInterestRateModel": "0x07823dD84D58d5B779Daf9E1D3B04B13cB3acAA8",
+    "AccountLiquidityImpl": "0x5709dDd0376014202654788466FDd70bda5E69Bb",
+    "AccountLiquidity": "0x48487f7dc18F12fA1770e824Df663CE36f214525",
+    "Comptroller": "0xC6b0e737A951D82f0c23FCB4197FfFc40CAF68C5",
+    "Unitroller": "0x2129c216276E803eaB6A962F036305183aFceD1B",
+    "ETH": "0x0000000000000000000000000000000000000000",
+    "sdrETH": "0x4cad35e7A422eF10b668E9b28FdAE167BE1f6976",
+    "USDC": "0x93de053520D42B3F74281852Bd56F232A4E643DA",
+    "sdrUSDC": "0x3504fE646108cB7AfF6fDb8dE668351E435acc1e",
+    "USDT": "0x61E2c1608B1caA59136BCB7845637858d216c3B9",
+    "sdrUSDT": "0x6A6CdaC0Fa9BB0089984d9AB49Fb171b1E6280DC",
+    "BTC": "0x0D0267E89189D73826aeAa1556ac4428c845e68a",
+    "sdrBTC": "0xa855307B995Fc89ca3e128Ab1b064e8CD3Ab8764",
+    "suUSD": "0x875A75e783145328880468C3e6cB791384D72e9d",
+    "sdrsuUSD": "0xE525c41f6A4138205484903B55424013a7188340",
+    "suETH": "0xEdd794DC7b4dFE58eBFC0f568F9A01F6eeB64563",
+    "sdrsuETH": "0xB1fA5a2D09d3D086536b95B8e95eb00C57BD5a86",
+    "suBTC": "0xd11f348AB72A02ccbb611d4590fF79Ff48a07911",
+    "sdrsuBTC": "0x0fA3176E1478e4730b966A79AdA9a8173AE02f78",
+    "Timelock": "0x22364219Cde3a4915edBa4F03F9Ac38F3e62Ce84"
   },
   sepolia: {
     CompoundLens: '0xaE1BB8Aa05BD93b8D918d5C36cb088238FC11060',
@@ -437,6 +480,41 @@ const rateModals = {
         "suETH",
         "suBTC"
       ]
+    }
+  ],
+  "basetest": [
+    {
+      "name": "JumpRateModelV2",
+      "address": "0xfdfB839Cc859E863B0a594F3540795E09BD60e76",
+      "tokens": [
+        "USDC",
+        "USDT",
+        "BTC"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.2,
+      "jumpMultiplierPerYear": 4,
+      "kink": 0.6
+    },
+    {
+      "name": "ZeroInterestRateModel",
+      "address": "0x07823dD84D58d5B779Daf9E1D3B04B13cB3acAA8",
+      "tokens": [
+        "suUSD",
+        "suETH",
+        "suBTC"
+      ]
+    },
+    {
+      "name": "JumpRateModelV2",
+      "address": "0xB79F1af961dA05a89D810251Af338BBfb98AFDF5",
+      "tokens": [
+        "ETH"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.15,
+      "jumpMultiplierPerYear": 3,
+      "kink": 0.6
     }
   ]
 }
