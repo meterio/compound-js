@@ -557,6 +557,13 @@ const _abi = [
   },
   {
     inputs: [],
+    name: "_syncUnderlyingBalance",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "accrualBlockNumber",
     outputs: [
       {
@@ -991,6 +998,11 @@ const _abi = [
         name: "actualRepayAmount",
         type: "uint256",
       },
+      {
+        internalType: "uint256",
+        name: "liquidationIncentiveMantissa",
+        type: "uint256",
+      },
     ],
     name: "liquidateCalculateSeizeTokens",
     outputs: [
@@ -1228,6 +1240,19 @@ const _abi = [
         internalType: "address",
         name: "",
         type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "underlyingBalance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",

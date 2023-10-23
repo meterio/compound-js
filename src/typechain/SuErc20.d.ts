@@ -29,6 +29,7 @@ interface SuErc20Interface extends ethers.utils.Interface {
     "_setInterestRateModel(address)": FunctionFragment;
     "_setPendingAdmin(address)": FunctionFragment;
     "_setReserveFactor(uint256)": FunctionFragment;
+    "_syncUnderlyingBalance()": FunctionFragment;
     "accrualBlockNumber()": FunctionFragment;
     "accrueInterest()": FunctionFragment;
     "admin()": FunctionFragment;
@@ -58,7 +59,7 @@ interface SuErc20Interface extends ethers.utils.Interface {
     "isDeprecated()": FunctionFragment;
     "liquidateBorrow(address,uint256,address)": FunctionFragment;
     "liquidateBorrowAllowed(address,address,address,uint256)": FunctionFragment;
-    "liquidateCalculateSeizeTokens(address,uint256)": FunctionFragment;
+    "liquidateCalculateSeizeTokens(address,uint256,uint256)": FunctionFragment;
     "mint(uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "pendingAdmin()": FunctionFragment;
@@ -79,6 +80,7 @@ interface SuErc20Interface extends ethers.utils.Interface {
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "underlying()": FunctionFragment;
+    "underlyingBalance()": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -112,6 +114,10 @@ interface SuErc20Interface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "_setReserveFactor",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "_syncUnderlyingBalance",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "accrualBlockNumber",
@@ -223,7 +229,7 @@ interface SuErc20Interface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "liquidateCalculateSeizeTokens",
-    values: [string, BigNumberish]
+    values: [string, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "mint", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
@@ -293,6 +299,10 @@ interface SuErc20Interface extends ethers.utils.Interface {
     functionFragment: "underlying",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "underlyingBalance",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "_acceptAdmin",
@@ -324,6 +334,10 @@ interface SuErc20Interface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "_setReserveFactor",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "_syncUnderlyingBalance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -472,6 +486,10 @@ interface SuErc20Interface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "underlying", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "underlyingBalance",
+    data: BytesLike
+  ): Result;
 
   events: {
     "AccrueInterest(uint256,uint256,uint256,uint256)": EventFragment;
@@ -712,6 +730,10 @@ export class SuErc20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    _syncUnderlyingBalance(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     accrualBlockNumber(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     accrueInterest(
@@ -801,7 +823,7 @@ export class SuErc20 extends BaseContract {
       name_: string,
       symbol_: string,
       decimals_: BigNumberish,
-      admin: string,
+      admin_: string,
       discountRateMantissa_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -832,6 +854,7 @@ export class SuErc20 extends BaseContract {
     liquidateCalculateSeizeTokens(
       cTokenCollateral: string,
       actualRepayAmount: BigNumberish,
+      liquidationIncentiveMantissa: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber]>;
 
@@ -909,6 +932,8 @@ export class SuErc20 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     underlying(overrides?: CallOverrides): Promise<[string]>;
+
+    underlyingBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   _acceptAdmin(
@@ -947,6 +972,10 @@ export class SuErc20 extends BaseContract {
 
   _setReserveFactor(
     newReserveFactorMantissa: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  _syncUnderlyingBalance(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1036,7 +1065,7 @@ export class SuErc20 extends BaseContract {
     name_: string,
     symbol_: string,
     decimals_: BigNumberish,
-    admin: string,
+    admin_: string,
     discountRateMantissa_: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -1067,6 +1096,7 @@ export class SuErc20 extends BaseContract {
   liquidateCalculateSeizeTokens(
     cTokenCollateral: string,
     actualRepayAmount: BigNumberish,
+    liquidationIncentiveMantissa: BigNumberish,
     overrides?: CallOverrides
   ): Promise<[BigNumber, BigNumber]>;
 
@@ -1145,6 +1175,8 @@ export class SuErc20 extends BaseContract {
 
   underlying(overrides?: CallOverrides): Promise<string>;
 
+  underlyingBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
   callStatic: {
     _acceptAdmin(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1182,6 +1214,8 @@ export class SuErc20 extends BaseContract {
       newReserveFactorMantissa: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    _syncUnderlyingBalance(overrides?: CallOverrides): Promise<void>;
 
     accrualBlockNumber(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1266,7 +1300,7 @@ export class SuErc20 extends BaseContract {
       name_: string,
       symbol_: string,
       decimals_: BigNumberish,
-      admin: string,
+      admin_: string,
       discountRateMantissa_: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -1297,6 +1331,7 @@ export class SuErc20 extends BaseContract {
     liquidateCalculateSeizeTokens(
       cTokenCollateral: string,
       actualRepayAmount: BigNumberish,
+      liquidationIncentiveMantissa: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber]>;
 
@@ -1369,6 +1404,8 @@ export class SuErc20 extends BaseContract {
     ): Promise<boolean>;
 
     underlying(overrides?: CallOverrides): Promise<string>;
+
+    underlyingBalance(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -1759,6 +1796,10 @@ export class SuErc20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    _syncUnderlyingBalance(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     accrualBlockNumber(overrides?: CallOverrides): Promise<BigNumber>;
 
     accrueInterest(
@@ -1843,7 +1884,7 @@ export class SuErc20 extends BaseContract {
       name_: string,
       symbol_: string,
       decimals_: BigNumberish,
-      admin: string,
+      admin_: string,
       discountRateMantissa_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -1874,6 +1915,7 @@ export class SuErc20 extends BaseContract {
     liquidateCalculateSeizeTokens(
       cTokenCollateral: string,
       actualRepayAmount: BigNumberish,
+      liquidationIncentiveMantissa: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1951,6 +1993,8 @@ export class SuErc20 extends BaseContract {
     ): Promise<BigNumber>;
 
     underlying(overrides?: CallOverrides): Promise<BigNumber>;
+
+    underlyingBalance(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1990,6 +2034,10 @@ export class SuErc20 extends BaseContract {
 
     _setReserveFactor(
       newReserveFactorMantissa: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    _syncUnderlyingBalance(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2088,7 +2136,7 @@ export class SuErc20 extends BaseContract {
       name_: string,
       symbol_: string,
       decimals_: BigNumberish,
-      admin: string,
+      admin_: string,
       discountRateMantissa_: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -2119,6 +2167,7 @@ export class SuErc20 extends BaseContract {
     liquidateCalculateSeizeTokens(
       cTokenCollateral: string,
       actualRepayAmount: BigNumberish,
+      liquidationIncentiveMantissa: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2202,5 +2251,7 @@ export class SuErc20 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     underlying(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    underlyingBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }
