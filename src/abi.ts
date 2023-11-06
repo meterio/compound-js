@@ -3453,6 +3453,30 @@ export const abi = {
     {
       inputs: [
         {
+          internalType: "contract ICToken[]",
+          name: "cTokens",
+          type: "address[]",
+        },
+        {
+          internalType: "uint256[]",
+          name: "newMaxSupplys",
+          type: "uint256[]",
+        },
+      ],
+      name: "_setMaxSupply",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "contract ICToken",
           name: "cToken",
           type: "address",
@@ -3633,6 +3657,25 @@ export const abi = {
     {
       inputs: [
         {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      name: "assetGroupIdToIndex",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "address",
           name: "cToken",
           type: "address",
@@ -3736,6 +3779,13 @@ export const abi = {
     },
     {
       inputs: [],
+      name: "cleanAssetGroup",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
       name: "closeFactorMantissa",
       outputs: [
         {
@@ -3783,59 +3833,58 @@ export const abi = {
       inputs: [
         {
           internalType: "uint8",
-          name: "",
+          name: "groupId",
           type: "uint8",
         },
       ],
       name: "eqAssetGroup",
       outputs: [
         {
-          internalType: "uint8",
-          name: "groupId",
-          type: "uint8",
-        },
-        {
-          internalType: "string",
-          name: "groupName",
-          type: "string",
-        },
-        {
-          internalType: "uint256",
-          name: "intraCRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "intraMintRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "intraSuRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "interCRateMantissa",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "interSuRateMantissa",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "equalAssetsGroupNum",
-      outputs: [
-        {
-          internalType: "uint8",
+          components: [
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "string",
+              name: "groupName",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "intraCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraMintRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraSuRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interSuRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "exist",
+              type: "bool",
+            },
+          ],
+          internalType: "struct IComptroller.AssetGroup",
           name: "",
-          type: "uint8",
+          type: "tuple",
         },
       ],
       stateMutability: "view",
@@ -3867,6 +3916,238 @@ export const abi = {
           name: "account",
           type: "address",
         },
+        {
+          internalType: "address",
+          name: "cTokenTarget",
+          type: "address",
+        },
+      ],
+      name: "getAccountGroupSummary",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+        {
+          components: [
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "cDepositVal",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "cBorrowVal",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "suDepositVal",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "suBorrowVal",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "intraCRate",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "intraMintRate",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "intraSuRate",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "interCRate",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "interSuRate",
+              type: "tuple",
+            },
+          ],
+          internalType: "struct IAccountLiquidity.AccountGroupLocalVars",
+          name: "",
+          type: "tuple",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "cTokenTarget",
+          type: "address",
+        },
+      ],
+      name: "getAccountGroupVars",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "cDepositVal",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "cBorrowVal",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "suDepositVal",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "suBorrowVal",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "intraCRate",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "intraMintRate",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "intraSuRate",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "interCRate",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "mantissa",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Exp",
+              name: "interSuRate",
+              type: "tuple",
+            },
+          ],
+          internalType: "struct IAccountLiquidity.AccountGroupLocalVars[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
       ],
       name: "getAccountLiquidity",
       outputs: [
@@ -3884,6 +4165,156 @@ export const abi = {
           internalType: "uint256",
           name: "",
           type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "cTokenTarget",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "intraSafeLimitMantissa",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "interSafeLimitMantissa",
+          type: "uint256",
+        },
+      ],
+      name: "getAccountSafeLimit",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getAllAssetGroup",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "string",
+              name: "groupName",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "intraCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraMintRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraSuRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interSuRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "exist",
+              type: "bool",
+            },
+          ],
+          internalType: "struct IComptroller.AssetGroup[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint8",
+          name: "groupIndex",
+          type: "uint8",
+        },
+      ],
+      name: "getAllAssetGroupByIndex",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint8",
+              name: "groupId",
+              type: "uint8",
+            },
+            {
+              internalType: "string",
+              name: "groupName",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "intraCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraMintRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "intraSuRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interCRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "interSuRateMantissa",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "exist",
+              type: "bool",
+            },
+          ],
+          internalType: "struct IComptroller.AssetGroup",
+          name: "",
+          type: "tuple",
         },
       ],
       stateMutability: "view",
@@ -3948,6 +4379,11 @@ export const abi = {
               internalType: "uint256",
               name: "interSuRateMantissa",
               type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "exist",
+              type: "bool",
             },
           ],
           internalType: "struct IComptroller.AssetGroup",
@@ -4702,6 +5138,19 @@ export const abi = {
     {
       inputs: [
         {
+          internalType: "contract ICompLogic",
+          name: "_compLogic",
+          type: "address",
+        },
+      ],
+      name: "setCompLogic",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "address",
           name: "cToken",
           type: "address",
@@ -4725,19 +5174,6 @@ export const abi = {
     {
       inputs: [
         {
-          internalType: "contract ICompLogic",
-          name: "_compLogic",
-          type: "address",
-        },
-      ],
-      name: "setComptroller",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
           internalType: "address",
           name: "_governanceToken",
           type: "address",
@@ -4745,30 +5181,6 @@ export const abi = {
       ],
       name: "setGovTokenAddress",
       outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "cToken",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "amount",
-          type: "uint256",
-        },
-      ],
-      name: "setMaxSupply",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
       stateMutability: "nonpayable",
       type: "function",
     },

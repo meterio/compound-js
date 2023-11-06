@@ -193,6 +193,21 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
     defPair('csuETH', 'suETH'),
     defPair('csuBTC', 'suBTC'),
     defPair('csuUSD', 'suUSD'),
+  ],
+  meter: [
+    defPair('csuUSD', 'suUSD'),
+    defPair('csuETH', 'suETH'),
+    defPair('csuBTC', 'suBTC'),
+  ],
+  arbitrum: [
+    defPair('csuUSD', 'suUSD'),
+    defPair('csuETH', 'suETH'),
+    defPair('csuBTC', 'suBTC'),
+  ],
+  base: [
+    defPair('csuUSD', 'suUSD'),
+    defPair('csuETH', 'suETH'),
+    defPair('csuBTC', 'suBTC'),
   ]
 }
 
@@ -221,7 +236,24 @@ export const constants = {
 }
 
 const address = {
-  mainnet: {},
+  meter: {
+    suUSD: "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
+    suETH: "0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0",
+    SUMER: "0x553d713e0fb958932b6c40abaf0b5a1ffae73da2",
+    suBTC: "0xe85411C030fB32A9D8b14Bbbc6CB19417391F711"
+  },
+  arbitrum: {
+    suUSD: "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
+    suETH: "0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0",
+    SUMER: "0x553d713e0fb958932b6c40abaf0b5a1ffae73da2",
+    suBTC: "0xe85411C030fB32A9D8b14Bbbc6CB19417391F711"
+  },
+  base: {
+    suUSD: "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
+    suETH: "0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0",
+    SUMER: "0x553d713e0fb958932b6c40abaf0b5a1ffae73da2",
+    suBTC: "0xe85411C030fB32A9D8b14Bbbc6CB19417391F711"
+  },
   rinkeby: {
     CompoundLens: '0xBb5D4106642aD2D8b541Ad6728a937D4b1985E00',
     Comptroller: '0xB1b5975335Fc733c9ce530E0b546657E3358FBa0',
@@ -324,35 +356,34 @@ const address = {
   "metertest": {
     "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
     "SUMER": "0x264b7316b535515db9759a77dc4041c0c2263527",
-    "CompoundLens": "0xdB1D6dc7Fb4799cC963396DA6877Cc792B0C1C89",
-    "FeedPriceOracle": "0x8494bf246D66107E21178582E492dC55f9C6f2a3",
-    "WhitePaperInterestRateModel": "0x7E57C3947F85444C9E212cCeEcb74C450818eD48",
-    "ZeroInterestRateModel": "0xD675BB32eAF79bd9C3414E94EDC66EDD2F83E4B2",
-    "AccountLiquidityImpl": "0x6F17762570701DeFa4E650E1074654bE668b3929",
-    "AccountLiquidity": "0x3bf4C0C591FD6aBc15A4B22F0AEb5A88D7B354c0",
-    "Comptroller": "0xcF26c66E67AC29FdfDCeAeE967Eaf78bB5b76Ebe",
-    "Unitroller": "0x4b2400DCC23b99db3c5F97a7fC613f8B58d03FFb",
+    "CompoundLens": "0x9c0DB1C5882b73DFAB66D727b51C617Ad4D9783e",
+    "FeedPriceOracle": "0x31AdFa19C2c834B0900cA716C37B0619C9bD2C6B",
+    "ZeroInterestRateModel": "0x8098a4Ad4Fc816E576BbBf12A9299Ef3ae8189c7",
+    "AccountLiquidityImpl": "0xe169618cAc0542B458984a041d705e1558FEA5A0",
+    "AccountLiquidity": "0x20A8794d5BEcBa1B19A35D8CaA2b7e0e0b7CF832",
+    "Comptroller": "0xB7305cEC5EfBd28204aBf8214452F6fc78Dc4E22",
+    "Unitroller": "0xB6bf1515CAA8Be16f2FC3308974645CaEa458Ab1",
     "MTR": "0x0000000000000000000000000000000000000000",
-    "sdrMTR": "0x8cCbF7F6e0c484581788f133B408634A70bc34a1",
+    "sdrMTR": "0xf9e3459233E08F88Cf7faDdEd8f734d80A04a35d",
     "USDC": "0x2b27f5f7f2867ad9d2b7065f81e985c1bd1b7274",
-    "sdrUSDC": "0x125E133a64280C582D5075917943d4CD6d44c043",
+    "sdrUSDC": "0xC248AE618DC3C5FB3be493599EC5f875238C2b49",
     "USDT": "0x2398633bee182cad2d0388b41735fd9fb742098d",
-    "sdrUSDT": "0x9CFec252c0cce21E08942a52b1786AA82d105773",
+    "sdrUSDT": "0x5d0A5586a2a6dACeEAdEec8153171009a57404BA",
     "MTRG": "0x8a419ef4941355476cf04933e90bf3bbf2f73814",
-    "sdrMTRG": "0x4EA75c8bea6eFc2ff6FFf0Cd688c1860d1D74797",
+    "sdrMTRG": "0xE191150B05985Cbb49D3A9973603d96EA3b92b71",
     "wstMTRG": "0x871497Eb8596d2cBdBE5bb23D552D35bFfbb8CF5",
-    "sdrwstMTRG": "0x95812b472Da8130CEf7251F2A91Bc5E4aE7Fb81D",
+    "sdrwstMTRG": "0x11079f0e682A5a13F55D6f60519aD3e5425cd837",
     "ETH": "0xe8876830e7cc85dae8ce31b0802313caf856886f",
-    "sdrETH": "0x511393E79e9ecB3ff6bdC00d4b6F83E0C42e5578",
+    "sdrETH": "0x8f0dFB74CA2E137771d9e357514e4f107e158c76",
     "BTC": "0x7EB9e0Df1C6E6f1E9d3d1EdA09fcF688FE7A710c",
-    "sdrBTC": "0xf74a5601Dc01794FFD6f8c232ACc004fD3b26509",
+    "sdrBTC": "0x938Af4326a6a5Dc4B0772E9D1f2A1f12575b5cE1",
     "suUSD": "0x0d893c092f7ae9d97c13307f2d66cfb59430b4cb",
-    "sdrsuUSD": "0x57Eb58ebec9A6d85F88aA1E5D7960E50cA0D113a",
+    "sdrsuUSD": "0x6ce95F920F7b1Fcdf92c6791506Fab5597236c01",
     "suETH": "0x21351bde0B42b4Cba5c04Fc92917b8c3254b1E88",
-    "sdrsuETH": "0x0F336616a0eD3b70b4e027c6C7a2956e80b6c59b",
+    "sdrsuETH": "0x6ad6cF2426A4f641446DfA85c3753d09784C84ff",
     "suBTC": "0x20B00Df0c1120D2227f87180286E63EDa30f5c4c",
-    "sdrsuBTC": "0xc52C06fd13c346e6Dc78A5570012ac404Ddae43e",
-    "Timelock": "0x426Ef9915230fB3450Adf8108D7Ef657bCA3A876"
+    "sdrsuBTC": "0x34504F007620BbBcDE24de781e86B86e5666C3d1",
+    "Timelock": "0x467FAf3a79F478CB30c41BB5712d54f8a6F8Af3c"
   },
   zktest: {
     CompoundLens: '0x1752c1c46EC8FED05088125c3e4A75B0E600f0df',
@@ -439,42 +470,44 @@ const rateModals = {
   "metertest": [
     {
       "name": "JumpRateModelV2",
-      "address": "0xcab2c2D30f96Bb3Cb068Cb99612f198Be7388b83",
+      "address": "0x916e898D0f52339DdA5dF1b55cDe6A55E5bc700A",
       "tokens": [
         "USDC",
-        "MTRG",
+        "USDT",
         "ETH",
+        "BTC",
         "MTR"
       ],
       "baseRatePerYear": 0.02,
-      "multiplierPerYear": 0.15,
-      "jumpMultiplierPerYear": 3,
-      "kink": 0.6
+      "multiplierPerYear": 0.12,
+      "jumpMultiplierPerYear": 1,
+      "kink": 0.75
     },
     {
       "name": "JumpRateModelV2",
-      "address": "0xa7D956de01B40A9ACcc9256d3c033eBc9E65894C",
+      "address": "0x9A570B56B0Cf0eB0EAdeeD894F547D7a226Cb9e2",
       "tokens": [
-        "USDT",
-        "wstMTRG"
+        "MTRG"
       ],
-      "baseRatePerYear": 0.03,
-      "multiplierPerYear": 0.15,
-      "jumpMultiplierPerYear": 3,
-      "kink": 0.6
+      "baseRatePerYear": 0.01,
+      "multiplierPerYear": 0.12,
+      "jumpMultiplierPerYear": 1.5,
+      "kink": 0.45
     },
     {
-      "name": "WhitePaperInterestRateModel",
-      "address": "0x7E57C3947F85444C9E212cCeEcb74C450818eD48",
+      "name": "JumpRateModelV2",
+      "address": "0x87c86efFDFc4Ac0A0b16D445d128fb6282b7DCB7",
       "tokens": [
-        "BTC"
+        "wstMTRG"
       ],
-      "baseRatePerYear": 0.0475,
-      "multiplierPerYear": 0.45
+      "baseRatePerYear": 0,
+      "multiplierPerYear": 0.06,
+      "jumpMultiplierPerYear": 1.5,
+      "kink": 0.45
     },
     {
       "name": "ZeroInterestRateModel",
-      "address": "0xD675BB32eAF79bd9C3414E94EDC66EDD2F83E4B2",
+      "address": "0x8098a4Ad4Fc816E576BbBf12A9299Ef3ae8189c7",
       "tokens": [
         "suUSD",
         "suETH",
