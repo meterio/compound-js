@@ -399,6 +399,7 @@ declare module 'hardhat/types/runtime' {
       signer?: ethers.Signer,
     ): Promise<Contracts.IAccessControlUpgradeable>
     getContractAt(name: 'Initializable', address: string, signer?: ethers.Signer): Promise<Contracts.Initializable>
+
     getContractAt(
       name: 'ContextUpgradeable',
       address: string,
