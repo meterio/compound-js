@@ -194,10 +194,77 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
     defPair('csuBTC', 'suBTC'),
     defPair('csuUSD', 'suUSD'),
   ],
-  meter: [
-    defPair('csuUSD', 'suUSD'),
-    defPair('csuETH', 'suETH'),
-    defPair('csuBTC', 'suBTC'),
+  "meter": [
+    {
+      "ctokenSym": "sdrUSDC",
+      "underlySym": "USDC",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrUSDT",
+      "underlySym": "USDT",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrMTRG",
+      "underlySym": "MTRG",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrwstMTRG",
+      "underlySym": "wstMTRG",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrETH",
+      "underlySym": "ETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrBTC",
+      "underlySym": "BTC",
+      "ctokenDecimal": 8,
+      "underlyDecimal": 8,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuUSD",
+      "underlySym": "suUSD",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuETH",
+      "underlySym": "suETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuBTC",
+      "underlySym": "suBTC",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrMTR",
+      "underlySym": "MTR",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": true
+    }
   ],
   arbitrum: [
     defPair('csuUSD', 'suUSD'),
@@ -236,11 +303,37 @@ export const constants = {
 }
 
 const address = {
-  meter: {
-    suUSD: "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
-    suETH: "0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0",
-    SUMER: "0x553d713e0fb958932b6c40abaf0b5a1ffae73da2",
-    suBTC: "0xe85411C030fB32A9D8b14Bbbc6CB19417391F711"
+  "meter": {
+    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "SUMER": "0x264b7316b535515db9759a77dc4041c0c2263527",
+    "CompoundLens": "0x9c0DB1C5882b73DFAB66D727b51C617Ad4D9783e",
+    "FeedPriceOracle": "0x31AdFa19C2c834B0900cA716C37B0619C9bD2C6B",
+    "ZeroInterestRateModel": "0x8098a4Ad4Fc816E576BbBf12A9299Ef3ae8189c7",
+    "AccountLiquidityImpl": "0xe169618cAc0542B458984a041d705e1558FEA5A0",
+    "AccountLiquidity": "0x20A8794d5BEcBa1B19A35D8CaA2b7e0e0b7CF832",
+    "Comptroller": "0xB7305cEC5EfBd28204aBf8214452F6fc78Dc4E22",
+    "Unitroller": "0xB6bf1515CAA8Be16f2FC3308974645CaEa458Ab1",
+    "MTR": "0x0000000000000000000000000000000000000000",
+    "sdrMTR": "0xf9e3459233E08F88Cf7faDdEd8f734d80A04a35d",
+    "USDC": "0x2b27f5f7f2867ad9d2b7065f81e985c1bd1b7274",
+    "sdrUSDC": "0xC248AE618DC3C5FB3be493599EC5f875238C2b49",
+    "USDT": "0x2398633bee182cad2d0388b41735fd9fb742098d",
+    "sdrUSDT": "0x5d0A5586a2a6dACeEAdEec8153171009a57404BA",
+    "MTRG": "0x8a419ef4941355476cf04933e90bf3bbf2f73814",
+    "sdrMTRG": "0xE191150B05985Cbb49D3A9973603d96EA3b92b71",
+    "wstMTRG": "0x871497Eb8596d2cBdBE5bb23D552D35bFfbb8CF5",
+    "sdrwstMTRG": "0x11079f0e682A5a13F55D6f60519aD3e5425cd837",
+    "ETH": "0xe8876830e7cc85dae8ce31b0802313caf856886f",
+    "sdrETH": "0x8f0dFB74CA2E137771d9e357514e4f107e158c76",
+    "BTC": "0x7EB9e0Df1C6E6f1E9d3d1EdA09fcF688FE7A710c",
+    "sdrBTC": "0x938Af4326a6a5Dc4B0772E9D1f2A1f12575b5cE1",
+    "suUSD": "0x0d893c092f7ae9d97c13307f2d66cfb59430b4cb",
+    "sdrsuUSD": "0x6ce95F920F7b1Fcdf92c6791506Fab5597236c01",
+    "suETH": "0x21351bde0B42b4Cba5c04Fc92917b8c3254b1E88",
+    "sdrsuETH": "0x6ad6cF2426A4f641446DfA85c3753d09784C84ff",
+    "suBTC": "0x20B00Df0c1120D2227f87180286E63EDa30f5c4c",
+    "sdrsuBTC": "0x34504F007620BbBcDE24de781e86B86e5666C3d1",
+    "Timelock": "0x467FAf3a79F478CB30c41BB5712d54f8a6F8Af3c"
   },
   arbitrum: {
     suUSD: "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
@@ -548,6 +641,54 @@ const rateModals = {
       "multiplierPerYear": 0.15,
       "jumpMultiplierPerYear": 3,
       "kink": 0.6
+    }
+  ],
+  "meter": [
+    {
+      "name": "JumpRateModelV2",
+      "address": "0x916e898D0f52339DdA5dF1b55cDe6A55E5bc700A",
+      "tokens": [
+        "USDC",
+        "USDT",
+        "ETH",
+        "BTC",
+        "MTR"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.12,
+      "jumpMultiplierPerYear": 1,
+      "kink": 0.75
+    },
+    {
+      "name": "JumpRateModelV2",
+      "address": "0x9A570B56B0Cf0eB0EAdeeD894F547D7a226Cb9e2",
+      "tokens": [
+        "MTRG"
+      ],
+      "baseRatePerYear": 0.01,
+      "multiplierPerYear": 0.12,
+      "jumpMultiplierPerYear": 1.5,
+      "kink": 0.45
+    },
+    {
+      "name": "JumpRateModelV2",
+      "address": "0x87c86efFDFc4Ac0A0b16D445d128fb6282b7DCB7",
+      "tokens": [
+        "wstMTRG"
+      ],
+      "baseRatePerYear": 0,
+      "multiplierPerYear": 0.06,
+      "jumpMultiplierPerYear": 1.5,
+      "kink": 0.45
+    },
+    {
+      "name": "ZeroInterestRateModel",
+      "address": "0x8098a4Ad4Fc816E576BbBf12A9299Ef3ae8189c7",
+      "tokens": [
+        "suUSD",
+        "suETH",
+        "suBTC"
+      ]
     }
   ]
 }
