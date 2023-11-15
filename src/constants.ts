@@ -54,15 +54,15 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
   ],
   metermain: [
     {
-      ctokenSym: 'sdrUSDC',
-      underlySym: 'USDC',
+      ctokenSym: 'sdrUSDC.eth',
+      underlySym: 'USDC.eth',
       ctokenDecimal: 6,
       underlyDecimal: 6,
       ctokenIsEther: false,
     },
     {
-      ctokenSym: 'sdrUSDT',
-      underlySym: 'USDT',
+      ctokenSym: 'sdrUSDT.eth',
+      underlySym: 'USDT.eth',
       ctokenDecimal: 6,
       underlyDecimal: 6,
       ctokenIsEther: false,
@@ -89,13 +89,6 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       ctokenIsEther: false,
     },
     {
-      ctokenSym: 'sdrBTC',
-      underlySym: 'BTC',
-      ctokenDecimal: 8,
-      underlyDecimal: 8,
-      ctokenIsEther: false,
-    },
-    {
       ctokenSym: 'sdrsuUSD',
       underlySym: 'suUSD',
       ctokenDecimal: 18,
@@ -108,20 +101,6 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       ctokenDecimal: 18,
       underlyDecimal: 18,
       ctokenIsEther: false,
-    },
-    {
-      ctokenSym: 'sdrsuBTC',
-      underlySym: 'suBTC',
-      ctokenDecimal: 18,
-      underlyDecimal: 18,
-      ctokenIsEther: false,
-    },
-    {
-      ctokenSym: 'sdrMTR',
-      underlySym: 'MTR',
-      ctokenDecimal: 18,
-      underlyDecimal: 18,
-      ctokenIsEther: true,
     },
   ],
   metertest: [
@@ -479,6 +458,7 @@ const address = {
     AccountLiquidity: '0x7cBB9605f439d5106506259f5B3112801Ea18084',
     CompLogic: '0x5eE48E2471a8fA4FADDFF7cbb6FA0489D951f9b8',
     Comptroller: '0xcB4cdDA50C1B6B0E33F544c98420722093B7Aa88',
+    Unitroller: '0xcB4cdDA50C1B6B0E33F544c98420722093B7Aa88',
     'sdrUSDC.eth': '0xC211a250FC30122ee107aC9Acf6686110339520f',
     'USDC.eth': '0xd86e243fc0007e6226b07c9a50c9d70d78299eb5',
     'sdrUSDT.eth': '0xaCEDC263FF6De824B38cAeAAC1FD877b1a7344a1',
