@@ -282,7 +282,85 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       ctokenIsEther: false,
     },
   ],
-  arbitrum: [defPair('csuUSD', 'suUSD'), defPair('csuETH', 'suETH'), defPair('csuBTC', 'suBTC')],
+  "arbitrum": [
+    {
+      "ctokenSym": "sdrUSDC",
+      "underlySym": "USDC",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrUSDT",
+      "underlySym": "USDT",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrDAI",
+      "underlySym": "DAI",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrwstETH",
+      "underlySym": "wstETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrRETH",
+      "underlySym": "RETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrWBTC",
+      "underlySym": "WBTC",
+      "ctokenDecimal": 8,
+      "underlyDecimal": 8,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrARB",
+      "underlySym": "ARB",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuUSD",
+      "underlySym": "suUSD",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuETH",
+      "underlySym": "suETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuBTC",
+      "underlySym": "suBTC",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrETH",
+      "underlySym": "ETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": true
+    }
+  ],
   base: [defPair('csuUSD', 'suUSD'), defPair('csuETH', 'suETH'), defPair('csuBTC', 'suBTC')],
 }
 
@@ -337,11 +415,39 @@ const address = {
     sdrsuETH: '0x21c4123f62CA28c9ceF3dDd1c8ae71EE9a5003aE',
     Timelock: '0xFb2426f277A2d33DAb0ce00DF4a4D67c46aa5b3F',
   },
-  arbitrum: {
-    suUSD: '0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8',
-    suETH: '0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0',
-    SUMER: '0x553d713e0fb958932b6c40abaf0b5a1ffae73da2',
-    suBTC: '0xe85411C030fB32A9D8b14Bbbc6CB19417391F711',
+  "arbitrum": {
+    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "SUMER": "0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2",
+    "CompoundLens": "0x9aa55bCf3E41D0d98FCe816C4eC6E791B0f6d154",
+    "FeedPriceOracle": "0x7465fedB29023d11effe8C74E82A7ecEBf15E947",
+    "ZeroInterestRateModel": "0xc7fFEAa5949d50A408bD92DdB0D1EAcef3F8a3Bc",
+    "AccountLiquidityImpl": "0x10A2e256Bed7b3c49C151Ad1Bad01F4936FC9276",
+    "AccountLiquidity": "0xA2e6B85f9A5C90217054350d7893498B8c892546",
+    "Comptroller": "0x58235d9C8c9f136c0A4e9761186dB0329243bbB8",
+    "Unitroller": "0xBfb69860C91A22A2287df1Ff3Cdf0476c5aab24A",
+    "ETH": "0x0000000000000000000000000000000000000000",
+    "sdrETH": "0x3C752d0D78BbFddA6BF4b6000a01228B732441aE",
+    "USDC": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+    "sdrUSDC": "0x4DE3741E1676ed14d661b1398196dC221cA4D37A",
+    "USDT": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+    "sdrUSDT": "0xDb7Fe9c415281E383595c262e49568DDc18e8Bd4",
+    "DAI": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+    "sdrDAI": "0x873449359d2d99691436E724C6C219a39b159B4a",
+    "wstETH": "0x5979D7b546E38E414F7E9822514be443A4800529",
+    "sdrwstETH": "0x1167e762541374fEBeeA0f6Ed2AD4473AFa1CcEa",
+    "RETH": "0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8",
+    "sdrRETH": "0x1a9CFA6c676ebBEd450dB3cef03e399465F1202C",
+    "WBTC": "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f",
+    "sdrWBTC": "0x59aC82d3EfB5dc6c4389ccfF7AB7ab6C72C6AC05",
+    "ARB": "0x912CE59144191C1204E64559FE8253a0e49E6548",
+    "sdrARB": "0x142017b52c99d3dFe55E49d79Df0bAF7F4478c0c",
+    "suUSD": "0x8bf591eae535f93a242d5a954d3cde648b48a5a8",
+    "sdrsuUSD": "0xe4B55045ed14815c7c42eeeF8EE431b89422c389",
+    "suETH": "0x1c22531aa9747d76fff8f0a43b37954ca67d28e0",
+    "sdrsuETH": "0x9C93423939C4e3D48d99baD147AD808BE89B2043",
+    "suBTC": "0xe85411c030fb32a9d8b14bbbc6cb19417391f711",
+    "sdrsuBTC": "0xAc6bAF36B28d19EA10959102158Beb3d933C1fbf",
+    "Timelock": "0x42778d0962884510b85d4D1B30DFe9e9Dd270446"
   },
   base: {
     suUSD: '0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8',
@@ -716,6 +822,45 @@ const rateModals = {
       tokens: ['suUSD', 'suETH'],
     },
   ],
+  "arbitrum": [
+    {
+      "name": "JumpRateModelV2",
+      "address": "0x8C38b023Afe895296e2598AE111752223185b35c",
+      "tokens": [
+        "USDC",
+        "USDT",
+        "DAI",
+        "WBTC",
+        "ETH"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.12,
+      "jumpMultiplierPerYear": 1,
+      "kink": 0.75
+    },
+    {
+      "name": "JumpRateModelV2",
+      "address": "0xb1FdC3f660b0953253141B2509c43014d5d3d733",
+      "tokens": [
+        "wstETH",
+        "RETH",
+        "ARB"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.15,
+      "jumpMultiplierPerYear": 2,
+      "kink": 0.55
+    },
+    {
+      "name": "ZeroInterestRateModel",
+      "address": "0xc7fFEAa5949d50A408bD92DdB0D1EAcef3F8a3Bc",
+      "tokens": [
+        "suUSD",
+        "suETH",
+        "suBTC"
+      ]
+    }
+  ]
 }
 
 const names = {}
