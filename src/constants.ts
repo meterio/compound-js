@@ -825,7 +825,7 @@ const rateModals = {
   "arbitrum": [
     {
       "name": "JumpRateModelV2",
-      "address": "0x8C38b023Afe895296e2598AE111752223185b35c",
+      "address": "0x5096E5cf4f151052ACD615b2635E7FdB6Db0763C",
       "tokens": [
         "USDC",
         "USDT",
@@ -840,7 +840,7 @@ const rateModals = {
     },
     {
       "name": "JumpRateModelV2",
-      "address": "0xb1FdC3f660b0953253141B2509c43014d5d3d733",
+      "address": "0xE27496Ec5d6E19521d636e78c127fF2Cf59ee914",
       "tokens": [
         "wstETH",
         "RETH",
