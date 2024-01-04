@@ -1,10 +1,8 @@
-require('@nomiclabs/hardhat-waffle');
-
-const providerUrl = process.env.MAINNET_PROVIDER_URL;
+const providerUrl = process.env.MAINNET_PROVIDER_URL
 
 if (!providerUrl) {
-  console.error('Missing JSON RPC provider URL as environment variable `MAINNET_PROVIDER_URL`');
-  process.exit(1);
+  console.error('Missing JSON RPC provider URL as environment variable `MAINNET_PROVIDER_URL`')
+  process.exit(1)
 }
 
 module.exports = {
@@ -20,6 +18,6 @@ module.exports = {
     },
   },
   mocha: {
-    timeout: 60000
-  }
-};
+    timeout: 60000,
+  },
+}

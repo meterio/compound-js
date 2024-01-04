@@ -3,8 +3,8 @@
  * @desc These methods facilitate interactions with the Ethereum blockchain.
  */
 
-import { ethers } from 'ethers';
-import { AbiItem, CallOptions, Provider, ProviderNetwork } from './types';
+import { ethers } from 'ethers'
+import { CallOptions, AbiItem, ProviderNetwork, Provider } from './types'
 
 enum JsonRpc {
   EthSendTransaction,
@@ -13,7 +13,7 @@ enum JsonRpc {
 }
 
 /**
- * This is a generic method for invoking JSON RPC's `eth_call` or `eth_send` 
+ * This is a generic method for invoking JSON RPC's `eth_call` or `eth_send`
  *     with Ethers.js. This function supports the public `read` and `trx`
  *     methods in this module.
  *
@@ -28,7 +28,7 @@ enum JsonRpc {
  *
  * @hidden
  *
- * @returns {Promise<any>} Return value of the invoked smart contract member 
+ * @returns {Promise<any>} Return value of the invoked smart contract member
  *     or an error object if the call failed.
  */
 function _ethJsonRpc(
@@ -37,12 +37,12 @@ function _ethJsonRpc(
   method: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   parameters: any[] = [],
-  options: CallOptions = {}
+  options: CallOptions = {},
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return new Promise<any>((resolve, reject) => {
-    const provider = options._compoundProvider || _createProvider(options);
+    const provider = options._compoundProvider || _createProvider(options)
 
     const overrides = {
       gasPrice: options.gasPrice,
@@ -52,59 +52,73 @@ function _ethJsonRpc(
       from: options.from,
       gasLimit: options.gasLimit,
       blockTag: options.blockTag,
-    };
+    }
 
-    parameters.push(overrides);
+    parameters.push(overrides)
 
-    let contract;
-    let abi: string | string[] | AbiItem[];
+    let contract
+    let abi: string | string[] | AbiItem[]
     if (options.abi) {
       // Assumes `method` is a string of the member name
       // Assumes `abi` is a JSON object
-      abi = options.abi;
-      contract = new ethers.Contract(address, abi, provider);
+      abi = options.abi
+      contract = new ethers.Contract(address, abi, provider)
     } else {
       // Assumes `method` is a string of the member definition
-      abi = [ method ];
-      contract = new ethers.Contract(address, abi, provider);
-      method = Object.keys(contract.functions)[1];
+      abi = [method]
+      contract = new ethers.Contract(address, abi, provider)
+      method = Object.keys(contract.functions)[1]
     }
 
     if (jsonRpcMethod === JsonRpc.EthSendTransaction) {
-      contract[method].apply(null, parameters).then((result) => {
-        resolve(result);
-      }).catch((error) => {
-        try { delete parameters[parameters.length-1].privateKey } catch(e) {}
-        try { delete parameters[parameters.length-1].mnemonic   } catch(e) {}
-        reject({
-          message: 'Error occurred during [eth_sendTransaction]. See {error}.',
-          error,
-          method,
-          parameters,
-        });
-      });
+      contract[method]
+        .apply(null, parameters)
+        .then((result) => {
+          resolve(result)
+        })
+        .catch((error) => {
+          try {
+            delete parameters[parameters.length - 1].privateKey
+          } catch (e) {}
+          try {
+            delete parameters[parameters.length - 1].mnemonic
+          } catch (e) {}
+          reject({
+            message: 'Error occurred during [eth_sendTransaction]. See {error}.',
+            error,
+            method,
+            parameters,
+          })
+        })
     } else if (jsonRpcMethod === JsonRpc.EthCall) {
-      contract.callStatic[method].apply(null, parameters).then((result) => {
-        resolve(result);
-      }).catch((error) => {
-        try { delete parameters[parameters.length-1].privateKey } catch(e) {}
-        try { delete parameters[parameters.length-1].mnemonic   } catch(e) {}
-        reject({
-          message: 'Error occurred during [eth_call]. See {error}.',
-          error,
-          method,
-          parameters,
-        });
-      });
+      contract.callStatic[method]
+        .apply(null, parameters)
+        .then((result) => {
+          resolve(result)
+        })
+        .catch((error) => {
+          try {
+            delete parameters[parameters.length - 1].privateKey
+          } catch (e) {}
+          try {
+            delete parameters[parameters.length - 1].mnemonic
+          } catch (e) {}
+          reject({
+            message: 'Error occurred during [eth_call]. See {error}.',
+            error,
+            method,
+            parameters,
+          })
+        })
     }
-  });
+  })
 }
 
 /**
- * This is a generic method for invoking JSON RPC's `eth_call` with Ethers.js. 
- *     Use this method to execute a smart contract's constant or non-constant 
- *     member without using gas. This is a read-only method intended to read a 
- *     value or test a transaction for valid parameters. It does not create a 
+ * This is a generic method for invoking JSON RPC's `eth_call` with Ethers.js.
+ *     Use this method to execute a smart contract's constant or non-constant
+ *     member without using gas. This is a read-only method intended to read a
+ *     value or test a transaction for valid parameters. It does not create a
  *     transaction on the block chain.
  *
  * @param {string} address The Ethereum address the transaction is directed to.
@@ -115,24 +129,24 @@ function _ethJsonRpc(
  *     of the single intended method, an array of many methods, or a JSON object
  *     of the ABI generated by a Solidity compiler.
  *
- * @returns {Promise<any>} Return value of the invoked smart contract member or an error 
+ * @returns {Promise<any>} Return value of the invoked smart contract member or an error
  *     object if the call failed.
  *
  * @example
  * ```
  * const cEthAddress = Compound.util.getAddress(Compound.cETH);
- * 
+ *
  * (async function() {
- * 
+ *
  *   const srpb = await Compound.eth.read(
  *     cEthAddress,
  *     'function supplyRatePerBlock() returns (uint256)',
  *     // [], // [optional] parameters
  *     // {}  // [optional] call options, provider, network, plus Ethers.js "overrides"
  *   );
- * 
+ *
  *   console.log('cETH market supply rate per block:', srpb.toString());
- * 
+ *
  * })().catch(console.error);
  * ```
  */
@@ -141,26 +155,26 @@ export function read(
   method: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   parameters: any[] = [],
-  options: CallOptions = {}
+  options: CallOptions = {},
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-) : Promise<any> {
-  return _ethJsonRpc(JsonRpc.EthCall, address, method, parameters, options);
+): Promise<any> {
+  return _ethJsonRpc(JsonRpc.EthCall, address, method, parameters, options)
 }
 
 /**
- * This is a generic method for invoking JSON RPC's `eth_sendTransaction` with 
- *     Ethers.js. Use this method to create a transaction that invokes a smart 
+ * This is a generic method for invoking JSON RPC's `eth_sendTransaction` with
+ *     Ethers.js. Use this method to create a transaction that invokes a smart
  *     contract method. Returns an Ethers.js `TransactionResponse` object.
  *
  * @param {string} address The Ethereum address the transaction is directed to.
  * @param {string} method The smart contract member in which to invoke.
  * @param {any[]} [parameters] Parameters of the method to invoke.
- * @param {CallOptions} [options] Options to set for `eth_sendTransaction`, 
+ * @param {CallOptions} [options] Options to set for `eth_sendTransaction`,
  *     (as JSON object), and Ethers.js method overrides. The ABI can be a string
- *     optional ABI of the single intended method, an array of many methods, or 
+ *     optional ABI of the single intended method, an array of many methods, or
  *     a JSON object of the ABI generated by a Solidity compiler.
  *
- * @returns {Promise<any>} Returns an Ethers.js `TransactionResponse` object or an error 
+ * @returns {Promise<any>} Returns an Ethers.js `TransactionResponse` object or an error
  *     object if the transaction failed.
  *
  * @example
@@ -168,10 +182,10 @@ export function read(
  * const oneEthInWei = '1000000000000000000';
  * const cEthAddress = '0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5';
  * const provider = window.ethereum;
- * 
+ *
  * (async function() {
  *   console.log('Supplying ETH to the Compound Protocol...');
- * 
+ *
  *   // Mint some cETH by supplying ETH to the Compound Protocol
  *   const trx = await Compound.eth.trx(
  *     cEthAddress,
@@ -182,9 +196,9 @@ export function read(
  *       value: oneEthInWei
  *     }
  *   );
- * 
+ *
  *   // const result = await trx.wait(1); // JSON object of trx info, once mined
- * 
+ *
  *   console.log('Ethers.js transaction object', trx);
  * })().catch(console.error);
  * ```
@@ -194,10 +208,10 @@ export function trx(
   method: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   parameters: any[] = [],
-  options: CallOptions = {}
+  options: CallOptions = {},
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-) : Promise<any> {
-  return _ethJsonRpc(JsonRpc.EthSendTransaction, address, method, parameters, options);
+): Promise<any> {
+  return _ethJsonRpc(JsonRpc.EthSendTransaction, address, method, parameters, options)
 }
 
 /**
@@ -212,31 +226,21 @@ export function trx(
  * @returns {object} Returns a metadata object containing the Ethereum network
  *     name and ID.
  */
-export async function getProviderNetwork(
-  provider: Provider
-) : Promise<ProviderNetwork> {
-  let _provider;
-  if (provider._isSigner) {
-    _provider = provider.provider;
-  } else {
-    _provider = provider;
-  }
+export async function getProviderNetwork(provider: Provider): Promise<ProviderNetwork> {
+  let _provider = provider
 
-  let networkId;
-  if (_provider.send) {
-    networkId = await _provider.send('net_version');
-  } else {
-    networkId = _provider._network.chainId;
-  }
+  let networkId
+  const networkObj = await _provider.getNetwork()
+  networkId = networkObj.chainId
 
-  networkId = isNaN(networkId) ? 0 : +networkId;
+  networkId = isNaN(networkId) ? 0 : +networkId
 
-  const network = ethers.providers.getNetwork(networkId) || { name: 'unknown' };
+  const network = ethers.Network.from(networkId) || { name: 'unknown' }
 
   return {
     id: networkId,
-    name: network.name === 'homestead' ? 'mainnet' : network.name
-  };
+    name: network.name === 'homestead' ? 'mainnet' : network.name,
+  }
 }
 
 /**
@@ -252,38 +256,28 @@ export async function getProviderNetwork(
  * @example
  * ```
  * (async function () {
- * 
+ *
  *   balance = await Compound.eth.getBalance(myAddress, provider);
  *   console.log('My ETH Balance', +balance);
- * 
+ *
  * })().catch(console.error);
  * ```
  */
-export async function getBalance(
-  address: string,
-  provider: Provider | string
-) : Promise<string> {
-  let _provider;
-  if (typeof provider === 'object' && provider._isSigner) {
-    _provider = provider.provider;
-  } else {
-    _provider = provider;
-  }
+export async function getBalance(address: string, provider: Provider | string): Promise<string> {
+  let _provider = provider
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let providerInstance: any = _createProvider({ provider: _provider });
+  let providerInstance: any = _createProvider({ provider: _provider })
 
   if (!providerInstance.send && providerInstance.providerConfigs) {
-    const url = providerInstance.providerConfigs[0].provider.connection.url;
-    providerInstance = new ethers.providers.JsonRpcProvider(url);
+    const url = providerInstance.providerConfigs[0].provider.connection.url
+    providerInstance = new ethers.JsonRpcProvider(url)
   } else if (!providerInstance.send && providerInstance.provider) {
-    providerInstance = providerInstance.provider;
+    providerInstance = providerInstance.provider
   }
 
-  const balance = await providerInstance.send(
-    'eth_getBalance', [ address, 'latest' ]
-  );
-  return balance;
+  const balance = await providerInstance.send('eth_getBalance', [address, 'latest'])
+  return balance
 }
 
 /**
@@ -296,33 +290,33 @@ export async function getBalance(
  *
  * @returns {object} Returns a valid Ethereum network provider object.
  */
-export function _createProvider(options: CallOptions = {}) : Provider {
+export function _createProvider(options: CallOptions = {}): Provider {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let provider: any = options.provider || (options.network || 'mainnet');
-  const isADefaultProvider = !!ethers.providers.getNetwork(provider.toString());
+  let provider: any = options.provider || options.network || 'mainnet'
+  const isADefaultProvider = !!ethers.Network.from(provider.toString())
 
-  const isObject = typeof provider === 'object';
+  const isObject = typeof provider === 'object'
 
   // User passed an ethers.js provider/signer/wallet object
   if (isObject && (provider._isSigner || provider._isProvider)) {
-    return provider;
+    return provider
   }
 
   // Create an ethers provider, web3s can sign
   if (isADefaultProvider) {
-    provider = ethers.getDefaultProvider(provider);
+    provider = ethers.getDefaultProvider(provider)
   } else if (isObject) {
-    provider = new ethers.providers.Web3Provider(provider).getSigner();
+    provider = new ethers.BrowserProvider(provider).getSigner()
   } else {
-    provider = new ethers.providers.JsonRpcProvider(provider);
+    provider = new ethers.JsonRpcProvider(provider)
   }
 
   // Add an explicit signer
   if (options.privateKey) {
-    provider = new ethers.Wallet(options.privateKey, provider);
+    provider = new ethers.Wallet(options.privateKey, provider)
   } else if (options.mnemonic) {
-    provider = new ethers.Wallet(ethers.Wallet.fromMnemonic(options.mnemonic), provider);
+    provider = ethers.Wallet.fromPhrase(options.mnemonic, provider)
   }
 
-  return provider;
+  return provider
 }

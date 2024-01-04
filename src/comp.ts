@@ -19,7 +19,7 @@ import {
   Provider,
 } from './types'
 
-const keccak256 = ethers.utils.keccak256
+const keccak256 = ethers.keccak256
 
 /**
  * Applies the EIP-55 checksum to an Ethereum address.

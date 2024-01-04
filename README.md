@@ -45,7 +45,7 @@ const toAddress = '0xa0df350d2637096571F7A701CBc1C5fdE30dF76A';
     'function send() external payable',
     [],
     {
-      value: Compound._ethers.utils.parseEther('1.0'), // 1 ETH
+      value: Compound._ethers.parseEther('1.0'), // 1 ETH
       provider: window.ethereum, // in a web browser
     }
   );
