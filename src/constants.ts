@@ -361,7 +361,64 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       "ctokenIsEther": true
     }
   ],
-  base: [defPair('csuUSD', 'suUSD'), defPair('csuETH', 'suETH'), defPair('csuBTC', 'suBTC')],
+  "base": [
+    {
+      "ctokenSym": "sdrUSDC",
+      "underlySym": "USDC",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrUSDbc",
+      "underlySym": "USDbc",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrDAI",
+      "underlySym": "DAI",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrwstETH",
+      "underlySym": "wstETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrcbETH",
+      "underlySym": "cbETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuUSD",
+      "underlySym": "suUSD",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuETH",
+      "underlySym": "suETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrETH",
+      "underlySym": "ETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": true
+    }
+  ]
 }
 
 const symbols = {}
@@ -449,11 +506,33 @@ const address = {
     "sdrsuBTC": "0xAc6bAF36B28d19EA10959102158Beb3d933C1fbf",
     "Timelock": "0x42778d0962884510b85d4D1B30DFe9e9Dd270446"
   },
-  base: {
-    suUSD: '0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8',
-    suETH: '0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0',
-    SUMER: '0x553d713e0fb958932b6c40abaf0b5a1ffae73da2',
-    suBTC: '0xe85411C030fB32A9D8b14Bbbc6CB19417391F711',
+  "base": {
+    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "SUMER": "0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2",
+    "CompoundLens": "0xDb7Fe9c415281E383595c262e49568DDc18e8Bd4",
+    "FeedPriceOracle": "0x60B8067Cf3640bCc7c3b2CfbE6Eac3c2CA40934e",
+    "ZeroInterestRateModel": "0x341fDb6532154Cec491Aca3D3BB404C2d4cc042E",
+    "AccountLiquidityImpl": "0x873449359d2d99691436E724C6C219a39b159B4a",
+    "AccountLiquidity": "0x36C379883c9A293e7DdF76031c4a0AD053eB4bfF",
+    "Comptroller": "0x1167e762541374fEBeeA0f6Ed2AD4473AFa1CcEa",
+    "Unitroller": "0x611375907733D9576907E125Fb29704712F0BAfA",
+    "ETH": "0x0000000000000000000000000000000000000000",
+    "sdrETH": "0x7b5969bB51fa3B002579D7ee41A454AC691716DC",
+    "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "sdrUSDC": "0x142017b52c99d3dFe55E49d79Df0bAF7F4478c0c",
+    "USDbc": "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA",
+    "sdrUSDbc": "0x3389eD4dd777b03B95deb2994ACaF6807cf24c2E",
+    "DAI": "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb",
+    "sdrDAI": "0xA4578AB5CDA88AaE7603aFAB24b4c0d24a7858D1",
+    "wstETH": "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
+    "sdrwstETH": "0x238d804Cb1F4c0c7495e7b7773c54D75E4C99cdd",
+    "cbETH": "0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22",
+    "sdrcbETH": "0x6345aF6dA3EBd9DF468e37B473128Fd3079C4a4b",
+    "suUSD": "0x8bf591eae535f93a242d5a954d3cde648b48a5a8",
+    "sdrsuUSD": "0xa1aD8481e83a5b279D97ab371bCcd5AE3b446EA6",
+    "suETH": "0x1c22531aa9747d76fff8f0a43b37954ca67d28e0",
+    "sdrsuETH": "0x56048C88309CAF13A942d688bfB9654432910d6e",
+    "Timelock": "0x549D0CdC753601fbE29f9DE186868429a8558E07"
   },
   rinkeby: {
     CompoundLens: '0xBb5D4106642aD2D8b541Ad6728a937D4b1985E00',
@@ -858,6 +937,42 @@ const rateModals = {
         "suUSD",
         "suETH",
         "suBTC"
+      ]
+    }
+  ],
+  "base": [
+    {
+      "name": "JumpRateModelV2",
+      "address": "0xd16D4BbE76C873d8a1e499Bf2aAc91710165E3C9",
+      "tokens": [
+        "USDC",
+        "USDbc",
+        "DAI",
+        "ETH"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.12,
+      "jumpMultiplierPerYear": 1,
+      "kink": 0.75
+    },
+    {
+      "name": "JumpRateModelV2",
+      "address": "0x04C13c475223CaEb3F23f4F4A69707D82C47dA50",
+      "tokens": [
+        "wstETH",
+        "cbETH"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.15,
+      "jumpMultiplierPerYear": 2,
+      "kink": 0.55
+    },
+    {
+      "name": "ZeroInterestRateModel",
+      "address": "0x341fDb6532154Cec491Aca3D3BB404C2d4cc042E",
+      "tokens": [
+        "suUSD",
+        "suETH"
       ]
     }
   ]
