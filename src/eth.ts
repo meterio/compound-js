@@ -293,7 +293,6 @@ export async function getBalance(address: string, provider: Provider | string): 
 export function _createProvider(options: CallOptions = {}): Provider {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let provider: any = options.provider || options.network || 'mainnet'
-  const isADefaultProvider = !!ethers.Network.from(provider.toString())
 
   const isObject = typeof provider === 'object'
 
@@ -302,13 +301,8 @@ export function _createProvider(options: CallOptions = {}): Provider {
     return provider
   }
 
-  // Create an ethers provider, web3s can sign
-  if (isADefaultProvider) {
-    provider = ethers.getDefaultProvider(provider)
-  } else if (isObject) {
+  if (isObject) {
     provider = new ethers.BrowserProvider(provider).getSigner()
-  } else {
-    provider = new ethers.JsonRpcProvider(provider)
   }
 
   // Add an explicit signer
