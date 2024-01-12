@@ -77,14 +77,18 @@ const Compound = function (provider: Provider | string = 'mainnet', options: Com
     delegate: comp.delegate,
     delegateBySig: comp.delegateBySig,
     createDelegateSignature: comp.createDelegateSignature,
+    _network: {
+      id: options.networkId,
+      name: options.networkName
+    }
   }
 
   // Instance needs to know which network the provider connects to, so it can
   //     use the correct contract addresses.
-  instance._networkPromise = eth.getProviderNetwork(provider).then((network) => {
-    delete instance._networkPromise
-    instance._network = network
-  })
+  // instance._networkPromise = eth.getProviderNetwork(provider).then((network) => {
+  //   delete instance._networkPromise
+  //   instance._network = network
+  // })
 
   return instance
 }

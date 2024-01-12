@@ -91,7 +91,8 @@ function _ethJsonRpc(
           })
         })
     } else if (jsonRpcMethod === JsonRpc.EthCall) {
-      contract.callStatic[method]
+      contract[method]
+        .staticCall
         .apply(null, parameters)
         .then((result) => {
           resolve(result)
@@ -294,23 +295,23 @@ export function _createProvider(options: CallOptions = {}): Provider {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let provider: any = options.provider || options.network || 'mainnet'
 
-  const isObject = typeof provider === 'object'
+  // const isObject = typeof provider === 'object'
 
-  // User passed an ethers.js provider/signer/wallet object
-  if (isObject && (provider._isSigner || provider._isProvider)) {
-    return provider
-  }
+  // // User passed an ethers.js provider/signer/wallet object
+  // if (isObject && (provider._isSigner || provider._isProvider)) {
+  //   return provider
+  // }
 
-  if (isObject) {
-    provider = new ethers.BrowserProvider(provider).getSigner()
-  }
+  // if (isObject) {
+  //   provider = new ethers.BrowserProvider(provider).getSigner()
+  // }
 
-  // Add an explicit signer
-  if (options.privateKey) {
-    provider = new ethers.Wallet(options.privateKey, provider)
-  } else if (options.mnemonic) {
-    provider = ethers.Wallet.fromPhrase(options.mnemonic, provider)
-  }
+  // // Add an explicit signer
+  // if (options.privateKey) {
+  //   provider = new ethers.Wallet(options.privateKey, provider)
+  // } else if (options.mnemonic) {
+  //   provider = ethers.Wallet.fromPhrase(options.mnemonic, provider)
+  // }
 
   return provider
 }

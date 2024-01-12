@@ -11,7 +11,9 @@ export { Provider } from 'ethers'
 export interface CompoundOptions {
   privateKey?: string
   mnemonic?: string
-  provider?: Provider | string
+  provider?: Provider | string,
+  networkId?: string | number,
+  networkName?: string
 }
 
 // =-=-=-=-=-= /src/eth.ts =-=-=-=-=-=
