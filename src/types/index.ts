@@ -1,4 +1,5 @@
 import { Deferrable } from '@ethersproject/properties'
+import BigNumber from 'bignumber.js'
 import { Provider, BlockTag, TransactionRequest, TransactionResponse } from 'ethers'
 
 // =-=-=-=-=-= /src/index.ts =-=-=-=-=-=
@@ -43,7 +44,7 @@ export interface CallOptions {
   from?: number | string
   gasPrice?: number
   gasLimit?: number
-  value?: number | string | bigint
+  value?: number | string | BigNumber
   data?: number | string
   chainId?: number
   nonce?: number

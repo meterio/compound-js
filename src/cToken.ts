@@ -47,7 +47,7 @@ import BN from 'bignumber.js'
  */
 export async function supply(
   asset: string,
-  amount: string | number | bigint,
+  amount: string | number | BigNumber,
   noApprove = false,
   options: CallOptions = {},
 ): Promise<TrxResponse> {
@@ -62,15 +62,15 @@ export async function supply(
     throw Error(errorPrefix + `Asset ${asset} cannot be supplied.`)
   }
 
-  if (typeof amount !== 'number' && typeof amount !== 'string' && typeof amount !== 'bigint') {
-    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigInt.')
+  if (typeof amount !== 'number' && typeof amount !== 'string' && !BigNumber.isBigNumber(amount)) {
+    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.')
   }
 
   const assetDecimals = getDecimals(this._network.name, asset)
 
-  let amountBN = BigInt(amount.toString())
+  let amountBN = new BN(amount.toString())
   if (!options.mantissa) {
-    amountBN = amountBN * BigInt(`1e${assetDecimals}`)
+    amountBN = amountBN.times(`1e${assetDecimals}`)
   }
 
   if (isEther(this._network.name, cTokenName)) {
@@ -92,19 +92,19 @@ export async function supply(
     // Check allowance
     const allowance = await eth.read(underlyingAddress, 'allowance', [userAddress, cTokenAddress], options)
 
-    const notEnough = BigInt(allowance) < amountBN
+    const notEnough = amountBN.gt(String(allowance))
 
     if (notEnough) {
       // ERC-20 approve transaction
-      await eth.trx(underlyingAddress, 'approve', [cTokenAddress, amountBN], options)
+      await eth.trx(underlyingAddress, 'approve', [cTokenAddress, amountBN.toFixed()], options)
     }
   }
 
   const parameters = []
   if (isEther(this._network.name, cTokenName)) {
-    options.value = amountBN
+    options.value = amountBN.toFixed()
   } else {
-    parameters.push(amountBN)
+    parameters.push(amountBN.toFixed())
   }
 
   console.log(`Call mint on ${cTokenName}:${cTokenAddress} with ${amountBN.toString()} `)
@@ -142,7 +142,7 @@ export async function supply(
  */
 export async function redeem(
   asset: string,
-  amount: string | number | bigint,
+  amount: string | number | BigNumber,
   options: CallOptions = {},
 ): Promise<TrxResponse> {
   await netId(this)
@@ -164,17 +164,17 @@ export async function redeem(
     throw Error(errorPrefix + `Asset '${cTokenName}' is not supported.`)
   }
 
-  if (typeof amount !== 'number' && typeof amount !== 'string' && typeof amount !== 'bigint') {
-    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigInt.')
+  if (typeof amount !== 'number' && typeof amount !== 'string' && !BigNumber.isBigNumber(amount)) {
+    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.')
   }
 
-  let amountBN = BigInt(amount.toString())
+  let amountBN = new BN(amount.toString())
   if (!options.mantissa) {
     const assetDecimals = getDecimals(this._network.name, asset)
     if (assetDecimals <= 0) {
       throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
     }
-    amountBN = amountBN * BigInt(`1e${assetDecimals}`)
+    amountBN = amountBN.times(`1e${assetDecimals}`)
   }
 
   const trxOptions: CallOptions = {
@@ -182,7 +182,7 @@ export async function redeem(
     _compoundProvider: this._provider,
     abi: isEther(this._network.name, cTokenName) ? abi.cEther : abi.cErc20,
   }
-  const parameters = [amountBN]
+  const parameters = [amountBN.toFixed()]
   const method = assetIsCToken ? 'redeem' : 'redeemUnderlying'
 
   console.log(`Call ${method} on ${cTokenName}:${cTokenAddress} with ${amountBN.toString()}`)
@@ -226,7 +226,7 @@ export async function redeem(
  */
 export async function borrow(
   asset: string,
-  amount: string | number | bigint,
+  amount: string | number | BigNumber,
   options: CallOptions = {},
 ): Promise<TrxResponse> {
   await netId(this)
@@ -240,24 +240,24 @@ export async function borrow(
     throw Error(errorPrefix + 'Argument `asset` cannot be borrowed.')
   }
 
-  if (typeof amount !== 'number' && typeof amount !== 'string' && typeof amount != 'bigint') {
-    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigInt.')
+  if (typeof amount !== 'number' && typeof amount !== 'string' && !BigNumber.isBigNumber(amount)) {
+    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.')
   }
 
-  let amountBN = BigInt(amount.toString())
+  let amountBN = new BN(amount.toString())
   if (!options.mantissa) {
     const assetDecimals = getDecimals(this._network.name, asset)
     if (assetDecimals <= 0) {
       throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
     }
-    amountBN = amountBN * BigInt(`1e${assetDecimals}`)
+    amountBN = amountBN.times(`1e${assetDecimals}`)
   }
 
   const trxOptions: CallOptions = {
     ...options,
     _compoundProvider: this._provider,
   }
-  const parameters = [amountBN]
+  const parameters = [amountBN.toFixed()]
   trxOptions.abi = isEther(this._network.name, cTokenName) ? abi.cEther : abi.cErc20
 
   console.log(`Call borrow on ${cTokenName}:${cTokenAddress} with ${amount.toString()}`)
@@ -305,7 +305,7 @@ export async function borrow(
  */
 export async function repayBorrow(
   asset: string,
-  amount: string | number | bigint,
+  amount: string | number | BigNumber,
   borrower: string,
   noApprove = false,
   options: CallOptions = {},
@@ -321,8 +321,8 @@ export async function repayBorrow(
     throw Error(errorPrefix + 'Argument `asset` is not supported.')
   }
 
-  if (typeof amount !== 'number' && typeof amount !== 'string' && typeof amount !== 'bigint') {
-    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigInt.')
+  if (typeof amount !== 'number' && typeof amount !== 'string' && !BigNumber.isBigNumber(amount)) {
+    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.')
   }
 
   const method = ethers.isAddress(borrower) ? 'repayBorrowBehalf' : 'repayBorrow'
@@ -334,9 +334,9 @@ export async function repayBorrow(
     throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
   }
 
-  let amountBN = BigInt(amount.toString())
+  let amountBN = new BN(amount.toString())
   if (!options.mantissa) {
-    amountBN = amountBN * BigInt(`1e${assetDecimals}`)
+    amountBN = amountBN.times(`1e${assetDecimals}`)
   }
 
   const trxOptions: CallOptions = {
@@ -347,10 +347,10 @@ export async function repayBorrow(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const parameters: any[] = method === 'repayBorrowBehalf' ? [borrower] : []
   if (isEther(this._network.name, cTokenName)) {
-    trxOptions.value = amountBN
+    trxOptions.value = amountBN.toFixed()
     trxOptions.abi = abi.cEther
   } else {
-    parameters.push(amountBN)
+    parameters.push(amountBN.toFixed())
     trxOptions.abi = abi.cErc20
   }
 
@@ -365,11 +365,11 @@ export async function repayBorrow(
     // Check allowance
     const allowance = await eth.read(underlyingAddress, 'allowance', [userAddress, cTokenAddress], trxOptions)
 
-    const notEnough = BigInt(allowance) < amountBN
+    const notEnough = amountBN.gt(String(allowance))
 
     if (notEnough) {
       // ERC-20 approve transaction
-      await eth.trx(underlyingAddress, 'approve', [cTokenAddress, amountBN], trxOptions)
+      await eth.trx(underlyingAddress, 'approve', [cTokenAddress, amountBN.toFixed()], trxOptions)
     }
   }
 
