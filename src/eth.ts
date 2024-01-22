@@ -69,10 +69,9 @@ function _ethJsonRpc(
       contract = new ethers.Contract(address, abi, provider)
       method = Object.keys(contract.functions)[1]
     }
-
     if (jsonRpcMethod === JsonRpc.EthSendTransaction) {
-      contract[method]
-        .apply(null, parameters)
+      contract
+        .getFunction(method)(...parameters.slice(0, parameters.length - 1))
         .then((result) => {
           resolve(result)
         })
@@ -91,8 +90,7 @@ function _ethJsonRpc(
           })
         })
     } else if (jsonRpcMethod === JsonRpc.EthCall) {
-      contract[method]
-        .staticCall
+      contract[method].staticCall
         .apply(null, parameters)
         .then((result) => {
           resolve(result)

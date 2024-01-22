@@ -6,7 +6,10 @@
     "sourceMap": true,
     "declaration": true,
     "experimentalDecorators": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "target": "es2017",
+    "moduleResolution": "node16",
+    "module": "node16"
   },
   "include": ["src/**/*.ts"]
 }

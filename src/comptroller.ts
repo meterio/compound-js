@@ -61,6 +61,7 @@ export async function enterMarkets(markets: string | string[] = [], options: Cal
 
   const comptrollerAddress = getAddress(this._network.name, 'Unitroller')
   const parameters = [addresses]
+  // const comptroller = Comptroller__factory.connect(comptrollerAddress, this._provider)
 
   const trxOptions: CallOptions = {
     _compoundProvider: this._provider,
@@ -68,6 +69,7 @@ export async function enterMarkets(markets: string | string[] = [], options: Cal
     ...options,
   }
 
+  // return (await comptroller.enterMarkets(addresses)).getTransaction
   return eth.trx(comptrollerAddress, 'enterMarkets', parameters, trxOptions)
 }
 

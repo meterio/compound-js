@@ -4,13 +4,15 @@
  *     contracts.
  */
 
-import { ethers } from 'ethers'
+import { ethers, BigNumberish, ContractTransactionResponse } from 'ethers'
 import * as eth from './eth'
 import { netId } from './helpers'
 import { getAddress, abi, isCTokenAllowed, isUnderlyAllowed, getDecimals, isEther } from './constants'
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import { CallOptions, TrxResponse } from './types'
 import BN from 'bignumber.js'
+import { CErc20__factory } from './typechain'
+
 /**
  * Supplies the user's Ethereum asset to the Compound Protocol.
  *
@@ -375,4 +377,14 @@ export async function repayBorrow(
 
   console.log(`Call repayBorrow on ${cTokenName}:${cTokenAddress} with ${amountBN.toString()}`)
   return eth.trx(cTokenAddress, method, parameters, trxOptions)
+}
+
+export async function liquidateBorrow(
+  repayToken: string,
+  borrower: string,
+  amount: BigNumberish,
+  cTokenCollateral: string,
+): Promise<ContractTransactionResponse> {
+  const cerc20 = CErc20__factory.connect(repayToken, this._provider)
+  return cerc20.liquidateBorrow(borrower, amount, cTokenCollateral)
 }
