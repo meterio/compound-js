@@ -71,7 +71,7 @@ function _ethJsonRpc(
     }
     if (jsonRpcMethod === JsonRpc.EthSendTransaction) {
       contract
-        .getFunction(method)(...parameters.slice(0, parameters.length - 1))
+        .getFunction(method)(...parameters.slice(0, parameters.length))
         .then((result) => {
           resolve(result)
         })
