@@ -213,13 +213,41 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
     },
   ],
   sepolia: [
-    defPair('cETH', 'ETH', 18, 18, true),
-    defPair('cBTC', 'BTC', 8, 8),
-    defPair('cUSDC', 'USDC', 6, 6),
-    defPair('cUSDT', 'USDT', 6, 6),
-    defPair('csuUSD', 'suUSD'),
-    defPair('csuETH', 'suETH'),
-    defPair('csuBTC', 'suBTC'),
+    {
+      "ctokenSym": "sdrUSDC",
+      "underlySym": "USDC",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrDAI",
+      "underlySym": "DAI",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuUSD",
+      "underlySym": "suUSD",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuETH",
+      "underlySym": "suETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrETH",
+      "underlySym": "ETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": true
+    }
   ],
   zktest: [
     defPair('cETH', 'ETH', 18, 18, true),
@@ -418,7 +446,7 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       "underlyDecimal": 18,
       "ctokenIsEther": true
     }
-  ]
+  ],
 }
 
 const symbols = {}
@@ -748,28 +776,26 @@ const address = {
     Timelock: '0x950B2AeA74403f841F98961e407a6D7380d9cCdb',
   },
   sepolia: {
-    CompoundLens: '0xaE1BB8Aa05BD93b8D918d5C36cb088238FC11060',
-    Comptroller: '0x37Dc0261df525287584505aDfC4504055a2Cd7ac', // Comptroller implementation
-    Unitroller: '0x682521e88cC71a8d49A3635BAb4468ad7cD7D208', // Comptroller proxy
-    FeedPriceOracle: '0x61E2c1608B1caA59136BCB7845637858d216c3B9',
-    WhitePaperInterestRateModel: '0x5f7c6C74525231B94857b55bE444483b80A8EE05',
-    ZeroInterestRateModel: '0xD80d7eb97f51C8a1feF93838820BEeD3628B6CEA',
-    SUMER: '0x93de053520D42B3F74281852Bd56F232A4E643DA',
-    ETH: '0x0000000000000000000000000000000000000000',
-    cETH: '0xD6b9f0dDB5BAa4fbF3d6727602aa883a35956320',
-    BTC: '0xbD9f91a2726De7b62A83bA1a836021744223fE8C',
-    cBTC: '0xCcc0c364628C25f8119C64D3e3fBC38BBFB8ed77',
-    USDC: '0xd1EdB2B521A9C1293eCAfdD724Af1875dd02d88b',
-    cUSDC: '0x71E60281614222354C6078625C73Cec13A0DCcaB',
-    USDT: '0x40C3338249BD5f20B1bC63A1B946f3bC70c65c78',
-    cUSDT: '0x5a12003643C45150D1B4c23aF04cC7488EA2e8b1',
-    suBTC: '0xB995414772d163530086e269eeE9Aa8ACf9f8Ae1',
-    csuBTC: '0x6eeC5ff9736e619C376Bd866dDf5937f3efbd4cA',
-    suETH: '0xb14900CC638F84a3E4F167a2776502C7BCd42CdD',
-    csuETH: '0x239DA4173224762a611EdDabB9976960eEf0c1Ed',
-    suUSD: '0x722CCB55Ab1752796Cf34c12D1eA7083158EcAf9',
-    csuUSD: '0x21A8f058B0682AAbd187fD0f3ffbBBE04355657b',
-    Multicall2: '0x91FC04AB73C35E091eEce4931173E9E8c9aB748a',
+    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "SUMER": "0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2",
+    "CompoundLens": "0x929eEA11C14C9a8128Fe98Ca42b384d857c24e0C",
+    "FeedPriceOracle": "0x53ccb3D86B04b5FD7e647e11a39d1AAE746C2E98",
+    "ZeroInterestRateModel": "0x0f1cF673735516091770b34D7C4F35bE311B840c",
+    "AccountLiquidityImpl": "0x2540498Eef6Af4689e76c20B55FE8377619488dd",
+    "AccountLiquidity": "0xB1fA5a2D09d3D086536b95B8e95eb00C57BD5a86",
+    "Comptroller": "0x98eC243B9C8FFD4FaccAa4669e172b1266346b5c",
+    "Unitroller": "0x7A7D27BFE6a0D1fA88442A8A12D37Be4Dee51D0d",
+    "ETH": "0x0000000000000000000000000000000000000000",
+    "sdrETH": "0x8E61cC786AaFA0BFd13035a5b0b7A8CcdFB4CE12",
+    "USDC": "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8",
+    "sdrUSDC": "0xF06675a504CCCCa4e0A4CA479ec7c8facc181805",
+    "DAI": "0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357",
+    "sdrDAI": "0x9b6b69DC83f9F00c5Ddc38b61B1a8476e7E6C4e2",
+    "suUSD": "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
+    "sdrsuUSD": "0x6a9b0A19e30514512AE3B56Dc5A10a95FF983561",
+    "suETH": "0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0",
+    "sdrsuETH": "0x61D7060E8B619ABeA4B2dd1FFF45B1aD57e3914D",
+    "Timelock": "0xE862f5Dc9827895E605E5614849cB25F51217BD6"
   },
 }
 
@@ -960,6 +986,29 @@ const rateModals = {
     {
       "name": "ZeroInterestRateModel",
       "address": "0x341fDb6532154Cec491Aca3D3BB404C2d4cc042E",
+      "tokens": [
+        "suUSD",
+        "suETH"
+      ]
+    }
+  ],
+  "sepolia": [
+    {
+      "name": "JumpRateModelV2",
+      "address": "0x77b9A38e931dEECA7f0c291FB13DD65a3CAC2344",
+      "tokens": [
+        "USDC",
+        "DAI",
+        "ETH"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.12,
+      "jumpMultiplierPerYear": 1,
+      "kink": 0.75
+    },
+    {
+      "name": "ZeroInterestRateModel",
+      "address": "0x0f1cF673735516091770b34D7C4F35bE311B840c",
       "tokens": [
         "suUSD",
         "suETH"
