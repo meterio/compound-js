@@ -214,40 +214,40 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
   ],
   sepolia: [
     {
-      "ctokenSym": "sdrUSDC",
-      "underlySym": "USDC",
-      "ctokenDecimal": 6,
-      "underlyDecimal": 6,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrUSDC',
+      underlySym: 'USDC',
+      ctokenDecimal: 6,
+      underlyDecimal: 6,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrDAI",
-      "underlySym": "DAI",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrDAI',
+      underlySym: 'DAI',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrsuUSD",
-      "underlySym": "suUSD",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrsuUSD',
+      underlySym: 'suUSD',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrsuETH",
-      "underlySym": "suETH",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrsuETH',
+      underlySym: 'suETH',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrETH",
-      "underlySym": "ETH",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": true
-    }
+      ctokenSym: 'sdrETH',
+      underlySym: 'ETH',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: true,
+    },
   ],
   zktest: [
     defPair('cETH', 'ETH', 18, 18, true),
@@ -389,63 +389,63 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       ctokenIsEther: true,
     },
   ],
-  "base": [
+  base: [
     {
-      "ctokenSym": "sdrUSDC",
-      "underlySym": "USDC",
-      "ctokenDecimal": 6,
-      "underlyDecimal": 6,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrUSDC',
+      underlySym: 'USDC',
+      ctokenDecimal: 6,
+      underlyDecimal: 6,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrUSDbc",
-      "underlySym": "USDbc",
-      "ctokenDecimal": 6,
-      "underlyDecimal": 6,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrUSDbc',
+      underlySym: 'USDbc',
+      ctokenDecimal: 6,
+      underlyDecimal: 6,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrDAI",
-      "underlySym": "DAI",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrDAI',
+      underlySym: 'DAI',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrwstETH",
-      "underlySym": "wstETH",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrwstETH',
+      underlySym: 'wstETH',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrcbETH",
-      "underlySym": "cbETH",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrcbETH',
+      underlySym: 'cbETH',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrsuUSD",
-      "underlySym": "suUSD",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrsuUSD',
+      underlySym: 'suUSD',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrsuETH",
-      "underlySym": "suETH",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": false
+      ctokenSym: 'sdrsuETH',
+      underlySym: 'suETH',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: false,
     },
     {
-      "ctokenSym": "sdrETH",
-      "underlySym": "ETH",
-      "ctokenDecimal": 18,
-      "underlyDecimal": 18,
-      "ctokenIsEther": true
-    }
+      ctokenSym: 'sdrETH',
+      underlySym: 'ETH',
+      ctokenDecimal: 18,
+      underlyDecimal: 18,
+      ctokenIsEther: true,
+    },
   ],
 }
 
@@ -534,33 +534,33 @@ const address = {
     sdrsuBTC: '0xAc6bAF36B28d19EA10959102158Beb3d933C1fbf',
     Timelock: '0x42778d0962884510b85d4D1B30DFe9e9Dd270446',
   },
-  "base": {
-    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
-    "SUMER": "0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2",
-    "CompoundLens": "0xDb7Fe9c415281E383595c262e49568DDc18e8Bd4",
-    "FeedPriceOracle": "0x60B8067Cf3640bCc7c3b2CfbE6Eac3c2CA40934e",
-    "ZeroInterestRateModel": "0x341fDb6532154Cec491Aca3D3BB404C2d4cc042E",
-    "AccountLiquidityImpl": "0x873449359d2d99691436E724C6C219a39b159B4a",
-    "AccountLiquidity": "0x36C379883c9A293e7DdF76031c4a0AD053eB4bfF",
-    "Comptroller": "0x1167e762541374fEBeeA0f6Ed2AD4473AFa1CcEa",
-    "Unitroller": "0x611375907733D9576907E125Fb29704712F0BAfA",
-    "ETH": "0x0000000000000000000000000000000000000000",
-    "sdrETH": "0x7b5969bB51fa3B002579D7ee41A454AC691716DC",
-    "USDC": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-    "sdrUSDC": "0x142017b52c99d3dFe55E49d79Df0bAF7F4478c0c",
-    "USDbc": "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA",
-    "sdrUSDbc": "0x3389eD4dd777b03B95deb2994ACaF6807cf24c2E",
-    "DAI": "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb",
-    "sdrDAI": "0xA4578AB5CDA88AaE7603aFAB24b4c0d24a7858D1",
-    "wstETH": "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
-    "sdrwstETH": "0x238d804Cb1F4c0c7495e7b7773c54D75E4C99cdd",
-    "cbETH": "0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22",
-    "sdrcbETH": "0x6345aF6dA3EBd9DF468e37B473128Fd3079C4a4b",
-    "suUSD": "0x8bf591eae535f93a242d5a954d3cde648b48a5a8",
-    "sdrsuUSD": "0xa1aD8481e83a5b279D97ab371bCcd5AE3b446EA6",
-    "suETH": "0x1c22531aa9747d76fff8f0a43b37954ca67d28e0",
-    "sdrsuETH": "0x56048C88309CAF13A942d688bfB9654432910d6e",
-    "Timelock": "0x549D0CdC753601fbE29f9DE186868429a8558E07"
+  base: {
+    Multicall2: '0xcA11bde05977b3631167028862bE2a173976CA11',
+    SUMER: '0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2',
+    CompoundLens: '0xDb7Fe9c415281E383595c262e49568DDc18e8Bd4',
+    FeedPriceOracle: '0x60B8067Cf3640bCc7c3b2CfbE6Eac3c2CA40934e',
+    ZeroInterestRateModel: '0x341fDb6532154Cec491Aca3D3BB404C2d4cc042E',
+    AccountLiquidityImpl: '0x873449359d2d99691436E724C6C219a39b159B4a',
+    AccountLiquidity: '0x36C379883c9A293e7DdF76031c4a0AD053eB4bfF',
+    Comptroller: '0x1167e762541374fEBeeA0f6Ed2AD4473AFa1CcEa',
+    Unitroller: '0x611375907733D9576907E125Fb29704712F0BAfA',
+    ETH: '0x0000000000000000000000000000000000000000',
+    sdrETH: '0x7b5969bB51fa3B002579D7ee41A454AC691716DC',
+    USDC: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+    sdrUSDC: '0x142017b52c99d3dFe55E49d79Df0bAF7F4478c0c',
+    USDbc: '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA',
+    sdrUSDbc: '0x3389eD4dd777b03B95deb2994ACaF6807cf24c2E',
+    DAI: '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb',
+    sdrDAI: '0xA4578AB5CDA88AaE7603aFAB24b4c0d24a7858D1',
+    wstETH: '0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452',
+    sdrwstETH: '0x238d804Cb1F4c0c7495e7b7773c54D75E4C99cdd',
+    cbETH: '0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22',
+    sdrcbETH: '0x6345aF6dA3EBd9DF468e37B473128Fd3079C4a4b',
+    suUSD: '0x8bf591eae535f93a242d5a954d3cde648b48a5a8',
+    sdrsuUSD: '0xa1aD8481e83a5b279D97ab371bCcd5AE3b446EA6',
+    suETH: '0x1c22531aa9747d76fff8f0a43b37954ca67d28e0',
+    sdrsuETH: '0x56048C88309CAF13A942d688bfB9654432910d6e',
+    Timelock: '0x549D0CdC753601fbE29f9DE186868429a8558E07',
   },
   rinkeby: {
     CompoundLens: '0xBb5D4106642aD2D8b541Ad6728a937D4b1985E00',
@@ -776,26 +776,29 @@ const address = {
     Timelock: '0x950B2AeA74403f841F98961e407a6D7380d9cCdb',
   },
   sepolia: {
-    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
-    "SUMER": "0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2",
-    "CompoundLens": "0x929eEA11C14C9a8128Fe98Ca42b384d857c24e0C",
-    "FeedPriceOracle": "0x53ccb3D86B04b5FD7e647e11a39d1AAE746C2E98",
-    "ZeroInterestRateModel": "0x0f1cF673735516091770b34D7C4F35bE311B840c",
-    "AccountLiquidityImpl": "0x2540498Eef6Af4689e76c20B55FE8377619488dd",
-    "AccountLiquidity": "0xB1fA5a2D09d3D086536b95B8e95eb00C57BD5a86",
-    "Comptroller": "0x98eC243B9C8FFD4FaccAa4669e172b1266346b5c",
-    "Unitroller": "0x7A7D27BFE6a0D1fA88442A8A12D37Be4Dee51D0d",
-    "ETH": "0x0000000000000000000000000000000000000000",
-    "sdrETH": "0x8E61cC786AaFA0BFd13035a5b0b7A8CcdFB4CE12",
-    "USDC": "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8",
-    "sdrUSDC": "0xF06675a504CCCCa4e0A4CA479ec7c8facc181805",
-    "DAI": "0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357",
-    "sdrDAI": "0x9b6b69DC83f9F00c5Ddc38b61B1a8476e7E6C4e2",
-    "suUSD": "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
-    "sdrsuUSD": "0x6a9b0A19e30514512AE3B56Dc5A10a95FF983561",
-    "suETH": "0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0",
-    "sdrsuETH": "0x61D7060E8B619ABeA4B2dd1FFF45B1aD57e3914D",
-    "Timelock": "0xE862f5Dc9827895E605E5614849cB25F51217BD6"
+    SUMER: '0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2',
+    ZeroInterestRateModel: '0x3DF435904F6FA6a30F313ad347DEdEBf966E9629',
+    ProxyAdmin: '0x809b6caa5A68A63b526f6085c628a5366077195b',
+    Multicall2: '0xcA11bde05977b3631167028862bE2a173976CA11',
+    Sumer: '0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2',
+    CompoundLens: '0x91feA1C1648d5a732A07B17b1CB6391fdc41EB2b',
+    FeedPriceOracle: '0x35D9f952B10839B11745807c50F5743F373Aa2ca',
+    AccountLiquidity: '0x863597A887FbC21635471b2939c65936C0193FCB',
+    CompLogic: '0xDb44Cdcd54C30238d555975922Dbd7e366F4009d',
+    Comptroller: '0x09Bf5c88De66Edf5Bc8AFdBFFB03E73DED4da4d9',
+    Unitroller: '0x09Bf5c88De66Edf5Bc8AFdBFFB03E73DED4da4d9',
+    sdrETH: '0x3Dfcb252d5Dd3aDA82C388e3754d9b002Dfa769f',
+    sdrUSDC: '0x522Ff165b8a0cb091D939009c41cE987F1079699',
+    USDC: '0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8',
+    sdrDAI: '0xC56065ee94eD4d05360e130075Dd06DE55eE0916',
+    DAI: '0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357',
+    sdrsuUSD: '0x68F961B13a3fbD3a04eFAbEfc284572B16412aE8',
+    suUSD: '0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8',
+    sdrsuETH: '0xF623df845D182F977b18F7B1f2Cf3f2d48653db5',
+    ETH: '0x0000000000000000000000000000000000000000',
+    suETH: '0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0',
+    Timelock: '0xCc65c9d37427488996f5Ff4DBA2E84a3351f4a44',
+    JumpRateModelV2: '0x484052c5F3cB7bbF01C871260e5B820f43A4A2e3',
   },
 }
 
@@ -947,74 +950,52 @@ const rateModals = {
       kink: 0.55,
     },
     {
-      "name": "ZeroInterestRateModel",
-      "address": "0xc7fFEAa5949d50A408bD92DdB0D1EAcef3F8a3Bc",
-      "tokens": [
-        "suUSD",
-        "suETH",
-        "suBTC"
-      ]
-    }
+      name: 'ZeroInterestRateModel',
+      address: '0xc7fFEAa5949d50A408bD92DdB0D1EAcef3F8a3Bc',
+      tokens: ['suUSD', 'suETH', 'suBTC'],
+    },
   ],
-  "base": [
+  base: [
     {
-      "name": "JumpRateModelV2",
-      "address": "0xd16D4BbE76C873d8a1e499Bf2aAc91710165E3C9",
-      "tokens": [
-        "USDC",
-        "USDbc",
-        "DAI",
-        "ETH"
-      ],
-      "baseRatePerYear": 0.02,
-      "multiplierPerYear": 0.12,
-      "jumpMultiplierPerYear": 1,
-      "kink": 0.75
+      name: 'JumpRateModelV2',
+      address: '0xd16D4BbE76C873d8a1e499Bf2aAc91710165E3C9',
+      tokens: ['USDC', 'USDbc', 'DAI', 'ETH'],
+      baseRatePerYear: 0.02,
+      multiplierPerYear: 0.12,
+      jumpMultiplierPerYear: 1,
+      kink: 0.75,
     },
     {
-      "name": "JumpRateModelV2",
-      "address": "0x04C13c475223CaEb3F23f4F4A69707D82C47dA50",
-      "tokens": [
-        "wstETH",
-        "cbETH"
-      ],
-      "baseRatePerYear": 0.02,
-      "multiplierPerYear": 0.15,
-      "jumpMultiplierPerYear": 2,
-      "kink": 0.55
+      name: 'JumpRateModelV2',
+      address: '0x04C13c475223CaEb3F23f4F4A69707D82C47dA50',
+      tokens: ['wstETH', 'cbETH'],
+      baseRatePerYear: 0.02,
+      multiplierPerYear: 0.15,
+      jumpMultiplierPerYear: 2,
+      kink: 0.55,
     },
     {
-      "name": "ZeroInterestRateModel",
-      "address": "0x341fDb6532154Cec491Aca3D3BB404C2d4cc042E",
-      "tokens": [
-        "suUSD",
-        "suETH"
-      ]
-    }
+      name: 'ZeroInterestRateModel',
+      address: '0x341fDb6532154Cec491Aca3D3BB404C2d4cc042E',
+      tokens: ['suUSD', 'suETH'],
+    },
   ],
-  "sepolia": [
+  sepolia: [
     {
-      "name": "JumpRateModelV2",
-      "address": "0x77b9A38e931dEECA7f0c291FB13DD65a3CAC2344",
-      "tokens": [
-        "USDC",
-        "DAI",
-        "ETH"
-      ],
-      "baseRatePerYear": 0.02,
-      "multiplierPerYear": 0.12,
-      "jumpMultiplierPerYear": 1,
-      "kink": 0.75
+      name: 'JumpRateModelV2',
+      address: '0x77b9A38e931dEECA7f0c291FB13DD65a3CAC2344',
+      tokens: ['USDC', 'DAI', 'ETH'],
+      baseRatePerYear: 0.02,
+      multiplierPerYear: 0.12,
+      jumpMultiplierPerYear: 1,
+      kink: 0.75,
     },
     {
-      "name": "ZeroInterestRateModel",
-      "address": "0x0f1cF673735516091770b34D7C4F35bE311B840c",
-      "tokens": [
-        "suUSD",
-        "suETH"
-      ]
-    }
-  ]
+      name: 'ZeroInterestRateModel',
+      address: '0x0f1cF673735516091770b34D7C4F35bE311B840c',
+      tokens: ['suUSD', 'suETH'],
+    },
+  ],
 }
 
 const names = {}
