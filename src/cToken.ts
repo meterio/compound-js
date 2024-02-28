@@ -8,7 +8,6 @@ import { ethers, BigNumberish, ContractTransactionResponse } from 'ethers'
 import * as eth from './eth'
 import { netId } from './helpers'
 import { getAddress, abi, isCTokenAllowed, isUnderlyAllowed, getDecimals, isEther } from './constants'
-import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import { CallOptions, TrxResponse } from './types'
 import BN from 'bignumber.js'
 import { CErc20__factory } from './typechain'
@@ -17,7 +16,7 @@ import { CErc20__factory } from './typechain'
  * Supplies the user's Ethereum asset to the Compound Protocol.
  *
  * @param {string} asset A string of the asset to supply.
- * @param {number | string | BigNumber} amount A string, number, or BigNumber
+ * @param {number | string} amount A string, number
  *     object of the amount of an asset to supply. Use the `mantissa` boolean in
  *     the `options` parameter to indicate if this value is scaled up (so there
  *     are no decimals) or in its natural scale.
@@ -49,7 +48,7 @@ import { CErc20__factory } from './typechain'
  */
 export async function supply(
   asset: string,
-  amount: string | number | BigNumber,
+  amount: string | number,
   noApprove = false,
   options: CallOptions = {},
 ): Promise<TrxResponse> {
@@ -64,8 +63,8 @@ export async function supply(
     throw Error(errorPrefix + `Asset ${asset} cannot be supplied.`)
   }
 
-  if (typeof amount !== 'number' && typeof amount !== 'string' && !BigNumber.isBigNumber(amount)) {
-    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.')
+  if (typeof amount !== 'number' && typeof amount !== 'string') {
+    throw Error(errorPrefix + 'Argument `amount` must be a string, number.')
   }
 
   const assetDecimals = getDecimals(this._network.name, asset)
@@ -117,7 +116,7 @@ export async function supply(
  * Redeems the user's Ethereum asset from the Compound Protocol.
  *
  * @param {string} asset A string of the asset to redeem, or its cToken name.
- * @param {number | string | BigNumber} amount A string, number, or BigNumber
+ * @param {number | string} amount A string, number
  *     object of the amount of an asset to redeem. Use the `mantissa` boolean in
  *     the `options` parameter to indicate if this value is scaled up (so there
  *     are no decimals) or in its natural scale. This can be an amount of
@@ -144,7 +143,7 @@ export async function supply(
  */
 export async function redeem(
   asset: string,
-  amount: string | number | BigNumber,
+  amount: string | number,
   options: CallOptions = {},
 ): Promise<TrxResponse> {
   await netId(this)
@@ -166,8 +165,8 @@ export async function redeem(
     throw Error(errorPrefix + `Asset '${cTokenName}' is not supported.`)
   }
 
-  if (typeof amount !== 'number' && typeof amount !== 'string' && !BigNumber.isBigNumber(amount)) {
-    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.')
+  if (typeof amount !== 'number' && typeof amount !== 'string') {
+    throw Error(errorPrefix + 'Argument `amount` must be a string, number.')
   }
 
   let amountBN = new BN(amount.toString())
@@ -198,7 +197,7 @@ export async function redeem(
  *
  * @param {string} asset A string of the asset to borrow (must be a supported
  *     underlying asset).
- * @param {number | string | BigNumber} amount A string, number, or BigNumber
+ * @param {number | string} amount A string, number
  *     object of the amount of an asset to borrow. Use the `mantissa` boolean in
  *     the `options` parameter to indicate if this value is scaled up (so there
  *     are no decimals) or in its natural scale.
@@ -228,7 +227,7 @@ export async function redeem(
  */
 export async function borrow(
   asset: string,
-  amount: string | number | BigNumber,
+  amount: string | number,
   options: CallOptions = {},
 ): Promise<TrxResponse> {
   await netId(this)
@@ -242,8 +241,8 @@ export async function borrow(
     throw Error(errorPrefix + 'Argument `asset` cannot be borrowed.')
   }
 
-  if (typeof amount !== 'number' && typeof amount !== 'string' && !BigNumber.isBigNumber(amount)) {
-    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.')
+  if (typeof amount !== 'number' && typeof amount !== 'string') {
+    throw Error(errorPrefix + 'Argument `amount` must be a string, number.')
   }
 
   let amountBN = new BN(amount.toString())
@@ -272,7 +271,7 @@ export async function borrow(
  *
  * @param {string} asset A string of the asset that was borrowed (must be a
  *     supported underlying asset).
- * @param {number | string | BigNumber} amount A string, number, or BigNumber
+ * @param {number | string} amount A string, number
  *     object of the amount of an asset to borrow. Use the `mantissa` boolean in
  *     the `options` parameter to indicate if this value is scaled up (so there
  *     are no decimals) or in its natural scale.
@@ -307,7 +306,7 @@ export async function borrow(
  */
 export async function repayBorrow(
   asset: string,
-  amount: string | number | BigNumber,
+  amount: string | number,
   borrower: string,
   noApprove = false,
   options: CallOptions = {},
@@ -323,8 +322,8 @@ export async function repayBorrow(
     throw Error(errorPrefix + 'Argument `asset` is not supported.')
   }
 
-  if (typeof amount !== 'number' && typeof amount !== 'string' && !BigNumber.isBigNumber(amount)) {
-    throw Error(errorPrefix + 'Argument `amount` must be a string, number, or BigNumber.')
+  if (typeof amount !== 'number' && typeof amount !== 'string') {
+    throw Error(errorPrefix + 'Argument `amount` must be a string, number.')
   }
 
   const method = ethers.isAddress(borrower) ? 'repayBorrowBehalf' : 'repayBorrow'

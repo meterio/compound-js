@@ -1,4 +1,3 @@
-import { Deferrable } from '@ethersproject/properties'
 import BigNumber from 'bignumber.js'
 import { Provider, BlockTag, TransactionRequest, TransactionResponse } from 'ethers'
 
@@ -101,10 +100,6 @@ type GenericGetTransactionCount = (
   addressOrName: string | number | Promise<string>,
   blockTag?: BlockTag | Promise<BlockTag>,
 ) => Promise<number>
-
-type GenericSendTransaction = (
-  transaction: string | Promise<string> | Deferrable<TransactionRequest>,
-) => Promise<TransactionResponse>
 
 // =-=-=-=-=-= /src/api.ts =-=-=-=-=-=
 
