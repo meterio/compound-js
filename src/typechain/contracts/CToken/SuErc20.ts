@@ -43,27 +43,27 @@ export interface SuErc20Interface extends Interface {
       | "balanceOf"
       | "balanceOfUnderlying"
       | "borrow"
+      | "borrowAndDepositBack"
       | "borrowBalanceCurrent"
       | "borrowBalanceStored"
+      | "borrowCollateralAndMintSynthetic"
       | "borrowIndex"
       | "borrowRatePerBlock"
-      | "changeCtoken"
+      | "calcCBorrowAmount"
       | "comptroller"
       | "decimals"
       | "discountRateMantissa"
       | "exchangeRateCurrent"
       | "exchangeRateStored"
-      | "getAccountBorrows"
+      | "executeRedemption"
       | "getAccountSnapshot"
       | "getCash"
-      | "getDiscountRate"
       | "initialize"
       | "interestRateModel"
       | "isCEther"
       | "isCToken"
       | "isDeprecated"
       | "liquidateBorrow"
-      | "liquidateBorrowAllowed"
       | "liquidateCalculateSeizeTokens"
       | "mint"
       | "name"
@@ -175,12 +175,20 @@ export interface SuErc20Interface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "borrowAndDepositBack",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "borrowBalanceCurrent",
     values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "borrowBalanceStored",
     values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "borrowCollateralAndMintSynthetic",
+    values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "borrowIndex",
@@ -191,8 +199,8 @@ export interface SuErc20Interface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "changeCtoken",
-    values?: undefined
+    functionFragment: "calcCBorrowAmount",
+    values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "comptroller",
@@ -212,18 +220,21 @@ export interface SuErc20Interface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getAccountBorrows",
-    values: [AddressLike]
+    functionFragment: "executeRedemption",
+    values: [
+      AddressLike,
+      AddressLike,
+      BigNumberish,
+      AddressLike,
+      BigNumberish,
+      BigNumberish
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getAccountSnapshot",
     values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "getCash", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "getDiscountRate",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "initialize",
     values: [
@@ -235,6 +246,7 @@ export interface SuErc20Interface extends Interface {
       string,
       BigNumberish,
       AddressLike,
+      BigNumberish,
       BigNumberish
     ]
   ): string;
@@ -251,10 +263,6 @@ export interface SuErc20Interface extends Interface {
   encodeFunctionData(
     functionFragment: "liquidateBorrow",
     values: [AddressLike, BigNumberish, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "liquidateBorrowAllowed",
-    values: [AddressLike, AddressLike, AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "liquidateCalculateSeizeTokens",
@@ -292,7 +300,7 @@ export interface SuErc20Interface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "seize",
-    values: [AddressLike, AddressLike, BigNumberish]
+    values: [AddressLike, AddressLike, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "supplyRatePerBlock",
@@ -390,11 +398,19 @@ export interface SuErc20Interface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "borrow", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "borrowAndDepositBack",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "borrowBalanceCurrent",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "borrowBalanceStored",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "borrowCollateralAndMintSynthetic",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -406,7 +422,7 @@ export interface SuErc20Interface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "changeCtoken",
+    functionFragment: "calcCBorrowAmount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -427,7 +443,7 @@ export interface SuErc20Interface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getAccountBorrows",
+    functionFragment: "executeRedemption",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -435,10 +451,6 @@ export interface SuErc20Interface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getCash", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getDiscountRate",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "interestRateModel",
@@ -452,10 +464,6 @@ export interface SuErc20Interface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "liquidateBorrow",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "liquidateBorrowAllowed",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -989,6 +997,12 @@ export interface SuErc20 extends BaseContract {
     "nonpayable"
   >;
 
+  borrowAndDepositBack: TypedContractMethod<
+    [borrower: AddressLike, borrowAmount: BigNumberish],
+    [bigint],
+    "nonpayable"
+  >;
+
   borrowBalanceCurrent: TypedContractMethod<
     [account: AddressLike],
     [bigint],
@@ -1001,11 +1015,21 @@ export interface SuErc20 extends BaseContract {
     "view"
   >;
 
+  borrowCollateralAndMintSynthetic: TypedContractMethod<
+    [cTokenCollateral: AddressLike, suBorrowAmount: BigNumberish],
+    [bigint],
+    "nonpayable"
+  >;
+
   borrowIndex: TypedContractMethod<[], [bigint], "view">;
 
   borrowRatePerBlock: TypedContractMethod<[], [bigint], "view">;
 
-  changeCtoken: TypedContractMethod<[], [void], "nonpayable">;
+  calcCBorrowAmount: TypedContractMethod<
+    [cTokenCollateral: AddressLike, suBorrowAmount: BigNumberish],
+    [bigint],
+    "view"
+  >;
 
   comptroller: TypedContractMethod<[], [string], "view">;
 
@@ -1017,10 +1041,17 @@ export interface SuErc20 extends BaseContract {
 
   exchangeRateStored: TypedContractMethod<[], [bigint], "view">;
 
-  getAccountBorrows: TypedContractMethod<
-    [account: AddressLike],
-    [[bigint, bigint] & { principal: bigint; interestIndex: bigint }],
-    "view"
+  executeRedemption: TypedContractMethod<
+    [
+      redeemer: AddressLike,
+      provider: AddressLike,
+      repayAmount: BigNumberish,
+      cTokenCollateral: AddressLike,
+      seizeAmount: BigNumberish,
+      redemptionRateMantissa: BigNumberish
+    ],
+    [bigint],
+    "nonpayable"
   >;
 
   getAccountSnapshot: TypedContractMethod<
@@ -1030,8 +1061,6 @@ export interface SuErc20 extends BaseContract {
   >;
 
   getCash: TypedContractMethod<[], [bigint], "view">;
-
-  getDiscountRate: TypedContractMethod<[], [bigint], "view">;
 
   initialize: TypedContractMethod<
     [
@@ -1043,7 +1072,8 @@ export interface SuErc20 extends BaseContract {
       symbol_: string,
       decimals_: BigNumberish,
       admin_: AddressLike,
-      discountRateMantissa_: BigNumberish
+      discountRateMantissa_: BigNumberish,
+      reserveFactorMantissa_: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -1065,17 +1095,6 @@ export interface SuErc20 extends BaseContract {
     ],
     [bigint],
     "nonpayable"
-  >;
-
-  liquidateBorrowAllowed: TypedContractMethod<
-    [
-      cTokenCollateral: AddressLike,
-      liquidator: AddressLike,
-      borrower: AddressLike,
-      repayAmount: BigNumberish
-    ],
-    [bigint],
-    "view"
   >;
 
   liquidateCalculateSeizeTokens: TypedContractMethod<
@@ -1123,7 +1142,12 @@ export interface SuErc20 extends BaseContract {
   reserveFactorMantissa: TypedContractMethod<[], [bigint], "view">;
 
   seize: TypedContractMethod<
-    [liquidator: AddressLike, borrower: AddressLike, seizeTokens: BigNumberish],
+    [
+      liquidator: AddressLike,
+      borrower: AddressLike,
+      seizeTokens: BigNumberish,
+      protocolShareMantissa: BigNumberish
+    ],
     [bigint],
     "nonpayable"
   >;
@@ -1238,11 +1262,25 @@ export interface SuErc20 extends BaseContract {
     nameOrSignature: "borrow"
   ): TypedContractMethod<[borrowAmount: BigNumberish], [bigint], "nonpayable">;
   getFunction(
+    nameOrSignature: "borrowAndDepositBack"
+  ): TypedContractMethod<
+    [borrower: AddressLike, borrowAmount: BigNumberish],
+    [bigint],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "borrowBalanceCurrent"
   ): TypedContractMethod<[account: AddressLike], [bigint], "nonpayable">;
   getFunction(
     nameOrSignature: "borrowBalanceStored"
   ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "borrowCollateralAndMintSynthetic"
+  ): TypedContractMethod<
+    [cTokenCollateral: AddressLike, suBorrowAmount: BigNumberish],
+    [bigint],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "borrowIndex"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -1250,8 +1288,12 @@ export interface SuErc20 extends BaseContract {
     nameOrSignature: "borrowRatePerBlock"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "changeCtoken"
-  ): TypedContractMethod<[], [void], "nonpayable">;
+    nameOrSignature: "calcCBorrowAmount"
+  ): TypedContractMethod<
+    [cTokenCollateral: AddressLike, suBorrowAmount: BigNumberish],
+    [bigint],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "comptroller"
   ): TypedContractMethod<[], [string], "view">;
@@ -1268,11 +1310,18 @@ export interface SuErc20 extends BaseContract {
     nameOrSignature: "exchangeRateStored"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "getAccountBorrows"
+    nameOrSignature: "executeRedemption"
   ): TypedContractMethod<
-    [account: AddressLike],
-    [[bigint, bigint] & { principal: bigint; interestIndex: bigint }],
-    "view"
+    [
+      redeemer: AddressLike,
+      provider: AddressLike,
+      repayAmount: BigNumberish,
+      cTokenCollateral: AddressLike,
+      seizeAmount: BigNumberish,
+      redemptionRateMantissa: BigNumberish
+    ],
+    [bigint],
+    "nonpayable"
   >;
   getFunction(
     nameOrSignature: "getAccountSnapshot"
@@ -1283,9 +1332,6 @@ export interface SuErc20 extends BaseContract {
   >;
   getFunction(
     nameOrSignature: "getCash"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "getDiscountRate"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "initialize"
@@ -1299,7 +1345,8 @@ export interface SuErc20 extends BaseContract {
       symbol_: string,
       decimals_: BigNumberish,
       admin_: AddressLike,
-      discountRateMantissa_: BigNumberish
+      discountRateMantissa_: BigNumberish,
+      reserveFactorMantissa_: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -1326,18 +1373,6 @@ export interface SuErc20 extends BaseContract {
     ],
     [bigint],
     "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "liquidateBorrowAllowed"
-  ): TypedContractMethod<
-    [
-      cTokenCollateral: AddressLike,
-      liquidator: AddressLike,
-      borrower: AddressLike,
-      repayAmount: BigNumberish
-    ],
-    [bigint],
-    "view"
   >;
   getFunction(
     nameOrSignature: "liquidateCalculateSeizeTokens"
@@ -1384,7 +1419,12 @@ export interface SuErc20 extends BaseContract {
   getFunction(
     nameOrSignature: "seize"
   ): TypedContractMethod<
-    [liquidator: AddressLike, borrower: AddressLike, seizeTokens: BigNumberish],
+    [
+      liquidator: AddressLike,
+      borrower: AddressLike,
+      seizeTokens: BigNumberish,
+      protocolShareMantissa: BigNumberish
+    ],
     [bigint],
     "nonpayable"
   >;

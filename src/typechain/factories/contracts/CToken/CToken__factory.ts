@@ -7,24 +7,208 @@ import type { CToken, CTokenInterface } from "../../../contracts/CToken/CToken";
 
 const _abi = [
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "errorCode",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "infoCode",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "detailCode",
-        type: "uint256",
-      },
-    ],
-    name: "TokenError",
+    inputs: [],
+    name: "AccrueInterest_AccumulatedCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AccrueInterest_DeltaCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AccrueInterest_FactorCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AccrueInterest_IndexCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AccrueInterest_ReserveCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AccrueInterest_TotalBorrowCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "BalanceCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "BorrowBalanceInternalFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Borrow_AccountBorrowCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Borrow_BorrowBalanceCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Borrow_TotalBorrowCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ExchangeRateInternalFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InsufficientCash",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidAddress",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidComptroller",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidInterestRateModel",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidReduceAmount",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidReserveFactor",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "MarketNotFresh",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Mint_AccountTokenCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Mint_ExchangeCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Mint_ExchangeRateReadFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Mint_TotalSupplyCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "NotCToken",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "NotSuToken",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "OnlyAdmin",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "OnlyPendingAdmin",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "PriceError",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "RedeemAndTransfer_AccountTokenCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "RedeemAndTransfer_AmountCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "RedeemAndTransfer_AmountIsZero",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "RedeemAndTransfer_ExchangeRateReadFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "RedeemAndTransfer_TotalSupplyCalcFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Redeem_ExchangeRateReadFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ReduceReservesOverflow",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Seize_DecrementFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Seize_IncrementFailed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "Seize_LiquidatorIsBorrower",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "TransferNotAllowed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "TransferNotEnough",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "TransferTooMuch",
     type: "error",
   },
   {
@@ -690,6 +874,30 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "borrower",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "borrowAmount",
+        type: "uint256",
+      },
+    ],
+    name: "borrowAndDepositBack",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "account",
         type: "address",
       },
@@ -823,30 +1031,6 @@ const _abi = [
         type: "address",
       },
     ],
-    name: "getAccountBorrows",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "principal",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "interestIndex",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
     name: "getAccountSnapshot",
     outputs: [
       {
@@ -876,19 +1060,6 @@ const _abi = [
   {
     inputs: [],
     name: "getCash",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getDiscountRate",
     outputs: [
       {
         internalType: "uint256",
@@ -946,40 +1117,6 @@ const _abi = [
         internalType: "bool",
         name: "",
         type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cTokenCollateral",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "liquidator",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "borrower",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "repayAmount",
-        type: "uint256",
-      },
-    ],
-    name: "liquidateBorrowAllowed",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -1086,6 +1223,11 @@ const _abi = [
       {
         internalType: "uint256",
         name: "seizeTokens",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "protocolShareMantissa",
         type: "uint256",
       },
     ],

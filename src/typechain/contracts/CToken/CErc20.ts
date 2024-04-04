@@ -43,6 +43,7 @@ export interface CErc20Interface extends Interface {
       | "balanceOf"
       | "balanceOfUnderlying"
       | "borrow"
+      | "borrowAndDepositBack"
       | "borrowBalanceCurrent"
       | "borrowBalanceStored"
       | "borrowIndex"
@@ -52,17 +53,14 @@ export interface CErc20Interface extends Interface {
       | "discountRateMantissa"
       | "exchangeRateCurrent"
       | "exchangeRateStored"
-      | "getAccountBorrows"
       | "getAccountSnapshot"
       | "getCash"
-      | "getDiscountRate"
       | "initialize"
       | "interestRateModel"
       | "isCEther"
       | "isCToken"
       | "isDeprecated"
       | "liquidateBorrow"
-      | "liquidateBorrowAllowed"
       | "liquidateCalculateSeizeTokens"
       | "mint"
       | "name"
@@ -174,6 +172,10 @@ export interface CErc20Interface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "borrowAndDepositBack",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "borrowBalanceCurrent",
     values: [AddressLike]
   ): string;
@@ -207,18 +209,10 @@ export interface CErc20Interface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getAccountBorrows",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
     functionFragment: "getAccountSnapshot",
     values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "getCash", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "getDiscountRate",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "initialize",
     values: [
@@ -230,6 +224,7 @@ export interface CErc20Interface extends Interface {
       string,
       BigNumberish,
       AddressLike,
+      BigNumberish,
       BigNumberish
     ]
   ): string;
@@ -246,10 +241,6 @@ export interface CErc20Interface extends Interface {
   encodeFunctionData(
     functionFragment: "liquidateBorrow",
     values: [AddressLike, BigNumberish, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "liquidateBorrowAllowed",
-    values: [AddressLike, AddressLike, AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "liquidateCalculateSeizeTokens",
@@ -287,7 +278,7 @@ export interface CErc20Interface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "seize",
-    values: [AddressLike, AddressLike, BigNumberish]
+    values: [AddressLike, AddressLike, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "supplyRatePerBlock",
@@ -385,6 +376,10 @@ export interface CErc20Interface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "borrow", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "borrowAndDepositBack",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "borrowBalanceCurrent",
     data: BytesLike
   ): Result;
@@ -418,18 +413,10 @@ export interface CErc20Interface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getAccountBorrows",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getAccountSnapshot",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getCash", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getDiscountRate",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "interestRateModel",
@@ -443,10 +430,6 @@ export interface CErc20Interface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "liquidateBorrow",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "liquidateBorrowAllowed",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -980,6 +963,12 @@ export interface CErc20 extends BaseContract {
     "nonpayable"
   >;
 
+  borrowAndDepositBack: TypedContractMethod<
+    [borrower: AddressLike, borrowAmount: BigNumberish],
+    [bigint],
+    "nonpayable"
+  >;
+
   borrowBalanceCurrent: TypedContractMethod<
     [account: AddressLike],
     [bigint],
@@ -1006,12 +995,6 @@ export interface CErc20 extends BaseContract {
 
   exchangeRateStored: TypedContractMethod<[], [bigint], "view">;
 
-  getAccountBorrows: TypedContractMethod<
-    [account: AddressLike],
-    [[bigint, bigint] & { principal: bigint; interestIndex: bigint }],
-    "view"
-  >;
-
   getAccountSnapshot: TypedContractMethod<
     [account: AddressLike],
     [[bigint, bigint, bigint, bigint]],
@@ -1019,8 +1002,6 @@ export interface CErc20 extends BaseContract {
   >;
 
   getCash: TypedContractMethod<[], [bigint], "view">;
-
-  getDiscountRate: TypedContractMethod<[], [bigint], "view">;
 
   initialize: TypedContractMethod<
     [
@@ -1032,7 +1013,8 @@ export interface CErc20 extends BaseContract {
       symbol_: string,
       decimals_: BigNumberish,
       admin_: AddressLike,
-      discountRateMantissa_: BigNumberish
+      discountRateMantissa_: BigNumberish,
+      reserveFactorMantissa_: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -1054,17 +1036,6 @@ export interface CErc20 extends BaseContract {
     ],
     [bigint],
     "nonpayable"
-  >;
-
-  liquidateBorrowAllowed: TypedContractMethod<
-    [
-      cTokenCollateral: AddressLike,
-      liquidator: AddressLike,
-      borrower: AddressLike,
-      repayAmount: BigNumberish
-    ],
-    [bigint],
-    "view"
   >;
 
   liquidateCalculateSeizeTokens: TypedContractMethod<
@@ -1112,7 +1083,12 @@ export interface CErc20 extends BaseContract {
   reserveFactorMantissa: TypedContractMethod<[], [bigint], "view">;
 
   seize: TypedContractMethod<
-    [liquidator: AddressLike, borrower: AddressLike, seizeTokens: BigNumberish],
+    [
+      liquidator: AddressLike,
+      borrower: AddressLike,
+      seizeTokens: BigNumberish,
+      protocolShareMantissa: BigNumberish
+    ],
     [bigint],
     "nonpayable"
   >;
@@ -1227,6 +1203,13 @@ export interface CErc20 extends BaseContract {
     nameOrSignature: "borrow"
   ): TypedContractMethod<[borrowAmount: BigNumberish], [bigint], "nonpayable">;
   getFunction(
+    nameOrSignature: "borrowAndDepositBack"
+  ): TypedContractMethod<
+    [borrower: AddressLike, borrowAmount: BigNumberish],
+    [bigint],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "borrowBalanceCurrent"
   ): TypedContractMethod<[account: AddressLike], [bigint], "nonpayable">;
   getFunction(
@@ -1254,13 +1237,6 @@ export interface CErc20 extends BaseContract {
     nameOrSignature: "exchangeRateStored"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "getAccountBorrows"
-  ): TypedContractMethod<
-    [account: AddressLike],
-    [[bigint, bigint] & { principal: bigint; interestIndex: bigint }],
-    "view"
-  >;
-  getFunction(
     nameOrSignature: "getAccountSnapshot"
   ): TypedContractMethod<
     [account: AddressLike],
@@ -1269,9 +1245,6 @@ export interface CErc20 extends BaseContract {
   >;
   getFunction(
     nameOrSignature: "getCash"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "getDiscountRate"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "initialize"
@@ -1285,7 +1258,8 @@ export interface CErc20 extends BaseContract {
       symbol_: string,
       decimals_: BigNumberish,
       admin_: AddressLike,
-      discountRateMantissa_: BigNumberish
+      discountRateMantissa_: BigNumberish,
+      reserveFactorMantissa_: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -1312,18 +1286,6 @@ export interface CErc20 extends BaseContract {
     ],
     [bigint],
     "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "liquidateBorrowAllowed"
-  ): TypedContractMethod<
-    [
-      cTokenCollateral: AddressLike,
-      liquidator: AddressLike,
-      borrower: AddressLike,
-      repayAmount: BigNumberish
-    ],
-    [bigint],
-    "view"
   >;
   getFunction(
     nameOrSignature: "liquidateCalculateSeizeTokens"
@@ -1370,7 +1332,12 @@ export interface CErc20 extends BaseContract {
   getFunction(
     nameOrSignature: "seize"
   ): TypedContractMethod<
-    [liquidator: AddressLike, borrower: AddressLike, seizeTokens: BigNumberish],
+    [
+      liquidator: AddressLike,
+      borrower: AddressLike,
+      seizeTokens: BigNumberish,
+      protocolShareMantissa: BigNumberish
+    ],
     [bigint],
     "nonpayable"
   >;
