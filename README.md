@@ -1,3 +1,4 @@
+## deprecated
 # Sumer.js
 
 [![Build Status](https://github.com/meterio/sumer-js/workflows/Build/badge.svg)](https://github.com/meterio/sumer-js/actions)
