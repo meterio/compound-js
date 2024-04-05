@@ -2,7 +2,7 @@
   "name": "@meterio/compound-js",
   "version": "1.0.26",
   "author": "Decentralized Finance Labs",
-  "description": "A JavaScript SDK for Ethereum and the Compound Protocol.",
+  "description": "A JavaScript SDK for Ethereum and the Sumer Protocol.",
   "license": "BSD-3-Clause",
   "main": "dist/nodejs/index.js",
   "files": [
@@ -31,13 +31,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/compound-finance/compound-js.git"
+    "url": "https://github.com/meterio/sumer-js.git"
   },
   "keywords": [
-    "compound",
-    "compound.js",
-    "compound finance",
-    "compound protocol",
+    "sumer",
+    "sumer.js",
+    "sumer finance",
+    "sumer protocol",
     "decentralized finance",
     "defi",
     "ethereum"

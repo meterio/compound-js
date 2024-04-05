@@ -64,7 +64,7 @@ function toChecksumAddress(_address) {
  *
  * ```
  * (async function () {
- *   const bal = await Compound.comp.getCompBalance('0x2775b1c75658Be0F640272CCb8c72ac986009e38');
+ *   const bal = await Sumer.comp.getCompBalance('0x2775b1c75658Be0F640272CCb8c72ac986009e38');
  *   console.log('Balance', bal);
  * })().catch(console.error);
  * ```
@@ -73,7 +73,7 @@ function toChecksumAddress(_address) {
 //   const provider = await eth._createProvider({ provider: _provider })
 //   const net = await eth.getProviderNetwork(provider)
 
-//   const errorPrefix = 'Compound [getCompBalance] | '
+//   const errorPrefix = 'Sumer [getCompBalance] | '
 
 //   if (typeof _address !== 'string') {
 //     throw Error(errorPrefix + 'Argument `_address` must be a string.')
@@ -88,7 +88,7 @@ function toChecksumAddress(_address) {
 //   const compAddress = getAddress(net.name, 'COMP')
 //   const parameters = [_address]
 //   const trxOptions: CallOptions = {
-//     _compoundProvider: provider,
+//     _sumerProvider: provider,
 //     abi: abi.COMP,
 //   }
 
@@ -110,7 +110,7 @@ function toChecksumAddress(_address) {
 //  *
 //  * ```
 //  * (async function () {
-//  *   const acc = await Compound.comp.getCompAccrued('0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5');
+//  *   const acc = await Sumer.comp.getCompAccrued('0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5');
 //  *   console.log('Accrued', acc);
 //  * })().catch(console.error);
 //  * ```
@@ -119,7 +119,7 @@ function toChecksumAddress(_address) {
 //   const provider = await eth._createProvider({ provider: _provider })
 //   const net = await eth.getProviderNetwork(provider)
 
-//   const errorPrefix = 'Compound [getCompAccrued] | '
+//   const errorPrefix = 'Sumer [getCompAccrued] | '
 
 //   if (typeof _address !== 'string') {
 //     throw Error(errorPrefix + 'Argument `_address` must be a string.')
@@ -136,7 +136,7 @@ function toChecksumAddress(_address) {
 //   const comptrollerAddress = getAddress(net.name, 'Comptroller')
 //   const parameters = [compAddress, comptrollerAddress, _address]
 //   const trxOptions: CallOptions = {
-//     _compoundProvider: provider,
+//     _sumerProvider: provider,
 //     abi: abi.CompoundLens,
 //   }
 
@@ -156,12 +156,12 @@ function toChecksumAddress(_address) {
 //  * @example
 //  *
 //  * ```
-//  * const compound = new Compound(window.ethereum);
+//  * const sumer = new Sumer(window.ethereum);
 //  *
 //  * (async function() {
 //  *
 //  *   console.log('Claiming COMP...');
-//  *   const trx = await compound.claimComp();
+//  *   const trx = await sumer.claimComp();
 //  *   console.log('Ethers.js transaction object', trx);
 //  *
 //  * })().catch(console.error);
@@ -180,7 +180,7 @@ function toChecksumAddress(_address) {
 //     const comptrollerAddress = getAddress(this._network.name, 'Comptroller')
 //     const trxOptions: CallOptions = {
 //       ...options,
-//       _compoundProvider: this._provider,
+//       _sumerProvider: this._provider,
 //       abi: abi.Comptroller,
 //     }
 //     const parameters = [userAddress]
@@ -188,14 +188,14 @@ function toChecksumAddress(_address) {
 
 //     return eth.trx(comptrollerAddress, method, parameters, trxOptions)
 //   } catch (e) {
-//     const errorPrefix = 'Compound [claimComp] | '
+//     const errorPrefix = 'Sumer [claimComp] | '
 //     e.message = errorPrefix + e.message
 //     return e
 //   }
 // }
 
 // /**
-//  * Create a transaction to delegate Compound Governance voting rights to an
+//  * Create a transaction to delegate Sumer Governance voting rights to an
 //  *     address.
 //  *
 //  * @param {string} _address The address in which to delegate voting rights to.
@@ -210,10 +210,10 @@ function toChecksumAddress(_address) {
 //  * @example
 //  *
 //  * ```
-//  * const compound = new Compound(window.ethereum);
+//  * const sumer = new Sumer(window.ethereum);
 //  *
 //  * (async function() {
-//  *   const delegateTx = await compound.delegate('0xa0df350d2637096571F7A701CBc1C5fdE30dF76A');
+//  *   const delegateTx = await sumer.delegate('0xa0df350d2637096571F7A701CBc1C5fdE30dF76A');
 //  *   console.log('Ethers.js transaction object', delegateTx);
 //  * })().catch(console.error);
 //  * ```
@@ -221,7 +221,7 @@ function toChecksumAddress(_address) {
 // export async function delegate(_address: string, options: CallOptions = {}): Promise<TrxResponse> {
 //   await netId(this)
 
-//   const errorPrefix = 'Compound [delegate] | '
+//   const errorPrefix = 'Sumer [delegate] | '
 
 //   if (typeof _address !== 'string') {
 //     throw Error(errorPrefix + 'Argument `_address` must be a string.')
@@ -236,7 +236,7 @@ function toChecksumAddress(_address) {
 //   const compAddress = getAddress(this._network.name, 'COMP')
 //   const trxOptions: CallOptions = {
 //     ...options,
-//     _compoundProvider: this._provider,
+//     _sumerProvider: this._provider,
 //     abi: abi.COMP,
 //   }
 //   const parameters = [_address]
@@ -246,7 +246,7 @@ function toChecksumAddress(_address) {
 // }
 
 // /**
-//  * Delegate voting rights in Compound Governance using an EIP-712 signature.
+//  * Delegate voting rights in Sumer Governance using an EIP-712 signature.
 //  *
 //  * @param {string} _address The address to delegate the user's voting rights to.
 //  * @param {number} nonce The contract state required to match the signature.
@@ -266,10 +266,10 @@ function toChecksumAddress(_address) {
 //  * @example
 //  *
 //  * ```
-//  * const compound = new Compound(window.ethereum);
+//  * const sumer = new Sumer(window.ethereum);
 //  *
 //  * (async function() {
-//  *   const delegateTx = await compound.delegateBySig(
+//  *   const delegateTx = await sumer.delegateBySig(
 //  *     '0xa0df350d2637096571F7A701CBc1C5fdE30dF76A',
 //  *     42,
 //  *     9999999999,
@@ -292,7 +292,7 @@ function toChecksumAddress(_address) {
 // ): Promise<TrxResponse> {
 //   await netId(this)
 
-//   const errorPrefix = 'Compound [delegateBySig] | '
+//   const errorPrefix = 'Sumer [delegateBySig] | '
 
 //   if (typeof _address !== 'string') {
 //     throw Error(errorPrefix + 'Argument `_address` must be a string.')
@@ -323,7 +323,7 @@ function toChecksumAddress(_address) {
 //   const compAddress = getAddress(this._network.name, 'COMP')
 //   const trxOptions: CallOptions = {
 //     ...options,
-//     _compoundProvider: this._provider,
+//     _sumerProvider: this._provider,
 //     abi: abi.COMP,
 //   }
 //   const { v, r, s } = signature
@@ -334,7 +334,7 @@ function toChecksumAddress(_address) {
 // }
 
 // /**
-//  * Create a delegate signature for Compound Governance using EIP-712. The
+//  * Create a delegate signature for Sumer Governance using EIP-712. The
 //  *     signature can be created without burning gas. Anyone can post it to the
 //  *     blockchain using the `delegateBySig` method, which does have gas costs.
 //  *
@@ -349,11 +349,11 @@ function toChecksumAddress(_address) {
 //  * @example
 //  *
 //  * ```
-//  * const compound = new Compound(window.ethereum);
+//  * const sumer = new Sumer(window.ethereum);
 //  *
 //  * (async () => {
 //  *
-//  *   const delegateSignature = await compound.createDelegateSignature('0xa0df350d2637096571F7A701CBc1C5fdE30dF76A');
+//  *   const delegateSignature = await sumer.createDelegateSignature('0xa0df350d2637096571F7A701CBc1C5fdE30dF76A');
 //  *   console.log('delegateSignature', delegateSignature);
 //  *
 //  * })().catch(console.error);
@@ -380,7 +380,7 @@ function toChecksumAddress(_address) {
 //   ).toString()
 
 //   const domain: EIP712Domain = {
-//     name: 'Compound',
+//     name: 'Sumer',
 //     chainId,
 //     verifyingContract: compAddress,
 //   }

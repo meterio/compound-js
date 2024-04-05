@@ -10,7 +10,7 @@ import { getAddress, abi, isCTokenAllowed } from './constants'
 import { CallOptions, TrxResponse } from './types'
 
 /**
- * Enters the user's address into Compound Protocol markets.
+ * Enters the user's address into Sumer Protocol markets.
  *
  * @param {any[]} markets An array of strings of markets to enter, meaning use
  *     those supplied assets as collateral.
@@ -24,17 +24,17 @@ import { CallOptions, TrxResponse } from './types'
  * @example
  *
  * ```
- * const compound = new Compound(window.ethereum);
+ * const sumer = new Sumer(window.ethereum);
  *
  * (async function () {
- *   const trx = await compound.enterMarkets(Compound.ETH); // Use [] for multiple
+ *   const trx = await sumer.enterMarkets(Sumer.ETH); // Use [] for multiple
  *   console.log('Ethers.js transaction object', trx);
  * })().catch(console.error);
  * ```
  */
 export async function enterMarkets(markets: string | string[] = [], options: CallOptions = {}): Promise<TrxResponse> {
   await netId(this)
-  const errorPrefix = 'Compound [enterMarkets] | '
+  const errorPrefix = 'Sumer [enterMarkets] | '
 
   if (typeof markets === 'string') {
     markets = [markets]
@@ -59,12 +59,12 @@ export async function enterMarkets(markets: string | string[] = [], options: Cal
     addresses.push(cTokenAddress.toLowerCase())
   }
 
-  const comptrollerAddress = getAddress(this._network.name, 'Unitroller')
+  const comptrollerAddress = getAddress(this._network.name, 'Comptroller')
   const parameters = [addresses]
   // const comptroller = Comptroller__factory.connect(comptrollerAddress, this._provider)
 
   const trxOptions: CallOptions = {
-    _compoundProvider: this._provider,
+    _sumerProvider: this._provider,
     abi: abi.Comptroller,
     ...options,
   }
@@ -74,7 +74,7 @@ export async function enterMarkets(markets: string | string[] = [], options: Cal
 }
 
 /**
- * Exits the user's address from a Compound Protocol market.
+ * Exits the user's address from a Sumer Protocol market.
  *
  * @param {string} market A string of the symbol of the market to exit.
  * @param {CallOptions} [options] Call options and Ethers.js overrides for the
@@ -87,17 +87,17 @@ export async function enterMarkets(markets: string | string[] = [], options: Cal
  * @example
  *
  * ```
- * const compound = new Compound(window.ethereum);
+ * const sumer = new Sumer(window.ethereum);
  *
  * (async function () {
- *   const trx = await compound.exitMarket(Compound.ETH);
+ *   const trx = await sumer.exitMarket(Sumer.ETH);
  *   console.log('Ethers.js transaction object', trx);
  * })().catch(console.error);
  * ```
  */
 export async function exitMarket(market: string, options: CallOptions = {}): Promise<TrxResponse> {
   await netId(this)
-  const errorPrefix = 'Compound [exitMarket] | '
+  const errorPrefix = 'Sumer [exitMarket] | '
 
   if (typeof market !== 'string' || market === '') {
     throw Error(errorPrefix + 'Argument `market` must be a string of a cToken market name.')
@@ -113,14 +113,48 @@ export async function exitMarket(market: string, options: CallOptions = {}): Pro
 
   const cTokenAddress = getAddress(this._network.name, market)
 
-  const comptrollerAddress = getAddress(this._network.name, 'Unitroller')
+  const comptrollerAddress = getAddress(this._network.name, 'Comptroller')
   const parameters = [cTokenAddress.toLowerCase()]
 
   const trxOptions: CallOptions = {
-    _compoundProvider: this._provider,
+    _sumerProvider: this._provider,
     abi: abi.Comptroller,
     ...options,
   }
 
   return eth.trx(comptrollerAddress, 'exitMarket', parameters, trxOptions)
+}
+
+export async function redeemFaceValue(
+  market: string,
+  amount: string | number,
+  options: CallOptions = {},
+): Promise<TrxResponse> {
+  await netId(this)
+  const errorPrefix = 'Sumer [redeemFaceValue] | '
+
+  if (typeof market !== 'string' || market === '') {
+    throw Error(errorPrefix + 'Argument `market` must be a string of a cToken market name.')
+  }
+
+  if (!market.includes('sdr')) {
+    market = 'sdr' + market
+  }
+
+  if (!isCTokenAllowed(this._network.name, market)) {
+    throw Error(errorPrefix + 'Provided market `' + market + '` is not a recognized cToken.')
+  }
+
+  const cTokenAddress = getAddress(this._network.name, market)
+
+  const comptrollerAddress = getAddress(this._network.name, 'Comptroller')
+  const parameters = [cTokenAddress.toLowerCase(), amount]
+
+  const trxOptions: CallOptions = {
+    _sumerProvider: this._provider,
+    abi: abi.Comptroller,
+    ...options,
+  }
+
+  return eth.trx(comptrollerAddress, 'redeemFaceValue', parameters, trxOptions)
 }

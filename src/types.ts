@@ -3,12 +3,12 @@ import { Provider, BlockTag, TransactionRequest, TransactionResponse } from 'eth
 
 // =-=-=-=-=-= /src/index.ts =-=-=-=-=-=
 
-export interface CompoundInstance {
+export interface SumerInstance {
   _networkPromise: Promise<ProviderNetwork>
 }
 export { Provider } from 'ethers'
 
-export interface CompoundOptions {
+export interface SumerOptions {
   privateKey?: string
   mnemonic?: string
   provider?: Provider | string
@@ -36,7 +36,7 @@ export interface AbiItem {
 }
 
 export interface CallOptions {
-  _compoundProvider?: Provider
+  _sumerProvider?: Provider
   abi?: string | string[] | AbiItem[]
   provider?: Provider | string
   network?: string

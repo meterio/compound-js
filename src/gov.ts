@@ -10,7 +10,7 @@ import { sign } from './EIP712'
 import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, EIP712Domain } from './types'
 
 // /**
-//  * Submit a vote on a Compound Governance proposal.
+//  * Submit a vote on a Sumer Governance proposal.
 //  *
 //  * @param {string} proposalId The ID of the proposal to vote on. This is an
 //  *     auto-incrementing integer in the Governor contract.
@@ -26,10 +26,10 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 //  * @example
 //  *
 //  * ```
-//  * const compound = new Compound(window.ethereum);
+//  * const sumer = new Sumer(window.ethereum);
 //  *
 //  * (async function() {
-//  *   const castVoteTx = await compound.castVote(12, 1);
+//  *   const castVoteTx = await sumer.castVote(12, 1);
 //  *   console.log('Ethers.js transaction object', castVoteTx);
 //  * })().catch(console.error);
 //  * ```
@@ -37,7 +37,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 // export async function castVote(proposalId: number, support: number, options: CallOptions = {}): Promise<TrxResponse> {
 //   await netId(this)
 
-//   const errorPrefix = 'Compound [castVote] | '
+//   const errorPrefix = 'Sumer [castVote] | '
 
 //   if (typeof proposalId !== 'number') {
 //     throw Error(errorPrefix + 'Argument `proposalId` must be an integer.')
@@ -49,7 +49,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 
 //   const governorAddress = getAddress(this._network.name, 'GovernorBravo')
 //   const trxOptions: CallOptions = options
-//   trxOptions._compoundProvider = this._provider
+//   trxOptions._sumerProvider = this._provider
 //   trxOptions.abi = abi.GovernorBravo
 //   const parameters = [proposalId, support]
 //   const method = 'castVote'
@@ -58,7 +58,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 // }
 
 // /**
-//  * Submit a vote on a Compound Governance proposal using an EIP-712 signature.
+//  * Submit a vote on a Sumer Governance proposal using an EIP-712 signature.
 //  *
 //  * @param {string} proposalId The ID of the proposal to vote on. This is an
 //  *     auto-incrementing integer in the Governor contract.
@@ -75,10 +75,10 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 //  *
 //  * @example
 //  * ```
-//  * const compound = new Compound(window.ethereum);
+//  * const sumer = new Sumer(window.ethereum);
 //  *
 //  * (async function() {
-//  *   const castVoteTx = await compound.castVoteBySig(
+//  *   const castVoteTx = await sumer.castVoteBySig(
 //  *     12,
 //  *     1,
 //  *     {
@@ -99,7 +99,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 // ): Promise<TrxResponse> {
 //   await netId(this)
 
-//   const errorPrefix = 'Compound [castVoteBySig] | '
+//   const errorPrefix = 'Sumer [castVoteBySig] | '
 
 //   if (typeof proposalId !== 'number') {
 //     throw Error(errorPrefix + 'Argument `proposalId` must be an integer.')
@@ -119,7 +119,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 
 //   const governorAddress = getAddress(this._network.name, 'GovernorBravo')
 //   const trxOptions: CallOptions = options
-//   trxOptions._compoundProvider = this._provider
+//   trxOptions._sumerProvider = this._provider
 //   trxOptions.abi = abi.GovernorBravo
 //   const { v, r, s } = signature
 //   const parameters = [proposalId, support, v, r, s]
@@ -129,7 +129,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 // }
 
 // /**
-//  * Create a vote signature for a Compound Governance proposal using EIP-712.
+//  * Create a vote signature for a Sumer Governance proposal using EIP-712.
 //  *     This can be used to create an 'empty ballot' without burning gas. The
 //  *     signature can then be sent to someone else to post to the blockchain.
 //  *     The recipient can post one signature using the `castVoteBySig` method.
@@ -146,14 +146,14 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 //  *
 //  * @example
 //  * ```
-//  * const compound = new Compound(window.ethereum);
+//  * const sumer = new Sumer(window.ethereum);
 //  *
 //  * (async () => {
 //  *
-//  *   const voteForSignature = await compound.createVoteSignature(20, 1);
+//  *   const voteForSignature = await sumer.createVoteSignature(20, 1);
 //  *   console.log('voteForSignature', voteForSignature);
 //  *
-//  *   const voteAgainstSignature = await compound.createVoteSignature(20, 0);
+//  *   const voteAgainstSignature = await sumer.createVoteSignature(20, 0);
 //  *   console.log('voteAgainstSignature', voteAgainstSignature);
 //  *
 //  * })().catch(console.error);
@@ -167,7 +167,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 //   const chainId = this._network.id
 
 //   const domain: EIP712Domain = {
-//     name: 'Compound Governor Bravo',
+//     name: 'Sumer Governor Bravo',
 //     chainId,
 //     verifyingContract: governorAddress,
 //   }
@@ -196,7 +196,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 // }
 
 // /**
-//  * Submit a Compound Governance proposal vote with a reason.
+//  * Submit a Sumer Governance proposal vote with a reason.
 //  *
 //  * @param {string} proposalId The ID of the proposal to vote on. This is an
 //  *     auto-incrementing integer in the Governor contract.
@@ -213,10 +213,10 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 //  * @example
 //  *
 //  * ```
-//  * const compound = new Compound(window.ethereum);
+//  * const sumer = new Sumer(window.ethereum);
 //  *
 //  * (async function() {
-//  *   const castVoteTx = await compound.castVoteWithReason(12, 1, 'I vote YES because...');
+//  *   const castVoteTx = await sumer.castVoteWithReason(12, 1, 'I vote YES because...');
 //  *   console.log('Ethers.js transaction object', castVoteTx);
 //  * })().catch(console.error);
 //  * ```
@@ -229,7 +229,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 // ): Promise<TrxResponse> {
 //   await netId(this)
 
-//   const errorPrefix = 'Compound [castVoteWithReason] | '
+//   const errorPrefix = 'Sumer [castVoteWithReason] | '
 
 //   if (typeof proposalId !== 'number') {
 //     throw Error(errorPrefix + 'Argument `proposalId` must be an integer.')
@@ -245,7 +245,7 @@ import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, E
 
 //   const governorAddress = getAddress(this._network.name, 'GovernorBravo')
 //   const trxOptions: CallOptions = options
-//   trxOptions._compoundProvider = this._provider
+//   trxOptions._sumerProvider = this._provider
 //   trxOptions.abi = abi.GovernorBravo
 //   const parameters = [proposalId, support, reason]
 //   const method = 'castVoteWithReason'

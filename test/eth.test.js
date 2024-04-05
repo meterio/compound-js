@@ -30,7 +30,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
   })
 
   it('runs eth.trx', async function () {
-    // Mint some cETH by supplying ETH to the Compound Protocol
+    // Mint some cETH by supplying ETH to the Sumer Protocol
     const cEthMainnetAddress = '0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5'
 
     let txReceipt

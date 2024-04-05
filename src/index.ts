@@ -9,9 +9,8 @@ import * as eth from './eth'
 import * as util from './util'
 import * as comptroller from './comptroller'
 import * as cToken from './cToken'
-import * as comp from './comp'
-import * as gov from './gov'
-import * as api from './api'
+// import * as comp from './comp'
+// import * as gov from './gov'
 import { abi } from './abi'
 import {
   constants,
@@ -24,7 +23,7 @@ import {
   isEther,
   isUnderlyAllowed,
 } from './constants'
-import { Provider, CompoundOptions, CompoundInstance } from './types'
+import { Provider, SumerOptions, SumerInstance } from './types'
 
 // Turn off Ethers.js warnings
 // ethers.utils.Logger.setLogLevel(ethers.utils.Logger.levels.ERROR)
@@ -59,7 +58,7 @@ import { Provider, CompoundOptions, CompoundInstance } from './types'
  *
  * @returns {object} Returns an instance of the Sumer.js SDK.
  */
-const Sumer = function (provider: Provider | string = 'mainnet', options: CompoundOptions = {}): CompoundInstance {
+const Sumer = function (provider: Provider | string = 'mainnet', options: SumerOptions = {}): SumerInstance {
   const originalProvider = provider
 
   options.provider = provider || options.provider
@@ -71,7 +70,7 @@ const Sumer = function (provider: Provider | string = 'mainnet', options: Compou
     _provider: provider,
     ...comptroller,
     ...cToken,
-    ...gov,
+    // ...gov,
     // claimComp: comp.claimComp,
     // delegate: comp.delegate,
     // delegateBySig: comp.delegateBySig,
@@ -93,7 +92,6 @@ const Sumer = function (provider: Provider | string = 'mainnet', options: Compou
 }
 
 Sumer.eth = eth
-Sumer.api = api
 Sumer.util = util
 Sumer._ethers = ethers
 Sumer.abi = abi

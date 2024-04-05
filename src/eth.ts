@@ -42,7 +42,7 @@ function _ethJsonRpc(
 ): Promise<any> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return new Promise<any>((resolve, reject) => {
-    const provider = options._compoundProvider || _createProvider(options)
+    const provider = options._sumerProvider || _createProvider(options)
 
     const overrides = {
       gasPrice: options.gasPrice,
@@ -133,11 +133,11 @@ function _ethJsonRpc(
  *
  * @example
  * ```
- * const cEthAddress = Compound.util.getAddress(Compound.cETH);
+ * const cEthAddress = Sumer.util.getAddress(Sumer.cETH);
  *
  * (async function() {
  *
- *   const srpb = await Compound.eth.read(
+ *   const srpb = await Sumer.eth.read(
  *     cEthAddress,
  *     'function supplyRatePerBlock() returns (uint256)',
  *     // [], // [optional] parameters
@@ -183,10 +183,10 @@ export function read(
  * const provider = window.ethereum;
  *
  * (async function() {
- *   console.log('Supplying ETH to the Compound Protocol...');
+ *   console.log('Supplying ETH to the Sumer Protocol...');
  *
- *   // Mint some cETH by supplying ETH to the Compound Protocol
- *   const trx = await Compound.eth.trx(
+ *   // Mint some cETH by supplying ETH to the Sumer Protocol
+ *   const trx = await Sumer.eth.trx(
  *     cEthAddress,
  *     'function mint() payable',
  *     [],
@@ -214,7 +214,7 @@ export function trx(
 }
 
 /**
- * This helps the Compound.js constructor discover which Ethereum network the
+ * This helps the Sumer.js constructor discover which Ethereum network the
  *     developer wants to use.
  *
  * @param {Provider | string} [provider] Optional Ethereum network provider.
@@ -256,7 +256,7 @@ export async function getProviderNetwork(provider: Provider): Promise<ProviderNe
  * ```
  * (async function () {
  *
- *   balance = await Compound.eth.getBalance(myAddress, provider);
+ *   balance = await Sumer.eth.getBalance(myAddress, provider);
  *   console.log('My ETH Balance', +balance);
  *
  * })().catch(console.error);

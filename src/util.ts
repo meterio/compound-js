@@ -1,6 +1,6 @@
 /**
  * @file Utility
- * @desc These methods are helpers for the Compound class.
+ * @desc These methods are helpers for the Sumer class.
  */
 
 import { getAddress as getContractAddress, abi, getName as getContractName, getDecimalsOfUnderly } from './constants'
@@ -160,7 +160,7 @@ export function request(options: any): Promise<any> {
 
 /**
  * Gets the contract address of the named contract. This method supports
- *     contracts used by the Compound Protocol.
+ *     contracts used by the Sumer Protocol.
  *
  * @param {string} contract The name of the contract.
  * @param {string} [network] Optional name of the Ethereum network. Main net and
@@ -170,7 +170,7 @@ export function request(options: any): Promise<any> {
  *
  * @example
  * ```
- * console.log('cETH Address: ', Compound.util.getAddress(Compound.cETH));
+ * console.log('cETH Address: ', Sumer.util.getAddress(Sumer.cETH));
  * ```
  */
 export function getAddress(contract: string, network = 'mainnet'): string {
@@ -187,7 +187,7 @@ export function getUnderlyDecimals(tokenAddr: string, network = 'mainnet'): numb
 
 /**
  * Gets a contract ABI as a JavaScript array. This method supports
- *     contracts used by the Compound Protocol.
+ *     contracts used by the Sumer Protocol.
  *
  * @param {string} contract The name of the contract.
  *
@@ -195,7 +195,7 @@ export function getUnderlyDecimals(tokenAddr: string, network = 'mainnet'): numb
  *
  * @example
  * ```
- * console.log('cETH ABI: ', Compound.util.getAbi('cEther'));
+ * console.log('cETH ABI: ', Sumer.util.getAbi('cEther'));
  * ```
  */
 export function getAbi(contract: string): AbiType[] {
@@ -211,7 +211,7 @@ export function getAbi(contract: string): AbiType[] {
  *
  * @example
  * ```
- * console.log('Ropsten : ', Compound.util.getNetNameWithChainId(3));
+ * console.log('Ropsten : ', Sumer.util.getNetNameWithChainId(3));
  * ```
  */
 export function getNetNameWithChainId(chainId: number): string {

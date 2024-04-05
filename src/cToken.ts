@@ -4,7 +4,7 @@
  *     contracts.
  */
 
-import { ethers, BigNumberish, ContractTransactionResponse } from 'ethers'
+import { ethers, BigNumberish, ContractTransactionResponse, Wallet } from 'ethers'
 import * as eth from './eth'
 import { netId } from './helpers'
 import { getAddress, abi, isCTokenAllowed, isUnderlyAllowed, getDecimals, isEther } from './constants'
@@ -13,7 +13,7 @@ import BN from 'bignumber.js'
 import { CErc20__factory } from './typechain'
 
 /**
- * Supplies the user's Ethereum asset to the Compound Protocol.
+ * Supplies the user's Ethereum asset to the Sumer Protocol.
  *
  * @param {string} asset A string of the asset to supply.
  * @param {number | string} amount A string, number
@@ -32,15 +32,15 @@ import { CErc20__factory } from './typechain'
  * @example
  *
  * ```
- * const compound = new Compound(window.ethereum);
+ * const sumer = new Sumer(window.ethereum);
  *
  * // Ethers.js overrides are an optional 3rd parameter for `supply`
  * // const trxOptions = { gasLimit: 250000, mantissa: false };
  *
  * (async function() {
  *
- *   console.log('Supplying ETH to the Compound Protocol...');
- *   const trx = await compound.supply(Compound.ETH, 1);
+ *   console.log('Supplying ETH to the Sumer Protocol...');
+ *   const trx = await sumer.supply(Sumer.ETH, 1);
  *   console.log('Ethers.js transaction object', trx);
  *
  * })().catch(console.error);
@@ -80,7 +80,7 @@ export async function supply(
     options.abi = abi.CErc20
   }
 
-  options._compoundProvider = this._provider
+  options._sumerProvider = this._provider
 
   if (!isEther(this._network.name, cTokenName) && noApprove !== true) {
     const underlyingAddress = getAddress(this._network.name, asset)
@@ -113,7 +113,7 @@ export async function supply(
 }
 
 /**
- * Redeems the user's Ethereum asset from the Compound Protocol.
+ * Redeems the user's Ethereum asset from the Sumer Protocol.
  *
  * @param {string} asset A string of the asset to redeem, or its cToken name.
  * @param {number | string} amount A string, number
@@ -130,12 +130,12 @@ export async function supply(
  * @example
  *
  * ```
- * const compound = new Compound(window.ethereum);
+ * const sumer = new Sumer(window.ethereum);
  *
  * (async function() {
  *
  *   console.log('Redeeming ETH...');
- *   const trx = await compound.redeem(Compound.ETH, 1); // also accepts cToken args
+ *   const trx = await sumer.redeem(Sumer.ETH, 1); // also accepts cToken args
  *   console.log('Ethers.js transaction object', trx);
  *
  * })().catch(console.error);
@@ -176,7 +176,7 @@ export async function redeem(asset: string, amount: string | number, options: Ca
 
   const trxOptions: CallOptions = {
     ...options,
-    _compoundProvider: this._provider,
+    _sumerProvider: this._provider,
     abi: isEther(this._network.name, cTokenName) ? abi.CEther : abi.CErc20,
   }
   const parameters = [amountBN.toFixed()]
@@ -187,7 +187,7 @@ export async function redeem(asset: string, amount: string | number, options: Ca
 }
 
 /**
- * Borrows an Ethereum asset from the Compound Protocol for the user. The user's
+ * Borrows an Ethereum asset from the Sumer Protocol for the user. The user's
  *     address must first have supplied collateral and entered a corresponding
  *     market.
  *
@@ -206,7 +206,7 @@ export async function redeem(asset: string, amount: string | number, options: Ca
  * @example
  *
  * ```
- * const compound = new Compound(window.ethereum);
+ * const sumer = new Sumer(window.ethereum);
  *
  * (async function() {
  *
@@ -214,7 +214,7 @@ export async function redeem(asset: string, amount: string | number, options: Ca
  *   const trxOptions = { mantissa: true };
  *
  *   console.log('Borrowing 32 Dai...');
- *   const trx = await compound.borrow(Compound.DAI, daiScaledUp, trxOptions);
+ *   const trx = await sumer.borrow(Sumer.DAI, daiScaledUp, trxOptions);
  *
  *   console.log('Ethers.js transaction object', trx);
  *
@@ -248,7 +248,7 @@ export async function borrow(asset: string, amount: string | number, options: Ca
 
   const trxOptions: CallOptions = {
     ...options,
-    _compoundProvider: this._provider,
+    _sumerProvider: this._provider,
   }
   const parameters = [amountBN.toFixed()]
   trxOptions.abi = isEther(this._network.name, cTokenName) ? abi.CEther : abi.CErc20
@@ -283,13 +283,13 @@ export async function borrow(asset: string, amount: string | number, options: Ca
  * @example
  *
  * ```
- * const compound = new Compound(window.ethereum);
+ * const sumer = new Sumer(window.ethereum);
  *
  * (async function() {
  *
  *   console.log('Repaying Dai borrow...');
  *   const address = null; // set this to any address to repayBorrowBehalf
- *   const trx = await compound.repayBorrow(Compound.DAI, 32, address);
+ *   const trx = await sumer.repayBorrow(Sumer.DAI, 32, address);
  *
  *   console.log('Ethers.js transaction object', trx);
  *
@@ -334,7 +334,7 @@ export async function repayBorrow(
 
   const trxOptions: CallOptions = {
     ...options,
-    _compoundProvider: this._provider,
+    _sumerProvider: this._provider,
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -378,4 +378,53 @@ export async function liquidateBorrow(
 ): Promise<ContractTransactionResponse> {
   const cerc20 = CErc20__factory.connect(repayToken, this._provider)
   return cerc20.liquidateBorrow(borrower, amount, cTokenCollateral)
+}
+
+export async function borrowCollateralAndMintSynthetic(
+  asset: string,
+  collateral: string,
+  mintAmount: string | number,
+  options: CallOptions = {},
+): Promise<TrxResponse> {
+  await netId(this)
+  const errorPrefix = 'Sumer [borrowCollateralAndMintSynthetic] | '
+
+  console.log(`Sumer borrowCollateralAndMintSynthetic ${mintAmount} ${asset} with collateral ${collateral}`)
+  const suTokenName = 'sdr' + asset
+  const suTokenAddress = getAddress(this._network.name, suTokenName)
+
+  if (!suTokenAddress || !isUnderlyAllowed(this._network.name, asset)) {
+    throw Error(errorPrefix + 'Argument `asset` is not supported.')
+  }
+
+  const cTokenName = 'sdr' + collateral
+  const cTokenAddress = getAddress(this._network.name, cTokenName)
+
+  if (!cTokenAddress || !isUnderlyAllowed(this._network.name, collateral)) {
+    throw Error(errorPrefix + 'Argument `collateral` is not supported.')
+  }
+
+  if (typeof mintAmount !== 'number' && typeof mintAmount !== 'string') {
+    throw Error(errorPrefix + 'Argument `mintAmount` must be a string, number.')
+  }
+
+  const assetDecimals = getDecimals(this._network.name, asset)
+  if (assetDecimals <= 0) {
+    throw Error(`Asset ${asset} decimals is configured wrong as ${assetDecimals} `)
+  }
+
+  let amountBN = new BN(mintAmount.toString())
+  if (!options.mantissa) {
+    amountBN = amountBN.times(`1e${assetDecimals}`)
+  }
+
+  const trxOptions: CallOptions = {
+    ...options,
+    _sumerProvider: this._provider,
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const parameters: any[] = [cTokenAddress, amountBN.toFixed(0)]
+  console.log(`Call borrowCollateralAndMintSynthetic on ${suTokenName}:${suTokenAddress} with ${amountBN.toFixed(0)}`)
+  return eth.trx(cTokenAddress, 'borrowCollateralAndMintSynthetic', parameters, trxOptions)
 }

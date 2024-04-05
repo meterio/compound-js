@@ -1,6 +1,6 @@
 const assert = require('assert')
 const ethers = require('ethers')
-const Compound = require('../src/index.ts')
+const Sumer = require('../src/index.ts')
 const providerUrl = 'http://localhost:8545'
 
 const unlockedAddress = '0xa0df350d2637096571F7A701CBc1C5fdE30dF76A'
@@ -10,14 +10,14 @@ module.exports = function suite([publicKeys, privateKeys]) {
   const acc1 = { address: publicKeys[0], privateKey: privateKeys[0] }
 
   it('runs gov.castVote', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
     let address, method, params, votingIsClosed
 
-    const nonspy = Compound.eth.trx
-    Compound.eth.trx = function () {
+    const nonspy = Sumer.eth.trx
+    Sumer.eth.trx = function () {
       address = arguments[0]
       method = arguments[1]
       params = arguments[2]
@@ -25,7 +25,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
     }
 
     try {
-      const voteTrx = await compound.castVote(43, 1, {
+      const voteTrx = await sumer.castVote(43, 1, {
         gasLimit: ethers.parseUnits('100000', 'wei'),
       })
       const receipt = await voteTrx.wait(1)
@@ -33,7 +33,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
       votingIsClosed = JSON.stringify(err).includes('GovernorBravo::castVoteInternal: voting is closed')
     }
 
-    const addressExpected = Compound.util.getAddress('GovernorBravo')
+    const addressExpected = Sumer.util.getAddress('GovernorBravo')
     const methodExpected = 'castVote'
     const paramsExpected = [43, 1]
 
@@ -45,26 +45,26 @@ module.exports = function suite([publicKeys, privateKeys]) {
   })
 
   it('fails gov.castVote bad proposalId', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
-    const errorMessage = 'Compound [castVote] | Argument `proposalId` must be an integer.'
+    const errorMessage = 'Sumer [castVote] | Argument `proposalId` must be an integer.'
     try {
-      const voteTrx = await compound.castVote(null, 1) // bad proposalId
+      const voteTrx = await sumer.castVote(null, 1) // bad proposalId
     } catch (e) {
       assert.equal(e.message, errorMessage)
     }
   })
 
   it('fails gov.castVote bad support', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
-    const errorMessage = 'Compound [castVote] | Argument `support` must be an integer (0, 1, or 2).'
+    const errorMessage = 'Sumer [castVote] | Argument `support` must be an integer (0, 1, or 2).'
     try {
-      const voteTrx = await compound.castVote(11, 'abc') // bad support
+      const voteTrx = await sumer.castVote(11, 'abc') // bad support
     } catch (e) {
       assert.equal(e.message, errorMessage)
     }
@@ -73,12 +73,12 @@ module.exports = function suite([publicKeys, privateKeys]) {
   it('runs gov.castVoteBySig closed vote', async function () {
     let address, method, params, votingIsClosed
 
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
-    const nonspy = Compound.eth.trx
-    Compound.eth.trx = function () {
+    const nonspy = Sumer.eth.trx
+    Sumer.eth.trx = function () {
       address = arguments[0]
       method = arguments[1]
       params = arguments[2]
@@ -94,7 +94,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
     }
 
     try {
-      const trx = await compound.castVoteBySig(proposalId, support, voteSignature, {
+      const trx = await sumer.castVoteBySig(proposalId, support, voteSignature, {
         gasLimit: ethers.parseUnits('500000', 'wei'),
       })
       const receipt = await trx.wait(1)
@@ -102,7 +102,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
       votingIsClosed = JSON.stringify(err).includes('GovernorBravo::castVoteInternal: voting is closed')
     }
 
-    const addressExpected = Compound.util.getAddress('GovernorBravo')
+    const addressExpected = Sumer.util.getAddress('GovernorBravo')
     const methodExpected = 'castVoteBySig'
     const paramsExpected = [
       43,
@@ -123,7 +123,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
   })
 
   it('fails gov.castVoteBySig bad proposalId', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
@@ -135,9 +135,9 @@ module.exports = function suite([publicKeys, privateKeys]) {
       v: '0x1c',
     }
 
-    const errorMessage = 'Compound [castVoteBySig] | Argument `proposalId` must be an integer.'
+    const errorMessage = 'Sumer [castVoteBySig] | Argument `proposalId` must be an integer.'
     try {
-      const trx = await compound.castVoteBySig(
+      const trx = await sumer.castVoteBySig(
         proposalId, // bad proposalId
         support,
         voteSignature,
@@ -148,7 +148,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
   })
 
   it('fails gov.castVoteBySig bad support', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
@@ -160,9 +160,9 @@ module.exports = function suite([publicKeys, privateKeys]) {
       v: '0x1c',
     }
 
-    const errorMessage = 'Compound [castVoteBySig] | Argument `support` must be an integer (0, 1, or 2).'
+    const errorMessage = 'Sumer [castVoteBySig] | Argument `support` must be an integer (0, 1, or 2).'
     try {
-      const trx = await compound.castVoteBySig(
+      const trx = await sumer.castVoteBySig(
         proposalId,
         support, // bad support
         voteSignature,
@@ -173,7 +173,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
   })
 
   it('fails gov.castVoteBySig bad signature', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
@@ -182,9 +182,9 @@ module.exports = function suite([publicKeys, privateKeys]) {
     const voteSignature = 'abc'
 
     const errorMessage =
-      'Compound [castVoteBySig] | Argument `signature` must be an object that contains the v, r, and s pieces of an EIP-712 signature.'
+      'Sumer [castVoteBySig] | Argument `signature` must be an object that contains the v, r, and s pieces of an EIP-712 signature.'
     try {
-      const trx = await compound.castVoteBySig(
+      const trx = await sumer.castVoteBySig(
         proposalId,
         support,
         voteSignature, // bad signature
@@ -195,11 +195,11 @@ module.exports = function suite([publicKeys, privateKeys]) {
   })
 
   it('runs gov.createVoteSignature ', async function () {
-    const _compound = new Compound(providerUrl, {
+    const _sumer = new Sumer(providerUrl, {
       privateKey: unlockedPk,
     })
 
-    const voteSignature = await _compound.createVoteSignature(43, 1)
+    const voteSignature = await _sumer.createVoteSignature(43, 1)
 
     const expectedSignature = {
       r: '0xfe5e182c4668df8378c8b17667067fdf13c1ea47dcf152fa6bdf10e629c6b59c',
@@ -213,14 +213,14 @@ module.exports = function suite([publicKeys, privateKeys]) {
   })
 
   it('runs gov.castVoteWithReason ', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
     let address, method, params, votingIsClosed
 
-    const nonspy = Compound.eth.trx
-    Compound.eth.trx = function () {
+    const nonspy = Sumer.eth.trx
+    Sumer.eth.trx = function () {
       address = arguments[0]
       method = arguments[1]
       params = arguments[2]
@@ -228,7 +228,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
     }
 
     try {
-      const voteTrx = await compound.castVoteWithReason(43, 1, 'Reason here', {
+      const voteTrx = await sumer.castVoteWithReason(43, 1, 'Reason here', {
         gasLimit: ethers.parseUnits('100000', 'wei'),
       })
       const receipt = await voteTrx.wait(1)
@@ -236,7 +236,7 @@ module.exports = function suite([publicKeys, privateKeys]) {
       votingIsClosed = JSON.stringify(err).includes('GovernorBravo::castVoteInternal: voting is closed')
     }
 
-    const addressExpected = Compound.util.getAddress('GovernorBravo')
+    const addressExpected = Sumer.util.getAddress('GovernorBravo')
     const methodExpected = 'castVoteWithReason'
     const paramsExpected = [43, 1, 'Reason here']
 
@@ -249,39 +249,39 @@ module.exports = function suite([publicKeys, privateKeys]) {
   })
 
   it('fails gov.castVoteWithReason bad proposalId', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
-    const errorMessage = 'Compound [castVoteWithReason] | Argument `proposalId` must be an integer.'
+    const errorMessage = 'Sumer [castVoteWithReason] | Argument `proposalId` must be an integer.'
     try {
-      const voteTrx = await compound.castVoteWithReason(null, 1, 'Reason here') // bad proposalId
+      const voteTrx = await sumer.castVoteWithReason(null, 1, 'Reason here') // bad proposalId
     } catch (e) {
       assert.equal(e.message, errorMessage)
     }
   })
 
   it('fails gov.castVoteWithReason bad support', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
-    const errorMessage = 'Compound [castVoteWithReason] | Argument `support` must be an integer (0, 1, or 2).'
+    const errorMessage = 'Sumer [castVoteWithReason] | Argument `support` must be an integer (0, 1, or 2).'
     try {
-      const voteTrx = await compound.castVoteWithReason(11, 'abc', 'Reason here') // bad support
+      const voteTrx = await sumer.castVoteWithReason(11, 'abc', 'Reason here') // bad support
     } catch (e) {
       assert.equal(e.message, errorMessage)
     }
   })
 
   it('fails gov.castVoteWithReason bad reason', async function () {
-    const compound = new Compound(providerUrl, {
+    const sumer = new Sumer(providerUrl, {
       privateKey: acc1.privateKey,
     })
 
-    const errorMessage = 'Compound [castVoteWithReason] | Argument `reason` must be a string.'
+    const errorMessage = 'Sumer [castVoteWithReason] | Argument `reason` must be a string.'
     try {
-      const voteTrx = await compound.castVoteWithReason(11, 1, 0) // bad reason
+      const voteTrx = await sumer.castVoteWithReason(11, 1, 0) // bad reason
     } catch (e) {
       assert.equal(e.message, errorMessage)
     }
