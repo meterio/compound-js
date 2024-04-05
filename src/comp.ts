@@ -7,7 +7,8 @@
 import { ethers } from 'ethers'
 import * as eth from './eth'
 import { netId } from './helpers'
-import { getAddress, abi } from './constants'
+import { getAddress } from './constants'
+import { abi } from './abi'
 import { sign } from './EIP712'
 import {
   CallOptions,

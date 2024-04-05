@@ -3,7 +3,8 @@
  * @desc These methods are helpers for the Sumer class.
  */
 
-import { getAddress as getContractAddress, abi, getName as getContractName, getDecimalsOfUnderly } from './constants'
+import { getAddress as getContractAddress, getName as getContractName, getDecimalsOfUnderly } from './constants'
+import { abi } from './abi'
 import { AbiType } from './types'
 
 /* eslint-disable */

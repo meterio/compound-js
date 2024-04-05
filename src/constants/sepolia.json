@@ -1,0 +1,84 @@
+{
+  "addresses": {
+    "ProxyAdmin": "0x809b6caa5A68A63b526f6085c628a5366077195b",
+    "Multicall2": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "Sumer": "0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2",
+    "SUMER": "0x553d713e0fB958932b6C40ABAf0b5A1fFae73Da2",
+    "CompoundLens": "0x3BB0e110Aa7308Ae6e180c4B3D17777cECca9182",
+    "FeedPriceOracle": "0x35D9f952B10839B11745807c50F5743F373Aa2ca",
+    "AccountLiquidity": "0x863597A887FbC21635471b2939c65936C0193FCB",
+    "CompLogic": "0xDb44Cdcd54C30238d555975922Dbd7e366F4009d",
+    "Comptroller": "0x09Bf5c88De66Edf5Bc8AFdBFFB03E73DED4da4d9",
+    "sdrETH": "0x3Dfcb252d5Dd3aDA82C388e3754d9b002Dfa769f",
+    "ETH": "0x0000000000000000000000000000000000000000",
+    "sdrUSDC": "0x522Ff165b8a0cb091D939009c41cE987F1079699",
+    "USDC": "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8",
+    "sdrDAI": "0xC56065ee94eD4d05360e130075Dd06DE55eE0916",
+    "DAI": "0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357",
+    "sdrsuUSD": "0x68F961B13a3fbD3a04eFAbEfc284572B16412aE8",
+    "suUSD": "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
+    "sdrsuETH": "0xF623df845D182F977b18F7B1f2Cf3f2d48653db5",
+    "suETH": "0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0",
+    "Timelock": "0x247F872F6331e12CaF3a92D19BD5078CE25fc825"
+  },
+  "tokenPairs": [
+    {
+      "ctokenSym": "sdrUSDC",
+      "underlySym": "USDC",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrDAI",
+      "underlySym": "DAI",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuUSD",
+      "underlySym": "suUSD",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuETH",
+      "underlySym": "suETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrETH",
+      "underlySym": "ETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": true
+    }
+  ],
+  "rateModels": [
+    {
+      "name": "JumpRateModelV2",
+      "address": "0x484052c5F3cB7bbF01C871260e5B820f43A4A2e3",
+      "tokens": [
+        "USDC",
+        "DAI",
+        "ETH"
+      ],
+      "baseRatePerYear": 0.02,
+      "multiplierPerYear": 0.12,
+      "jumpMultiplierPerYear": 1,
+      "kink": 0.75
+    },
+    {
+      "name": "ZeroInterestRateModel",
+      "address": "0x3DF435904F6FA6a30F313ad347DEdEBf966E9629",
+      "tokens": [
+        "suUSD",
+        "suETH"
+      ]
+    }
+  ]
+}

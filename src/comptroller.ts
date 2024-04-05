@@ -6,7 +6,8 @@
 
 import * as eth from './eth'
 import { netId } from './helpers'
-import { getAddress, abi, isCTokenAllowed } from './constants'
+import { getAddress, isCTokenAllowed } from './constants'
+import { abi } from './abi'
 import { CallOptions, TrxResponse } from './types'
 
 /**

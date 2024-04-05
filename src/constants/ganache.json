@@ -1,0 +1,62 @@
+{
+  "addresses": {
+    "ProxyAdmin": "0x2de7b06C35c1DE99E0EAbCb6CBB21dB6e87a67B2",
+    "Multicall2": "0xFe1bEa85325fF985252546c8254cCcB3A3Ec43B7",
+    "Sumer": "0x772fdf57777019EDeC5520548B4186d12f5FC8A3",
+    "SUMER": "0x772fdf57777019EDeC5520548B4186d12f5FC8A3",
+    "CompoundLens": "0x8Fe6A569133C370Cab9C076976D39866Db62Cb0c",
+    "FeedPriceOracle": "0xa2E6a0C966Ee248f337a48B50e1C4080995f44a8",
+    "AccountLiquidity": "",
+    "CompLogic": "",
+    "Comptroller": "",
+    "sdrETH": "",
+    "ETH": "0x0000000000000000000000000000000000000000",
+    "sdrUSDC": "",
+    "USDC": "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8",
+    "sdrDAI": "",
+    "DAI": "0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357",
+    "sdrsuUSD": "",
+    "suUSD": "0x8BF591Eae535f93a242D5A954d3Cde648b48A5A8",
+    "sdrsuETH": "",
+    "suETH": "0x1c22531AA9747d76fFF8F0A43b37954ca67d28e0",
+    "Timelock": ""
+  },
+  "tokenPairs": [
+    {
+      "ctokenSym": "sdrUSDC",
+      "underlySym": "USDC",
+      "ctokenDecimal": 6,
+      "underlyDecimal": 6,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrDAI",
+      "underlySym": "DAI",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuUSD",
+      "underlySym": "suUSD",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrsuETH",
+      "underlySym": "suETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": false
+    },
+    {
+      "ctokenSym": "sdrETH",
+      "underlySym": "ETH",
+      "ctokenDecimal": 18,
+      "underlyDecimal": 18,
+      "ctokenIsEther": true
+    }
+  ],
+  "rateModels": []
+}

@@ -5,7 +5,8 @@
 
 import * as eth from './eth'
 import { netId } from './helpers'
-import { getAddress, abi } from './constants'
+import { getAddress } from './constants'
+import { abi } from './abi'
 import { sign } from './EIP712'
 import { CallOptions, TrxResponse, Signature, VoteSignatureMessage, VoteTypes, EIP712Domain } from './types'
 
