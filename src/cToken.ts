@@ -75,9 +75,9 @@ export async function supply(
   }
 
   if (isEther(this._network.name, cTokenName)) {
-    options.abi = abi.cEther
+    options.abi = abi.CEther
   } else {
-    options.abi = abi.cErc20
+    options.abi = abi.CErc20
   }
 
   options._compoundProvider = this._provider
@@ -141,11 +141,7 @@ export async function supply(
  * })().catch(console.error);
  * ```
  */
-export async function redeem(
-  asset: string,
-  amount: string | number,
-  options: CallOptions = {},
-): Promise<TrxResponse> {
+export async function redeem(asset: string, amount: string | number, options: CallOptions = {}): Promise<TrxResponse> {
   await netId(this)
   const errorPrefix = 'Sumer [redeem] | '
 
@@ -181,7 +177,7 @@ export async function redeem(
   const trxOptions: CallOptions = {
     ...options,
     _compoundProvider: this._provider,
-    abi: isEther(this._network.name, cTokenName) ? abi.cEther : abi.cErc20,
+    abi: isEther(this._network.name, cTokenName) ? abi.CEther : abi.CErc20,
   }
   const parameters = [amountBN.toFixed()]
   const method = assetIsCToken ? 'redeem' : 'redeemUnderlying'
@@ -225,11 +221,7 @@ export async function redeem(
  * })().catch(console.error);
  * ```
  */
-export async function borrow(
-  asset: string,
-  amount: string | number,
-  options: CallOptions = {},
-): Promise<TrxResponse> {
+export async function borrow(asset: string, amount: string | number, options: CallOptions = {}): Promise<TrxResponse> {
   await netId(this)
   const errorPrefix = 'Sumer [borrow] | '
 
@@ -259,7 +251,7 @@ export async function borrow(
     _compoundProvider: this._provider,
   }
   const parameters = [amountBN.toFixed()]
-  trxOptions.abi = isEther(this._network.name, cTokenName) ? abi.cEther : abi.cErc20
+  trxOptions.abi = isEther(this._network.name, cTokenName) ? abi.CEther : abi.CErc20
 
   console.log(`Call borrow on ${cTokenName}:${cTokenAddress} with ${amount.toString()}`)
   return eth.trx(cTokenAddress, 'borrow', parameters, trxOptions)
@@ -349,10 +341,10 @@ export async function repayBorrow(
   const parameters: any[] = method === 'repayBorrowBehalf' ? [borrower] : []
   if (isEther(this._network.name, cTokenName)) {
     trxOptions.value = amountBN.toFixed()
-    trxOptions.abi = abi.cEther
+    trxOptions.abi = abi.CEther
   } else {
     parameters.push(amountBN.toFixed())
-    trxOptions.abi = abi.cErc20
+    trxOptions.abi = abi.CErc20
   }
 
   if (!isEther(this._network.name, cTokenName) && noApprove !== true) {

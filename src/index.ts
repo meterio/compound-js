@@ -9,10 +9,10 @@ import * as eth from './eth'
 import * as util from './util'
 import * as comptroller from './comptroller'
 import * as cToken from './cToken'
-import * as priceFeed from './priceFeed'
 import * as comp from './comp'
 import * as gov from './gov'
 import * as api from './api'
+import { abi } from './abi'
 import {
   constants,
   getAddress,
@@ -71,16 +71,15 @@ const Compound = function (provider: Provider | string = 'mainnet', options: Com
     _provider: provider,
     ...comptroller,
     ...cToken,
-    ...priceFeed,
     ...gov,
-    claimComp: comp.claimComp,
-    delegate: comp.delegate,
-    delegateBySig: comp.delegateBySig,
-    createDelegateSignature: comp.createDelegateSignature,
+    // claimComp: comp.claimComp,
+    // delegate: comp.delegate,
+    // delegateBySig: comp.delegateBySig,
+    // createDelegateSignature: comp.createDelegateSignature,
     _network: {
       id: options.networkId,
-      name: options.networkName
-    }
+      name: options.networkName,
+    },
   }
 
   // Instance needs to know which network the provider connects to, so it can
@@ -97,6 +96,7 @@ Compound.eth = eth
 Compound.api = api
 Compound.util = util
 Compound._ethers = ethers
+Compound.abi = abi
 
 Compound.getDecimals = getDecimals
 Compound.getAddress = getAddress
@@ -107,10 +107,10 @@ Compound.getRateModals = getRateModals
 Compound.isUnderlyAllowed = isUnderlyAllowed
 Compound.isCTokenAllowed = isCTokenAllowed
 Compound.isEther = isEther
-Compound.comp = {
-  getCompBalance: comp.getCompBalance,
-  getCompAccrued: comp.getCompAccrued,
-}
+// Compound.comp = {
+//   getCompBalance: comp.getCompBalance,
+//   getCompAccrued: comp.getCompAccrued,
+// }
 Object.assign(Compound, constants)
 
 export = Compound
