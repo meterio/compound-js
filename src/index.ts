@@ -1,6 +1,6 @@
 /**
- * @file Compound
- * @desc This file defines the constructor of the `Compound` class.
+ * @file Sumer
+ * @desc This file defines the constructor of the `Sumer` class.
  * @hidden
  */
 
@@ -30,7 +30,7 @@ import { Provider, CompoundOptions, CompoundInstance } from './types'
 // ethers.utils.Logger.setLogLevel(ethers.utils.Logger.levels.ERROR)
 
 /**
- * Creates an instance of the Compound.js SDK.
+ * Creates an instance of the Sumer.js SDK.
  *
  * @param {Provider | string} [provider] Optional Ethereum network provider.
  *     Defaults to Ethers.js fallback mainnet provider.
@@ -38,28 +38,28 @@ import { Provider, CompoundOptions, CompoundInstance } from './types'
  *
  * @example
  * ```
- * var compound = new Compound(window.ethereum); // web browser
+ * var sumer = new Sumer(window.ethereum); // web browser
  *
- * var compound = new Compound('http://127.0.0.1:8545'); // HTTP provider
+ * var sumer = new Sumer('http://127.0.0.1:8545'); // HTTP provider
  *
- * var compound = new Compound(); // Uses Ethers.js fallback mainnet (for testing only)
+ * var sumer = new Sumer(); // Uses Ethers.js fallback mainnet (for testing only)
  *
- * var compound = new Compound('ropsten'); // Uses Ethers.js fallback (for testing only)
+ * var sumer = new Sumer('ropsten'); // Uses Ethers.js fallback (for testing only)
  *
  * // Init with private key (server side)
- * var compound = new Compound('https://mainnet.infura.io/v3/_your_project_id_', {
+ * var sumer = new Sumer('https://mainnet.infura.io/v3/_your_project_id_', {
  *   privateKey: '0x_your_private_key_', // preferably with environment variable
  * });
  *
  * // Init with HD mnemonic (server side)
- * var compound = new Compound('mainnet' {
+ * var sumer = new Sumer('mainnet' {
  *   mnemonic: 'clutch captain shoe...', // preferably with environment variable
  * });
  * ```
  *
- * @returns {object} Returns an instance of the Compound.js SDK.
+ * @returns {object} Returns an instance of the Sumer.js SDK.
  */
-const Compound = function (provider: Provider | string = 'mainnet', options: CompoundOptions = {}): CompoundInstance {
+const Sumer = function (provider: Provider | string = 'mainnet', options: CompoundOptions = {}): CompoundInstance {
   const originalProvider = provider
 
   options.provider = provider || options.provider
@@ -92,25 +92,25 @@ const Compound = function (provider: Provider | string = 'mainnet', options: Com
   return instance
 }
 
-Compound.eth = eth
-Compound.api = api
-Compound.util = util
-Compound._ethers = ethers
-Compound.abi = abi
+Sumer.eth = eth
+Sumer.api = api
+Sumer.util = util
+Sumer._ethers = ethers
+Sumer.abi = abi
 
-Compound.getDecimals = getDecimals
-Compound.getAddress = getAddress
-Compound.getName = getName
-Compound.getTokenPairs = getTokenPairs
-Compound.getRateModals = getRateModals
+Sumer.getDecimals = getDecimals
+Sumer.getAddress = getAddress
+Sumer.getName = getName
+Sumer.getTokenPairs = getTokenPairs
+Sumer.getRateModals = getRateModals
 
-Compound.isUnderlyAllowed = isUnderlyAllowed
-Compound.isCTokenAllowed = isCTokenAllowed
-Compound.isEther = isEther
-// Compound.comp = {
+Sumer.isUnderlyAllowed = isUnderlyAllowed
+Sumer.isCTokenAllowed = isCTokenAllowed
+Sumer.isEther = isEther
+// Sumer.comp = {
 //   getCompBalance: comp.getCompBalance,
 //   getCompAccrued: comp.getCompAccrued,
 // }
-Object.assign(Compound, constants)
+Object.assign(Sumer, constants)
 
-export = Compound
+export = Sumer
