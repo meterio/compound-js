@@ -204,13 +204,13 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       underlyDecimal: 18,
       ctokenIsEther: false,
     },
-    {
-      ctokenSym: 'sdrETH',
-      underlySym: 'ETH',
-      ctokenDecimal: 18,
-      underlyDecimal: 18,
-      ctokenIsEther: true,
-    },
+    // {
+    //   ctokenSym: 'sdrETH',
+    //   underlySym: 'ETH',
+    //   ctokenDecimal: 18,
+    //   underlyDecimal: 18,
+    //   ctokenIsEther: true,
+    // },
   ],
   sepolia: [
     {
@@ -439,13 +439,13 @@ const tokenPairs: { [key: string]: TokenPair[] } = {
       underlyDecimal: 18,
       ctokenIsEther: false,
     },
-    {
-      ctokenSym: 'sdrETH',
-      underlySym: 'ETH',
-      ctokenDecimal: 18,
-      underlyDecimal: 18,
-      ctokenIsEther: true,
-    },
+    // {
+    //   ctokenSym: 'sdrETH',
+    //   underlySym: 'ETH',
+    //   ctokenDecimal: 18,
+    //   underlyDecimal: 18,
+    //   ctokenIsEther: true,
+    // },
   ],
 }
 
@@ -542,8 +542,8 @@ const address = {
     ZeroInterestRateModel: '0x341fDb6532154Cec491Aca3D3BB404C2d4cc042E',
     AccountLiquidityImpl: '0x873449359d2d99691436E724C6C219a39b159B4a',
     AccountLiquidity: '0x36C379883c9A293e7DdF76031c4a0AD053eB4bfF',
-    Comptroller: '0x5D150099E65290ebe174d113B4546d53A7decf96',
-    Unitroller: '0xB6bf1515CAA8Be16f2FC3308974645CaEa458Ab1',
+    Comptroller: '0x2e215d6c758fB99580Bf794Cad14d1e5012A6dD5',
+    Unitroller: '0x3F2B7C60A7bb8f2dbb779Ad14aA0A5614f008d3b',
     ETH: '0x0000000000000000000000000000000000000000',
     sdrETH: '0x7b5969bB51fa3B002579D7ee41A454AC691716DC',
     USDC: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
